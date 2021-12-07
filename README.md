@@ -6,4 +6,4 @@
         Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
     * Run it with:
         [-- $ python3 ttt_main.py --]
-    * train_data_3x3.dat is pre-filled with statistics from 10^10 random iterations for board with size 3 and I am using batch traing for the moment
+    * train_data_3x3.dat is pre-filled with statistics from 10^10 random iterations for board with size 3 and I am using batch training for the moment
