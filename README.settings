@@ -1,0 +1,13 @@
+{
+    "default": {
+        "game_type": "CVsC",                        // CVsC - Computer VS Computer play, HVsC - Human VS Computer play
+        "train": true,                              // only meaningful if {"game_type": "CVsC"}. Starts training by using random moves
+        "iterations": 10,                           // only meaningful if {"game_type": "CVsC"} - the number of training iterations when training or number of games played CVsC if {"train": false}
+                                                    // I've used 10^10 training iterations to collect training data for board of size 3 [ train_data-3x3.dat ], 10 for testing playing of CVsC play,
+                                                    // which always ends up with a draw. The stastistics converges to the middle square, which is a well known strategy for playing TTT
+        "board_size": 3,                            // desk (board) size
+        "training_data_file": "train_data-3x3.dat"  // the file in, which the training data is saved after training and from, which it is loaded for playing 
+        ,
+        "TRAIN_ITERATIONS_INFO_SKIP": 100000        // How many iterations to skip printing when training because we don't want to waste time on console output
+    }
+}
