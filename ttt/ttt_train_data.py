@@ -59,4 +59,8 @@ class TTTTrainData:
         self.total_games_finished += count
 
     def get_train_state(self, state):
-        return self.enc.decode(self.train_data.get(self.enc.encode(state), None))
+        state_possible_moves = self.train_data.get(self.enc.encode(state), None)
+        if state_possible_moves is not None:
+            return self.enc.decode(state_possible_moves)
+        else:
+            return None
