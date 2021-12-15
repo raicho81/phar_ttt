@@ -34,10 +34,10 @@ class TTTPlay():
         self.next_player = None
 
     def init_player_types(self):
-        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC):
-            player_types = [ttt_player_type.TTTPlayerTypeComputer()] * 2
+        if self.game_type is ttt_game_type.TTTGameTypeCVsC:
+            player_types = [ttt_player_type.TTTPlayerTypeComputer] * 2
         else:
-            player_types = [ttt_player_type.TTTPlayerTypeComputer(), ttt_player_type.TTTPlayerTypeHuman()]
+            player_types = [ttt_player_type.TTTPlayerTypeComputer, ttt_player_type.TTTPlayerTypeHuman]
         return player_types
 
     def init_players(self):
@@ -77,7 +77,7 @@ class TTTPlay():
         return possible_moves_sorted_by_looses[0][0]
 
     def choose_next_move_idx(self):
-        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC) and self.train:
+        if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
             next_move_idx = self.choose_next_move_random_idx()
         else:
             next_move_idx = self.choose_next_best_move_idx()
@@ -118,11 +118,11 @@ class TTTPlay():
 
     def update_stats(self, game_state, win_player=None):
         self.train_data.inc_total_games_finished(1)
-        if isinstance(game_state, ttt_game_state.TTTGameStateDraw):
+        if game_state is ttt_game_state.TTTGameStateDraw:
             for player in self.players:
                 self.update_path_draw(player.get_path())
             return
-        if isinstance(game_state, ttt_game_state.TTTGameStateWin):
+        if game_state is ttt_game_state.TTTGameStateWin:
             self.update_path_win(win_player.get_path())
             for player in self.players:
                 if player is not win_player:
@@ -147,38 +147,38 @@ class TTTPlay():
     def play_game(self):
         self.desk.clear()
         self.init_players()
-        if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+        if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
             print(), print("Starting new game {}".format(self.game_type.get_string()))
             self.desk.print_desk(), print()
         for self.next_player in itertools.cycle(self.players):
-            if isinstance(self.next_player.get_type(), ttt_player_type.TTTPlayerTypeComputer):
+            if self.next_player.get_type() is ttt_player_type.TTTPlayerTypeComputer:
                 self.do_computer_move()
             else:
                 self.do_human_move()
-            if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+            if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
                 print("{} - {} moves".format(self.next_player.get_string(), self.next_player.get_type().get_string())), print()
                 self.desk.print_desk()
             game_state, win_player = self.desk.eval_game_state()
-            if isinstance(game_state, ttt_game_state.TTTGameStateWin) or isinstance(game_state, ttt_game_state.TTTGameStateDraw):
-                if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+            if game_state is ttt_game_state.TTTGameStateWin or game_state is ttt_game_state.TTTGameStateDraw:
+                if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
                     print("Game Over!")
-                    if isinstance(game_state, ttt_game_state.TTTGameStateWin):
+                    if game_state is ttt_game_state.TTTGameStateWin:
                         print("{} Wins!".format(win_player.get_string()))
-                    if isinstance(game_state, ttt_game_state.TTTGameStateDraw):
+                    if game_state is ttt_game_state.TTTGameStateDraw:
                         print("Game is a draw!")
                 if self.train:
                     self.update_stats(game_state, win_player)
                 return
 
     def run(self):
-        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC):
+        if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
             while n_iterations < self.train_iterations:
                 self.play_game()
                 n_iterations += 1
                 self.train and n_iterations % self.n_iter_info_skip == 0 and (print("Training iteration {} finished. More {} to go :D".format(n_iterations, self.train_iterations - n_iterations)))
             print("Done {0} with {1} iterations.".format("training" if self.train else "playing", self.train_iterations))
-        if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC):
+        if self.game_type is ttt_game_type.TTTGameTypeHVsC:
             self.play_game()
         if self.train:
             self.train_data.save()

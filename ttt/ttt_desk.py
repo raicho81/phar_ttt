@@ -40,7 +40,7 @@ class TTTDesk:
                     win = False
                     break
             if win:
-                return ttt_game_state.TTTGameStateWin(), player
+                return ttt_game_state.TTTGameStateWin, player
         # check columns
         for x in range(self.size):
             win = False
@@ -58,7 +58,7 @@ class TTTDesk:
                     win = False
                     break
             if win:
-                return ttt_game_state.TTTGameStateWin(), player
+                return ttt_game_state.TTTGameStateWin, player
         # check main diagonal
         win = False
         player = self.desk[0][0]
@@ -74,7 +74,7 @@ class TTTDesk:
                     win = False
                     break
             if win:
-                return ttt_game_state.TTTGameStateWin(), player
+                return ttt_game_state.TTTGameStateWin, player
         # check reverse diagonal
         player = self.desk[0][self.size - 1]
         if player is not None:
@@ -90,11 +90,11 @@ class TTTDesk:
                     win = False
                     break
             if win:
-                return ttt_game_state.TTTGameStateWin(), player
+                return ttt_game_state.TTTGameStateWin, player
         possible_moves = self.get_possible_moves_indices()
         if len(possible_moves) == 0:
-            return ttt_game_state.TTTGameStateDraw(), None
-        return ttt_game_state.TTTGameStateUnfinished(), None
+            return ttt_game_state.TTTGameStateDraw, None
+        return ttt_game_state.TTTGameStateUnfinished, None
 
     def possible_moves_indices(self):
         possible_moves_indices = []
