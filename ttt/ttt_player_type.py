@@ -16,7 +16,7 @@ class TTTPlayerType:
 
 class TTTPlayerTypeHuman(TTTPlayerType):
     @staticmethod
-    def get_code(self):
+    def get_code():
         return TTTPlayerType.PLAYER_TYPE_HUMAN
 
     @staticmethod
@@ -26,7 +26,7 @@ class TTTPlayerTypeHuman(TTTPlayerType):
 
 class TTTPlayerTypeComputer(TTTPlayerType):
     @staticmethod
-    def get_code(self):
+    def get_code():
         return TTTPlayerType.PLAYER_TYPE_COMPUTER
 
     @staticmethod
