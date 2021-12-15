@@ -29,7 +29,7 @@ class TTTPlay():
         self.train_data = ttt_train_data.TTTTrainData(tde, self.train_data_filename)
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
-        self.marks = [ttt_player_mark.TTTPlayerMarkX(), ttt_player_mark.TTTPlayerMarkO()]
+        self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
         self.player_types = self.init_player_types()
         self.next_player = None
 
