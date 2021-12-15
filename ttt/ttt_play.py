@@ -1,0 +1,178 @@
+import random
+import sys
+import itertools
+from dynaconf import settings
+
+import ttt_train_data
+import ttt_desk
+import ttt_player
+import ttt_player_type
+import ttt_player_mark
+import ttt_game_state
+import ttt_game_type
+
+
+class TTTPlay():
+
+    def __init__(self, desk_size, game_type, train_data_filename=None, train=True, train_iterations=10000000, n_iter_info_skip=10000):
+        self.game_type = game_type
+        self.train = train
+        self.train_iterations = train_iterations
+        self.train_data_filename = train_data_filename
+        self.n_iter_info_skip = n_iter_info_skip
+        self.train_data = ttt_train_data.TTTTrainData(self.train_data_filename)
+        self.desk = ttt_desk.TTTDesk(size=desk_size)
+        self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
+        self.marks = [ttt_player_mark.TTTPlayerMarkX(), ttt_player_mark.TTTPlayerMarkO()]
+        self.player_types = self.init_player_types()
+        self.next_player = None
+
+    def init_player_types(self):
+        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC):
+            player_types = [ttt_player_type.TTTPlayerTypeComputer()] * 2
+        else:
+            player_types = [ttt_player_type.TTTPlayerTypeComputer(), ttt_player_type.TTTPlayerTypeHuman()]
+        return player_types
+
+    def init_players(self):
+        random.shuffle(self.marks)
+        random.shuffle(self.players)
+        random.shuffle(self.player_types)
+        for player, mark, player_type in zip(self.players, self.marks, self.player_types):
+            player.clear_path()
+            player.set_mark(mark)
+            player.set_type(player_type)
+
+    def save_move(self, move_idx):
+        self.desk.desk[move_idx // self.desk.size][move_idx % self.desk.size] = self.next_player
+
+    def choose_next_move_random_idx(self):
+        possible_moves_indices = self.desk.get_possible_moves_indices()
+        # choose the next random move
+        next_move_idx = random.choice(possible_moves_indices)
+        return next_move_idx
+
+    def choose_next_best_move_idx(self):
+        # choose the next move by selecting the best possible move from the training data
+        state = self.desk.get_state()
+        possible_moves = self.train_data.get_train_state(state)
+        if possible_moves is None:
+            self.train_data.add_train_state(state, self.desk.possible_moves_indices())
+            possible_moves = self.train_data.get_train_state(state)
+        possible_moves_sorted_by_wins_rev = sorted(possible_moves, key=lambda m: m.n_wins, reverse=True)
+        for move in possible_moves_sorted_by_wins_rev:
+            if move.n_wins > move.n_looses:
+                return move.move_idx
+        possible_moves_sorted_by_draws = sorted(possible_moves, key=lambda m: m.n_draws, reverse=True)
+        for move in possible_moves_sorted_by_draws:
+            if move.n_draws > move.n_looses:
+                return move.move_idx
+        possible_moves_sorted_by_looses = sorted(possible_moves, key=lambda m: m.n_looses)
+        return possible_moves_sorted_by_looses[0].move_idx
+
+    def choose_next_move_idx(self):
+        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC) and self.train:
+            next_move_idx = self.choose_next_move_random_idx()
+        else:
+            next_move_idx = self.choose_next_best_move_idx()
+        return next_move_idx
+
+    def do_computer_move(self):
+        next_move_idx = self.choose_next_move_idx()
+        state = self.desk.get_state()
+        has_state = self.train_data.has_state(state)
+        if not has_state:
+            # add state to training data if it is not there
+            self.train_data.add_train_state(state, self.desk.get_possible_moves_indices())
+        self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
+        self.save_move(next_move_idx)
+
+    def do_human_move(self):
+        while True:
+            text = input("Human ({} - {}) enter your choice [1... {}] it must be a valid move. 'q' to quit now. Enter your choice > ".format(
+                self.next_player.get_string(), self.next_player.get_mark().get_string(), self.desk.size ** 2))
+            if text == "q":
+                sys.exit(0)
+            try:
+                next_move_idx = int(text)
+            except ValueError as e:
+                print(e)
+                continue
+            if next_move_idx < 1 or next_move_idx > (self.desk.size ** 2):
+                print(), print("Invalid move (invalid square index?): {}".format(next_move_idx)), print()
+                continue
+            possible_moves_indices = self.desk.get_possible_moves_indices()
+            if (next_move_idx - 1) not in possible_moves_indices:
+                print(), print("Invalid move (square is already taken?): {}".format(next_move_idx)), print()
+                continue
+            state = self.desk.get_state()
+            self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
+            self.save_move(next_move_idx - 1)
+            return
+
+    def update_stats(self, game_state, win_player=None):
+        self.train_data.inc_total_games_finished(1)
+        if isinstance(game_state, ttt_game_state.TTTGameStateDraw):
+            for player in self.players:
+                self.update_path_draw(player.get_path())
+            return
+        if isinstance(game_state, ttt_game_state.TTTGameStateWin):
+            self.update_path_win(win_player.get_path())
+            for player in self.players:
+                if player is not win_player:
+                    self.update_path_loose(player.get_path())
+                    return
+
+    def update_path_win(self, path):
+        for state, move_idx in path:
+            move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
+            move.n_wins += 1
+
+    def update_path_draw(self, path):
+        for state, move_idx in path:
+            move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
+            move.n_draws += 1
+
+    def update_path_loose(self, path):
+        for state, move_idx in path:
+            move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
+            move.n_looses += 1
+
+    def play_game(self):
+        self.desk.clear()
+        self.init_players()
+        if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+            print(), print("Starting new game {}".format(self.game_type.get_string()))
+            self.desk.print_desk(), print()
+        for self.next_player in itertools.cycle(self.players):
+            if isinstance(self.next_player.get_type(), ttt_player_type.TTTPlayerTypeComputer):
+                self.do_computer_move()
+            else:
+                self.do_human_move()
+            if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+                print("{} - {} moves".format(self.next_player.get_string(), self.next_player.get_type().get_string())), print()
+                self.desk.print_desk()
+            game_state, win_player = self.desk.eval_game_state()
+            if isinstance(game_state, ttt_game_state.TTTGameStateWin) or isinstance(game_state, ttt_game_state.TTTGameStateDraw):
+                if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC) or not self.train:
+                    print("Game Over!")
+                    if isinstance(game_state, ttt_game_state.TTTGameStateWin):
+                        print("{} Wins!".format(win_player.get_string()))
+                    if isinstance(game_state, ttt_game_state.TTTGameStateDraw):
+                        print("Game is a draw!")
+                if self.train:
+                    self.update_stats(game_state, win_player)
+                return
+
+    def run(self):
+        if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC):
+            n_iterations = 0
+            while n_iterations < self.train_iterations:
+                self.play_game()
+                n_iterations += 1
+                self.train and n_iterations % self.n_iter_info_skip == 0 and (print("Training iteration {} finished. More {} to go :D".format(n_iterations, self.train_iterations - n_iterations)))
+            print("Done {0} with {1} iterations.".format("training" if self.train else "playing", self.train_iterations))
+        if isinstance(self.game_type, ttt_game_type.TTTGameTypeHVsC):
+            self.play_game()
+        if self.train:
+            self.train_data.save()

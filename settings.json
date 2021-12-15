@@ -1,10 +1,10 @@
 {
     "default": {
-        "game_type": "HVsC",
+        "game_type": "CVsC",
         "train": false,
-        "iterations": 5,
+        "iterations": 100,
         "board_size": 3,
         "training_data_file": "train_data_3x3.dat",
-        "TRAIN_ITERATIONS_INFO_SKIP": 200000
+        "TRAIN_ITERATIONS_INFO_SKIP": 10000
     }
 }
