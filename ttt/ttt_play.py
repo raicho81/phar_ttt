@@ -10,17 +10,23 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
+import ttt_data_encoder
 
 
 class TTTPlay():
 
-    def __init__(self, desk_size, game_type, train_data_filename=None, train=True, train_iterations=10000000, n_iter_info_skip=10000):
+    def __init__(self, desk_size, game_type, train_data_filename=None, train=True, train_iterations=10000000, n_iter_info_skip=10000, encode_train_data=False):
         self.game_type = game_type
+        self.encode_train_data = encode_train_data
         self.train = train
         self.train_iterations = train_iterations
         self.train_data_filename = train_data_filename
         self.n_iter_info_skip = n_iter_info_skip
-        self.train_data = ttt_train_data.TTTTrainData(self.train_data_filename)
+        if encode_train_data:
+            tde = ttt_data_encoder.TTTDataEncoder
+        else:
+            tde = ttt_data_encoder.TTTDataEncoderNone
+        self.train_data = ttt_train_data.TTTTrainData(tde, self.train_data_filename)
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
         self.marks = [ttt_player_mark.TTTPlayerMarkX(), ttt_player_mark.TTTPlayerMarkO()]
@@ -59,16 +65,16 @@ class TTTPlay():
         if possible_moves is None:
             self.train_data.add_train_state(state, self.desk.possible_moves_indices())
             possible_moves = self.train_data.get_train_state(state)
-        possible_moves_sorted_by_wins_rev = sorted(possible_moves, key=lambda m: m.n_wins, reverse=True)
+        possible_moves_sorted_by_wins_rev = sorted(possible_moves, key=lambda m: m[1], reverse=True)
         for move in possible_moves_sorted_by_wins_rev:
-            if move.n_wins > move.n_looses:
-                return move.move_idx
-        possible_moves_sorted_by_draws = sorted(possible_moves, key=lambda m: m.n_draws, reverse=True)
+            if move[1] > move[3]:
+                return move[0]
+        possible_moves_sorted_by_draws = sorted(possible_moves, key=lambda m: m[2], reverse=True)
         for move in possible_moves_sorted_by_draws:
-            if move.n_draws > move.n_looses:
-                return move.move_idx
-        possible_moves_sorted_by_looses = sorted(possible_moves, key=lambda m: m.n_looses)
-        return possible_moves_sorted_by_looses[0].move_idx
+            if move[2] > move[3]:
+                return move[0]
+        possible_moves_sorted_by_looses = sorted(possible_moves, key=lambda m: m[3])
+        return possible_moves_sorted_by_looses[0][0]
 
     def choose_next_move_idx(self):
         if isinstance(self.game_type, ttt_game_type.TTTGameTypeCVsC) and self.train:
@@ -126,17 +132,17 @@ class TTTPlay():
     def update_path_win(self, path):
         for state, move_idx in path:
             move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
-            move.n_wins += 1
+            move[1] += 1
 
     def update_path_draw(self, path):
         for state, move_idx in path:
             move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
-            move.n_draws += 1
+            move[2] += 1
 
     def update_path_loose(self, path):
         for state, move_idx in path:
             move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
-            move.n_looses += 1
+            move[3] += 1
 
     def play_game(self):
         self.desk.clear()

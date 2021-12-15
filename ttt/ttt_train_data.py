@@ -1,5 +1,4 @@
 import pickle
-import collections
 
 
 class TTTTrainDataMove:
@@ -12,10 +11,11 @@ class TTTTrainDataMove:
 
 class TTTTrainData:
 
-    def __init__(self, filename=None):
+    def __init__(self, data_encoder, filename=None):
         self.filename = filename
         self.total_games_finished = 0
         self.train_data = {}
+        self.enc = data_encoder
         if self.filename is not None:
             self.load()
 
@@ -33,22 +33,22 @@ class TTTTrainData:
             print(e)
 
     def has_state(self, state):
-        return state in self.train_data.keys()
+        return self.enc.encode(state) in self.train_data.keys()
 
     def add_train_state(self, state, possible_moves_indices):
-        self.train_data[state] = [TTTTrainDataMove(move_idx) for move_idx in sorted(possible_moves_indices)]
+        self.train_data[self.enc.encode(state)] = self.enc.encode([[move_idx, 0, 0, 0] for move_idx in sorted(possible_moves_indices)])
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
-        state_possible_moves = self.train_data[state]
+        state_possible_moves = self.enc.decode(self.train_data[self.enc.encode(state)])
         return self.binary_search(state_possible_moves, 0, len(state_possible_moves) - 1, move_idx)
 
     def binary_search(self, state_possible_moves, low, high, x):
         if high >= low:
             mid = (high + low) // 2
             move = state_possible_moves[mid]
-            if move.move_idx == x:
+            if move[0] == x:
                 return move
-            elif move.move_idx > x:
+            elif move[0] > x:
                 return self.binary_search(state_possible_moves, low, mid - 1, x)
             else:
                 return self.binary_search(state_possible_moves, mid + 1, high, x)
@@ -59,4 +59,4 @@ class TTTTrainData:
         self.total_games_finished += count
 
     def get_train_state(self, state):
-        return self.train_data.get(state, None)
+        return self.enc.decode(self.train_data.get(self.enc.encode(state), None))
