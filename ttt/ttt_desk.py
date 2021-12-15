@@ -21,7 +21,7 @@ class TTTDesk:
         return possible_moves_indices
 
     def get_state(self):
-        return tuple(tuple(player.get_mark().get_code() if player is not None else None for player in row) for row in self.desk)
+        return tuple(tuple(player.get_mark().get_string() if player is not None else None for player in row) for row in self.desk)
 
     def eval_game_state(self):
         # check rows
