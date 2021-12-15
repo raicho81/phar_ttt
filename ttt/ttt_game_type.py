@@ -22,7 +22,8 @@ class TTTGameType:
 
 
 class TTTGameTypeHVsC(TTTGameType):
-    def get_code(self):
+    staticmethod
+    def get_code():
         return TTTGameType.GAME_TYPE_HVsC
 
     @staticmethod
