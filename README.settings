@@ -6,8 +6,9 @@
                                                     // I've used 10^10 training iterations to collect training data for board of size 3 [ train_data-3x3.dat ], 10 for testing playing of CVsC play,
                                                     // which always ends up with a draw. The stastistics converges to the middle square, which is a well known strategy for playing TTT
         "board_size": 3,                            // desk (board) size
-        "training_data_file": "train_data-3x3.dat"  // the file in, which the training data is saved after training and from, which it is loaded for playing 
+        "training_data_file": "train_data-3x3.dat", // the file in, which the training data is saved after training and from, which it is loaded for playing 
         ,
-        "TRAIN_ITERATIONS_INFO_SKIP": 100000        // How many iterations to skip printing when training because we don't want to waste time on console output
+        "TRAIN_ITERATIONS_INFO_SKIP": 100000,       // How many iterations to skip printing when training because we don't want to waste time on console output
+        "encode_training_data" : true               // If true: encode training data with msgpack to save memory because otherwise even 4x4 board takes too much RAM else don't do encoding
     }
 }
