@@ -1,3 +1,4 @@
+* Implementation of self training Tic Tac Toe game. The games can be run again itself so it can gather statistics and train this way. When training random moves are done by the two computer "players", which in turn makes the training a monte carlo method.
 * The only additional module, which I use is dynaconf for reading settings
     * install it with: python3 -m pip install dynaconf or other suitable way for your distro. I've included requirements.txt too. Check it @ https://www.dynaconf.com/
         [-- $ python3 -m pip freeze > requirements.txt --]
