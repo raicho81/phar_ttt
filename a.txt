@@ -1,0 +1,11502 @@
+Loading training data from: train_data_4x4.dat
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 1 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 2 - Computer moves
+
+
+o _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+o x o x
+o x o x
+o x o x
+o _ _ _
+
+Game Over!
+Player 2 Wins!
+
+Starting new game Computer Vs Computer
+
+_ _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+
+Player 1 - Computer moves
+
+
+x _ _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o _ _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x _
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+_ _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x _ _ _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o _ _
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x _
+_ _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+_ _ _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x _ _ _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o _ _
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x _
+_ _ _ _
+
+Player 2 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+_ _ _ _
+
+Player 1 - Computer moves
+
+
+x o x o
+x o x o
+x o x o
+x _ _ _
+
+Game Over!
+Player 1 Wins!
+Done playing with 100 iterations.

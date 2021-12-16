@@ -18,7 +18,7 @@ class TTTDesk:
             for y in range(self.size):
                 if self.desk[y][x] is None:
                     possible_moves_indices.append(x + y * self.size)
-        return possible_moves_indices
+        return sorted(possible_moves_indices)
 
     def get_state(self):
         return tuple(tuple(player.get_mark().get_string() if player is not None else None for player in row) for row in self.desk)

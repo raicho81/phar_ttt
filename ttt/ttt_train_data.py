@@ -38,8 +38,20 @@ class TTTTrainData:
     def add_train_state(self, state, possible_moves_indices):
         self.train_data[self.enc.encode(state)] = self.enc.encode([[move_idx, 0, 0, 0] for move_idx in sorted(possible_moves_indices)])
 
+    def possible_moves_indices(self, state):
+        possible_moves_indices = []
+        for x in range(len(state)):
+            for y in range(len(state)):
+                if state[y][x] is None:
+                    possible_moves_indices.append(x + y * len(state))
+        return possible_moves_indices
+
     def find_train_state_possible_move_by_idx(self, state, move_idx):
-        state_possible_moves = self.enc.decode(self.train_data[self.enc.encode(state)])
+        tmp_state = self.get_train_state(self.enc.encode(state))
+        if tmp_state is None:
+            self.add_train_state(state, self.possible_moves_indices(state))
+            tmp_state = self.train_data[self.enc.encode(state)]
+        state_possible_moves = self.enc.decode(tmp_state)
         return self.binary_search(state_possible_moves, 0, len(state_possible_moves) - 1, move_idx)
 
     def binary_search(self, state_possible_moves, low, high, x):
