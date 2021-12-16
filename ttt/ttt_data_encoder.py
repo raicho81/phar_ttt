@@ -1,5 +1,6 @@
 import msgpack
-
+import zlib
+import py7zr
 import ttt_train_data
 
 
@@ -30,9 +31,9 @@ class TTTDataEncoder:
     @staticmethod
     def encode(data):
         # return msgpack.packb(data, default=TTTDataEncoder.encode_TTTTrainDataMove, use_bin_type=True)
-        return msgpack.packb(data, use_bin_type=True)
+        return py7zr. compress(msgpack.packb(data, use_bin_type=True))
 
     @staticmethod
     def decode(data):
         # return msgpack.unpackb(data, object_hook=TTTDataEncoder.decode_TTTTrainDataMove, raw=False)
-        return msgpack.unpackb(data, raw=False)
+        return msgpack.unpackb(py7zr.decompress(data), raw=False)
