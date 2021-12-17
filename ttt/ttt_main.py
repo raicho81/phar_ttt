@@ -49,7 +49,6 @@ class TTTMain:
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP, encode_train_data=settings.ENCODE_TRAIN_DATA)
             f = functools.partial(instance.run, self.data_lock)
             res.append(self.process_pool.apply_async(f))
-            res.append()
             self.process_pool.close()
             self.process_pool.join()            
         if settings.TRAINING:
