@@ -51,7 +51,7 @@ class TTTMain:
             res.append(self.process_pool.apply_async(f))
             self.process_pool.close()
             self.process_pool.join()            
-        if settings.TRAINING:
+        if settings.TRAIN:
             self.training_data_shared.save()
 
 if __name__ == "__main__":
