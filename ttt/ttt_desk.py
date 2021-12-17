@@ -1,6 +1,7 @@
 import ttt_game_state
-import ttt_player_mark
 
+import logging
+logger = logging.getLogger(__name__)
 
 class TTTDesk:
 
@@ -103,11 +104,8 @@ class TTTDesk:
             for y in range(len(state)):
                 if state[y][x] is None:
                     possible_moves_indices.append(x + y * len(state))
-        print(possible_moves_indices)
         return possible_moves_indices
 
     def print_desk(self):
-        print()
         for row in self.desk:
-            print(" ".join([player.get_mark().get_string() if player is not None else "_" for player in row]))
-        print()
+            logging.info(" ".join([player.get_mark().get_string() if player is not None else "_" for player in row]))
