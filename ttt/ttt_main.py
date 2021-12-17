@@ -19,10 +19,6 @@ class TTTManager(BaseManager):
 
 TTTManager.register('TTTTrainData', ttt_train_data.TTTTrainData)
 
-def init(l):
-    global rlock
-    rlock = l
-
 class TTTMain:
 
     def __init__(self, iterations):
@@ -37,17 +33,26 @@ class TTTMain:
         self.iterations = iterations
 
     def run(self):
-        game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
-        instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS, n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,
-                                encode_train_data=settings.ENCODE_TRAIN_DATA) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
         res = []
-        for _ in range(self.iterations):
-            for instance in instances:
-                f = functools.partial(instance.run, self.data_lock)
-                res.append(self.process_pool.apply_async(f))
-        self.process_pool.close()
-        self.process_pool.join()
-        with self.data_lock:
+        game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
+        if game_type.get_code() == ttt_game_type.TTTGameTypeCVsC and settings.TRAIN:
+            instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS, n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,
+                                    encode_train_data=settings.ENCODE_TRAIN_DATA) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
+            for _ in range(self.iterations):
+                for instance in instances:
+                    f = functools.partial(instance.run, self.data_lock)
+                    res.append(self.process_pool.apply_async(f))
+            self.process_pool.close()
+            self.process_pool.join()
+        else:
+            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+                                         n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP, encode_train_data=settings.ENCODE_TRAIN_DATA)
+            f = functools.partial(instance.run, self.data_lock)
+            res.append(self.process_pool.apply_async(f))
+            res.append()
+            self.process_pool.close()
+            self.process_pool.join()            
+        if settings.TRAINING:
             self.training_data_shared.save()
 
 if __name__ == "__main__":

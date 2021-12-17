@@ -1,4 +1,5 @@
 * The only additional module, which I use is dynaconf for reading settings
+    * I've implemented a multicore version for training with multiprocessing
     * install it with: python3 -m pip install dynaconf or other suitable way for your distro. I've included requirements.txt too. Check it @ https://www.dynaconf.com/
         [-- $ python3 -m pip freeze > requirements.txt --]
     * Check the README.settings for some program parameters explanation

@@ -113,3 +113,6 @@ class TTTTrainData:
             else:
                 self.add_train_state(state, other_moves, True)
 
+    def clear(self):
+        self.total_games_finished = 0
+        self.train_data = {}

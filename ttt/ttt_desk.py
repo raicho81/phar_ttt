@@ -108,4 +108,4 @@ class TTTDesk:
 
     def print_desk(self):
         for row in self.desk:
-            logging.info(" ".join([player.get_mark().get_string() if player is not None else "_" for player in row]))
+            print(" ".join([player.get_mark().get_string() if player is not None else "_" for player in row]))

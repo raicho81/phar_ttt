@@ -164,7 +164,7 @@ class TTTPlay():
         self.desk.clear()
         self.init_players()
         if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
-            logging.info("Starting new game {}".format(self.game_type.get_string()))
+            print("Starting new game {}".format(self.game_type.get_string()))
             self.desk.print_desk()
         for self.next_player in itertools.cycle(self.players):
             if self.next_player.get_type() is ttt_player_type.TTTPlayerTypeComputer:
@@ -172,16 +172,16 @@ class TTTPlay():
             else:
                 self.do_human_move()
             if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
-                logging.info("{} - {} moves".format(self.next_player.get_string(), self.next_player.get_type().get_string()))
+                print("{} - {} moves".format(self.next_player.get_string(), self.next_player.get_type().get_string()))
                 self.desk.print_desk()
             game_state, win_player = self.desk.eval_game_state()
             if game_state is ttt_game_state.TTTGameStateWin or game_state is ttt_game_state.TTTGameStateDraw:
                 if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
-                    logging.info("Game Over!")
+                    print("Game Over!")
                     if game_state is ttt_game_state.TTTGameStateWin:
-                        logging.info("{} Wins!".format(win_player.get_string()))
+                        print("{} Wins!".format(win_player.get_string()))
                     if game_state is ttt_game_state.TTTGameStateDraw:
-                        logging.info("Game is a draw!")
+                        print("Game is a draw!")
                 if self.train:
                     self.update_stats(game_state, win_player)
                 return
@@ -201,4 +201,4 @@ class TTTPlay():
             with lock:
                 self.training_data_shared.update(self.train_data)
                 logging.info("Total games played for training until now: {}".format(self.training_data_shared.get_total_games_finished()))
-                self.train_data.train_data = {}
+                self.train_data.clear()
