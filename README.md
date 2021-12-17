@@ -1,11 +1,15 @@
 * The only additional module, which I use is dynaconf for reading settings
     * I've implemented a multicore version for training with multiprocessing
-    * install it with: python3 -m pip install dynaconf or other suitable way for your distro. I've included requirements.txt too. Check it @ https://www.dynaconf.com/
-        [-- $ python3 -m pip freeze > requirements.txt --]
+* The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation
+    * install with: 
+      python3 -m pip install dynaconf
+      python3 -m pip install msgpack,
+         or other suitable way for your distro.
+      python3 -m pip freeze > requirements.txt to freeze rquirements
     * Check the README.settings for some program parameters explanation
     * Tested with:
         Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
-    * Run it with:
-        [-- $ python3 ttt_main.py --]
+    * Run it from the project directory with:
+        bash$ python3 ttt/ttt_main.py
     * train_data_3x3.dat is pre-filled with statistics from 10^10 random iterations for board with size 3 and I am using batch training for the moment but it can be done incrementally just start the program one more time with more iterations and it should just amend the existing training data. If there is no training data for a given desk state it is just added on the fly with 0 possible outcomes counts (probabilities) when playing and then it starts to get filled with the correct statistics. I must note that I don't use floating point numbers but really just counts and it really doesnt matter if you compare the counts or the counts divided by the total games, which gives the probabilities. There is no difference if you evaluate the inequation 100/100000 < 200/100000  or just 100 < 200 the result is the same but there is no division and no loss of precision and in some cases it can make actually аa difference.
-    * I've added training data encoding with msgpack to save RAM space when training for bigger desks. Without that even 4x4 desk takes too much RAM
+    * I've added training data encoding with msgpack to save RAM space when training for bigger desks. Without that even 4x4 desk takes too much RAM.
