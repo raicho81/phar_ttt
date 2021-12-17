@@ -69,10 +69,10 @@ class TTTPlay():
     def choose_next_best_move_idx(self):
         # choose the next move by selecting the best possible move from the training data
         state = self.desk.get_state()
-        possible_moves = self.train_data.get_train_state(state)
+        possible_moves = self.training_data_shared.get_train_state(state)
         if possible_moves is None:
-            self.train_data.add_train_state(state, [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())])
-            possible_moves = self.train_data.get_train_state(state)
+            self.training_data_shared.add_train_state(state, [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())])
+            possible_moves = self.training_data_shared.get_train_state(state)
         possible_moves_sorted_by_wins_rev = sorted(possible_moves, key=lambda m: m[1], reverse=True)
         for move in possible_moves_sorted_by_wins_rev:
             if move[1] > move[3]:
@@ -113,11 +113,11 @@ class TTTPlay():
                 logging.info(e)
                 continue
             if next_move_idx < 1 or next_move_idx > (self.desk.size ** 2):
-                logging.info("Invalid move (invalid square index?): {}".format(next_move_idx))
+                print("Invalid move (invalid square index?): {}".format(next_move_idx))
                 continue
             possible_moves_indices = self.desk.get_possible_moves_indices()
             if (next_move_idx - 1) not in possible_moves_indices:
-                logging.info("Invalid move (square is already taken?): {}".format(next_move_idx))
+                print("Invalid move (square is already taken?): {}".format(next_move_idx))
                 continue
             state = self.desk.get_state()
             self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
