@@ -48,9 +48,7 @@ class TTTMain:
             instance = ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP, encode_train_data=settings.ENCODE_TRAIN_DATA)
             f = functools.partial(instance.run, self.data_lock)
-            res.append(self.process_pool.apply_async(f))
-            self.process_pool.close()
-            self.process_pool.join()            
+            f()
         if settings.TRAIN:
             self.training_data_shared.save()
 
