@@ -38,9 +38,6 @@ class TTTPlay():
         self.next_player = None
         self.rlock = None
 
-    def set_rlock(self, rlock):
-        self.rlock = rlock
-
     def init_player_types(self):
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             player_types = [ttt_player_type.TTTPlayerTypeComputer] * 2
