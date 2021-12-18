@@ -1,3 +1,5 @@
+  Tic Tac Toe game implementation with self training Monte Carlo algorithm.
+
 * I've implemented a multicore version for training with multiprocessing
 * The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation
     * install with:
