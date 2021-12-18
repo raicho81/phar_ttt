@@ -29,7 +29,7 @@ class TTTPlay():
             tde = ttt_data_encoder.TTTDataEncoder
         else:
             tde = ttt_data_encoder.TTTDataEncoderNone
-        self.train_data = ttt_train_data.TTTTrainData(ttt_data_encoder.TTTDataEncoder, settings.TRAINING_DATA_FILE)
+        self.train_data = ttt_train_data.TTTTrainData(tde, settings.TRAINING_DATA_FILE)
         self.training_data_shared = training_data_shared
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
