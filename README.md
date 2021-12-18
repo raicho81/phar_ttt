@@ -4,7 +4,7 @@
       * bash$ python3 -m pip install dynaconf
       * bash$ python3 -m pip install msgpack,
          or other suitable way for your distro.
-      python3 -m pip freeze > requirements.txt to freeze rquirements
+      * bash$ python3 -m pip freeze > requirements.txt to freeze rquirements
     * run with:
       * bash$ python3 ttt\ttt_main.py
     * Check the README.settings for some program parameters explanation
