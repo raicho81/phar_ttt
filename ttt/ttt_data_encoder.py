@@ -1,9 +1,6 @@
 import msgpack
 import ttt_train_data
 
-import logging
-logging.basicConfig(format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s', \
-                    level = logging.DEBUG)
 class TTTDataEncoderNone:
     @staticmethod
     def encode(data):
