@@ -1,7 +1,8 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
 
 * I've implemented a multicore version for training with multiprocessing
-* The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation
+* The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation.
+  Without msgpack even on 4X4 desk the program takes too much memory.
     * install with:
       * bash$ python3 -m pip install dynaconf
       * bash$ python3 -m pip install msgpack,
