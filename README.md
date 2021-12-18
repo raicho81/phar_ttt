@@ -5,6 +5,8 @@
       * bash$ python3 -m pip install msgpack,
          or other suitable way for your distro.
       python3 -m pip freeze > requirements.txt to freeze rquirements
+    * run with:
+      * bash$ python3 ttt\ttt_main.py
     * Check the README.settings for some program parameters explanation
     * Tested with:
         Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
