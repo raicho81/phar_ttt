@@ -1,10 +1,13 @@
 {
     "default": {
         "game_type": "CVsC",
-        "train": false,
-        "iterations": 100,
-        "board_size": 3,
-        "training_data_file": "train_data_3x3.dat",
-        "TRAIN_ITERATIONS_INFO_SKIP": 10000
+        "train": true,
+        "inner_iterations": 5000,
+        "iterations": 250,
+        "process_pool_size": 0,
+        "board_size": 4,
+        "training_data_file": "train_data_4x4.dat",
+        "train_iterations_info_skip": 1000,
+        "encode_train_data": true
     }
 }
