@@ -1,8 +1,8 @@
 * I've implemented a multicore version for training with multiprocessing
 * The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation
-    * install with: 
-      python3 -m pip install dynaconf
-      python3 -m pip install msgpack,
+    * install with:
+      * bash$ python3 -m pip install dynaconf
+      * bash$ python3 -m pip install msgpack,
          or other suitable way for your distro.
       python3 -m pip freeze > requirements.txt to freeze rquirements
     * Check the README.settings for some program parameters explanation
