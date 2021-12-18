@@ -1,5 +1,4 @@
-* The only additional module, which I use is dynaconf for reading settings
-    * I've implemented a multicore version for training with multiprocessing
+* I've implemented a multicore version for training with multiprocessing
 * The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation
     * install with: 
       python3 -m pip install dynaconf
