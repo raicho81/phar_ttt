@@ -2,7 +2,6 @@ import os
 from multiprocessing import freeze_support, Pool, Manager
 from multiprocessing.managers import BaseManager
 import functools
-import logging
 
 from dynaconf import settings
 
