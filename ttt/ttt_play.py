@@ -117,7 +117,7 @@ class TTTPlay():
                 print("Invalid move (square is already taken?): {}".format(next_move_idx))
                 continue
             state = self.desk.get_state()
-            self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
+            self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx - 1))
             self.save_move(next_move_idx - 1)
             return
 
