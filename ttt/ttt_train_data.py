@@ -5,6 +5,10 @@ import logging
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+import ttt_dependency_injection
+import ttt_data_encoder
+
+
 class TTTTrainDataMove:
     def __init__(self, move_idx, n_wins=0, n_draws=0, n_looses=0):
         self.move_idx = move_idx
@@ -19,16 +23,20 @@ class TTTTrainDataMove:
         self.n_draws += other.n_draws
         self.n_looses += other.n_looses
 
-class TTTTrainData:
 
-    def __init__(self, data_encoder, filename=None):
+class TTTTrainDataBase:
+    pass
+
+class TTTTrainData(TTTTrainDataBase):
+    @ttt_dependency_injection.DependencyInjection.inject
+    def __init__(self, filename=None, *, data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
         self.filename = filename
         self.total_games_finished = 0
         self.train_data = {}
         self.enc = data_encoder
 
     def get_total_games_finished(self):
-        return self.total_games_finished
+       return self.total_games_finished
 
     def save(self):
         logging.info("Saving training data to: {}".format(self.filename))
@@ -40,6 +48,7 @@ class TTTTrainData:
             with open(self.filename, "rb") as f:
                 logger.info("Loading data from {}".format(self.filename))
                 self.total_games_finished, self.train_data = pickle.load(f)
+                logger.info("Loaded treaining data from {} for {} training games".format(self.filename, self.total_games_finished))
         except FileNotFoundError as e:
             logging.info(e)
 
@@ -84,18 +93,20 @@ class TTTTrainData:
     def get_train_state(self, state, raw=False):
         state_possible_moves = self.train_data.get(self.enc.encode(state) if not raw else state, None)
         if state_possible_moves is not None:
-            return self.enc.decode(state_possible_moves)
+            decoded_moves = self.enc.decode(state_possible_moves)
+            return decoded_moves
         else:
             return None
 
     def update_train_state(self, state, move):
         pms = self.get_train_state(state)
-        for i, m in enumerate(pms):
-            if m[0] == move[0]:
-                pms[i] = move
-                self.train_data[self.enc.encode(state)] = self.enc.encode(pms)
-                break
-            
+        found_m = self.binary_search(pms, 0, len(pms) -1 , move[0])
+        found_m[1] += move[1]
+        found_m[2] += move[2]
+        found_m[3] += move[3]
+        
+        self.train_data[self.enc.encode(state)] = self.enc.encode(pms)
+
     def get_train_data(self):
         return self.train_data
     

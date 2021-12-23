@@ -12,24 +12,21 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
-import ttt_data_encoder
+import ttt_dependency_injection
+
 
 import logging
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(name)s - %(levelname)s - %(message)s')
 
-class TTTPlay():
 
-    def __init__(self, desk_size, game_type, training_data_shared, train=True, train_iterations=10000000, n_iter_info_skip=10000, encode_train_data=False):
+class TTTPlay():
+    @ttt_dependency_injection.DependencyInjection.inject    
+    def __init__(self, desk_size, game_type, training_data_shared, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
         self.game_type = game_type
-        self.encode_train_data = encode_train_data
         self.train = train
         self.train_iterations = train_iterations
         self.n_iter_info_skip = n_iter_info_skip
-        if encode_train_data:
-            tde = ttt_data_encoder.TTTDataEncoder
-        else:
-            tde = ttt_data_encoder.TTTDataEncoderNone
-        self.train_data = ttt_train_data.TTTTrainData(tde, settings.TRAINING_DATA_FILE)
+        self.train_data = train_data
         self.training_data_shared = training_data_shared
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
@@ -47,7 +44,7 @@ class TTTPlay():
 
     def init_players(self):
         random.shuffle(self.marks)
-        random.shuffle(self.players)
+        # random.shuffle(self.players)
         random.shuffle(self.player_types)
         for player, mark, player_type in zip(self.players, self.marks, self.player_types):
             player.clear_path()
@@ -90,12 +87,13 @@ class TTTPlay():
 
     def do_computer_move(self):
         next_move_idx = self.choose_next_move_idx()
-        state = self.desk.get_state()
-        has_state = self.train_data.has_state(state)
-        if not has_state:
-            # add state to training data if it is not there
-            self.train_data.add_train_state(state, [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())])
-        self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
+        if self.train:
+            state = self.desk.get_state()
+            has_state = self.train_data.has_state(state)
+            if not has_state:
+                # add state to training data if it is not there
+                self.train_data.add_train_state(state, [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())])
+            self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
         self.save_move(next_move_idx)
 
     def do_human_move(self):
@@ -131,13 +129,6 @@ class TTTPlay():
             for player in self.players:
                 if player is not win_player:
                     self.update_path_loose(player.get_path())
-
-    def update_state(self, state, move):
-        this_moves = self.train_data.get_state(state)
-        for this_move in this_moves:
-            if move.move_idx == this_move.move_idx:
-                this_move = move
-                self.train_data.update_train_state(state, this_moves)
 
     def update_path_win(self, path):
         for state, move_idx in path:
