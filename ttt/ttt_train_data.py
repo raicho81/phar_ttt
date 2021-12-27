@@ -59,7 +59,7 @@ class TTTTrainDataBase:
 
 class TTTTrainData(TTTTrainDataBase):
     @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, filename=None, *, data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
+    def __init__(self, *,filename=None,  data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
         self.filename = filename
         self.total_games_finished = 0
         self.train_data = {}

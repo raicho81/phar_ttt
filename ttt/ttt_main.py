@@ -36,13 +36,13 @@ def init_dep_injection():
 
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, iterations, *, training_data_shared=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
-        # self.training_data_shared = ttt_train_data.TTTTrainData(ttt_data_encoder.TTTDataEncoder, settings.TRAINING_DATA_FILE)
-        # self.process_manager = manager
+    def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
+        # self.training_data_shared = ttt_train_data.TTTTrainData((), {'filename': settings.TRAINING_DATA_FILE})
+        self.process_manager = manager
         self.m = Manager()
         self.data_lock = self.m.Lock()
-        # self.process_manager.start()
-        self.training_data_shared = training_data_shared # self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
+        self.process_manager.start()
+        self.training_data_shared = self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
         self.training_data_shared.load()
         self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.iterations = iterations
@@ -62,8 +62,7 @@ class TTTMain():
         else:
             instance = ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
-            f = functools.partial(instance.run, self.data_lock)
-            f()
+            instance.run(self.data_lock)
         if settings.TRAIN:
             self.training_data_shared.save()
 
