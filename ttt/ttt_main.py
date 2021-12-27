@@ -50,7 +50,7 @@ class TTTMain():
     def run(self):
         res = []
         game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
-        if game_type.get_code() == ttt_game_type.TTTGameTypeCVsC.get_code() and settings.TRAIN:
+        if game_type is ttt_game_type.TTTGameTypeCVsC and settings.TRAIN:
             instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                           n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
             for _ in range(self.iterations):
