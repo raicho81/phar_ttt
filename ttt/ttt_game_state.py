@@ -1,7 +1,6 @@
 
 
 class TTTGameState:
-
     GAME_STATE_WIN = 0
     GAME_STATE_DRAW = 1
     GAME_STATE_UNFINISHED = 2

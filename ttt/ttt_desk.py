@@ -4,7 +4,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 class TTTDesk:
-
     def __init__(self, size):
         self.size = size
         self.desk = None
