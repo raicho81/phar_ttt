@@ -26,17 +26,23 @@ def init_dep_injection():
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderMsgpack)
     else:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
-    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={})
+    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={'filename': settings.TRAINING_DATA_FILE})
+    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainDataRedis, default_args=(), 
+                                                                default_kwargs={'redis_host': settings.REDIS_HOST, 
+                                                                                'redis_port': settings.REDIS_PORT, 
+                                                                                'redis_secret': settings.REDIS_SECRET, 
+                                                                                'redis_hset_key': settings.REDIS_TRAIN_DATA_HSET_KEY,
+                                                                                'redis_tot_games_key': settings.REDIS_TOT_GAMES_KEY})
 
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
+    def __init__(self, iterations, *, training_data_shared=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
         # self.training_data_shared = ttt_train_data.TTTTrainData(ttt_data_encoder.TTTDataEncoder, settings.TRAINING_DATA_FILE)
-        self.process_manager = manager
+        # self.process_manager = manager
         self.m = Manager()
         self.data_lock = self.m.Lock()
-        self.process_manager.start()
-        self.training_data_shared = self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
+        # self.process_manager.start()
+        self.training_data_shared = training_data_shared # self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
         self.training_data_shared.load()
         self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.iterations = iterations

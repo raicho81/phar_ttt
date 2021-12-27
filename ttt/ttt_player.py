@@ -4,8 +4,8 @@ import collections
 TTTPlayerPathNode = collections.namedtuple("TTTPlayerPathNode", ["state", "move"])
 
 class TTTPlayer:
-    PLAYER1 = 0
-    PLAYER2 = 1
+    PLAYER1 = 1
+    PLAYER2 = 2
     PLAYER_STRING = {PLAYER1: "Player 1", PLAYER2: "Player 2"}
     
     def __init__(self, player_type=None, mark=None):
