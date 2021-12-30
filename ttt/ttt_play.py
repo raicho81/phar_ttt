@@ -16,11 +16,11 @@ import ttt_dependency_injection
 
 
 import logging
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
 
 
 class TTTPlay():
-    @ttt_dependency_injection.DependencyInjection.inject    
+    @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, desk_size, game_type, training_data_shared, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
         self.game_type = game_type
         self.train = train
@@ -44,8 +44,8 @@ class TTTPlay():
 
     def init_players(self):
         random.shuffle(self.marks)
-        # random.shuffle(self.players)
-        random.shuffle(self.player_types)
+        if self.game_type is ttt_game_type.TTTGameTypeHVsC:
+            random.shuffle(self.player_types)
         for player, mark, player_type in zip(self.players, self.marks, self.player_types):
             player.clear_path()
             player.set_mark(mark)

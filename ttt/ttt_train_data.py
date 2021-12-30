@@ -4,9 +4,9 @@ import os
 import logging
 
 import redis
-from pottery import RedisDeque, RedisDict, synchronize
+from pottery import RedisDict, synchronize
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 import ttt_dependency_injection
@@ -29,6 +29,11 @@ class TTTTrainDataMove:
 
 
 class TTTTrainDataBase:
+    @ttt_dependency_injection.DependencyInjection.inject
+    def __init__(self, filename=None, * , data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
+        self.filename = filename
+        self.enc = data_encoder
+
     def possible_moves_indices(self, state):
         possible_moves_indices = []
         for x in range(len(state)):
@@ -48,7 +53,7 @@ class TTTTrainDataBase:
             else:
                 return self.binary_search(state_possible_moves, mid + 1, high, x)
         else:
-            raise ValueError("Move index not found!")    
+            raise ValueError("Move index not found!")
 
     def save(self):
         pass
@@ -56,14 +61,43 @@ class TTTTrainDataBase:
     def load(self):
         pass
 
+    def get_total_games_finished(self):
+        pass
+
+    def has_state(self, state):
+        pass
+
+    def add_train_state(self, state, possible_moves_indices, raw=False):
+        pass
+
+    def find_train_state_possible_move_by_idx(self, state, move_idx):
+        pass
+
+    def inc_total_games_finished(self, count):
+        pass
+
+    def get_train_state(self, state, raw=False):
+        pass
+
+    def update_train_state(self, state, move):
+        pass
+
+    def get_train_data(self):
+        pass
+
+    def update(self, other):
+        pass
+
+    def clear(self):
+        pass
+
 
 class TTTTrainData(TTTTrainDataBase):
-    @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, *,filename=None,  data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
+    def __init__(self, filename):
+        super().__init__(filename)
         self.filename = filename
         self.total_games_finished = 0
         self.train_data = {}
-        self.enc = data_encoder
 
     def get_total_games_finished(self):
        return self.total_games_finished
@@ -143,24 +177,14 @@ class TTTTrainData(TTTTrainDataBase):
         self.train_data = {}
 
 
-class TTTTrainDataRedisBase(TTTTrainDataBase):
-    pass
-
-class TTTTrainDataRedis(TTTTrainDataRedisBase):
-    @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, filename=None, *, data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder), redis_host='localhost', redis_port=6379, redis_secret="secret", redis_hset_key=None, 
-                 redis_tot_games_key=None):
-        self.filename = filename
+class TTTTrainDataRedis(TTTTrainDataBase):
+    def __init__(self, *, redis_host='localhost', redis_port=6379, redis_secret="secret", redis_hset_key=None, redis_tot_games_key=None):
+        super().__init__()
         self.total_games_finished = 0
         self.train_data = {}
-        self.enc = data_encoder
         self.__r = redis.Redis(redis_host, redis_port, 0, redis_secret)
         self.redis_path_pms_hset = RedisDict(redis=self.__r, key=redis_hset_key)
         self.redis_tot_games_key = redis_tot_games_key
-
-    def init_redis_structures(self):
-        self.__r.set(self.redis_tot_games_key, "0")
-        self.redis_path_pms_hset.clear()
 
     def get_total_games_finished(self):
        return self.__r.get(self.redis_tot_games_key)
@@ -216,5 +240,5 @@ class TTTTrainDataRedis(TTTTrainDataRedisBase):
                 self.add_train_state(state, other_moves, True)
 
     def clear(self):
-        self.__r.set(self.redis_tot_games_key, 0)
+        self.__r.set(self.redis_tot_games_key, "0")
         self.redis_path_pms_hset.clear()

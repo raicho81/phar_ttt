@@ -1,5 +1,4 @@
 import msgpack
-# import ttt_train_data
 
 
 class TTTDataEncoder:
@@ -11,7 +10,7 @@ class TTTDataEncoder:
 
     def decode(self, data):
         raise NotImplementedError
-        
+
 class TTTDataEncoderNone(TTTDataEncoder):
     def __init__(self, *args, **kwargs):
         pass
@@ -21,7 +20,7 @@ class TTTDataEncoderNone(TTTDataEncoder):
 
     def decode(self, data):
         return data
-    
+
 class TTTDataEncoderMsgpack(TTTDataEncoder):
     def __init__(self, *args, **kwargs):
         pass

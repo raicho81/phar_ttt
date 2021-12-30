@@ -27,12 +27,12 @@ def init_dep_injection():
     else:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
     ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={'filename': settings.TRAINING_DATA_FILE})
-    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainDataRedis, default_args=(), 
-                                                                default_kwargs={'redis_host': settings.REDIS_HOST, 
-                                                                                'redis_port': settings.REDIS_PORT, 
-                                                                                'redis_secret': settings.REDIS_SECRET, 
-                                                                                'redis_hset_key': settings.REDIS_TRAIN_DATA_HSET_KEY,
-                                                                                'redis_tot_games_key': settings.REDIS_TOT_GAMES_KEY})
+    # ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainDataRedis, default_args=(),
+    #                                                             default_kwargs={'redis_host': settings.REDIS_HOST,
+    #                                                                             'redis_port': settings.REDIS_PORT,
+    #                                                                             'redis_secret': settings.REDIS_SECRET,
+    #                                                                             'redis_hset_key': settings.REDIS_TRAIN_DATA_HSET_KEY,
+    #                                                                             'redis_tot_games_key': settings.REDIS_TOT_GAMES_KEY})
 
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject

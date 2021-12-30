@@ -29,7 +29,7 @@ class DependencyInjection:
     DependencyEntry = collections.namedtuple("DependencyEntry", ["singleton", "default_args", "default_kwargs"])
     deps = {}
     singletons = {}
-            
+
     @staticmethod
     def add_dependency(class_name, *, default_args=(), default_kwargs={}, singleton=False):
         DependencyInjection.deps[class_name] = DependencyInjection.DependencyEntry(singleton, default_args=default_args, default_kwargs=default_kwargs)

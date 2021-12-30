@@ -7,7 +7,7 @@ class TTTPlayer:
     PLAYER1 = 1
     PLAYER2 = 2
     PLAYER_STRING = {PLAYER1: "Player 1", PLAYER2: "Player 2"}
-    
+
     def __init__(self, player_type=None, mark=None):
         self.player_type = player_type
         self.mark = mark
@@ -24,7 +24,7 @@ class TTTPlayer:
 
     def get_type(self):
         return self.player_type
-    
+
     def set_mark(self, mark):
         self.mark = mark
 
