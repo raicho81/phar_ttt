@@ -81,7 +81,9 @@ class TTTTrainData(TTTTrainDataBase):
             with open(self.filename, "rb") as f:
                 logger.info("Loading data from {}".format(self.filename))
                 self.total_games_finished, self.train_data = pickle.load(f)
-                logger.info("Loaded treaining data from {} for {} training games".format(self.filename, self.total_games_finished))
+                logger.info("Loaded training data from {} for {} training games. Training data dict contains {} diferent training states.".format(
+                    self.filename, self.total_games_finished,
+                    len(self.train_data)))
         except FileNotFoundError as e:
             logging.info(e)
 
@@ -116,12 +118,12 @@ class TTTTrainData(TTTTrainDataBase):
         found_m[1] += move[1]
         found_m[2] += move[2]
         found_m[3] += move[3]
-        
+
         self.train_data[self.enc.encode(state)] = self.enc.encode(pms)
 
     def get_train_data(self):
         return self.train_data
-    
+
     def update(self, other):
         self.inc_total_games_finished(other.total_games_finished)
         for state in other.get_train_data().keys():
@@ -198,7 +200,7 @@ class TTTTrainDataRedis(TTTTrainDataRedisBase):
 
     def get_train_data(self):
         return self.redis_path_pms_hset
-    
+
     def update(self, other):
         self.inc_total_games_finished(other.total_games_finished)
         for state in other.get_train_data().keys():
