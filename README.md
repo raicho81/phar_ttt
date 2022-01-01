@@ -1,5 +1,6 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
 
+* I am using LFS in this repo so you may need to install/initialize git LFS
 * I've implemented a multicore version for training with multiprocessing
 * The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation.
   Without msgpack even on 4X4 desk the program takes too much memory. I've also made another RAM/speed optimisation - I don't save the states but rather a integer hash without collisions and I've cached the hash computing function with functools.lru_cache.
