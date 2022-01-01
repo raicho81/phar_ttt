@@ -128,11 +128,10 @@ class TTTTrainData(TTTTrainDataBase):
         self.train_data[self.enc.encode(state) if not raw else state] = self.enc.encode(possible_moves_indices)
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
-        tmp_state = self.get_train_state(self.enc.encode(state))
-        if tmp_state is None:
+        state_possible_moves = self.get_train_state(state)
+        if state_possible_moves is None:
             self.add_train_state(state,  [[move_idx, 0, 0, 0] for move_idx in sorted(self.possible_moves_indices(state))])
-            tmp_state = self.train_data[self.enc.encode(state)]
-        state_possible_moves = self.enc.decode(tmp_state)
+            state_possible_moves = self.get_train_state(state)
         return self.binary_search(state_possible_moves, 0, len(state_possible_moves) - 1, move_idx)
 
     def inc_total_games_finished(self, count):
@@ -149,9 +148,9 @@ class TTTTrainData(TTTTrainDataBase):
     def update_train_state(self, state, move):
         pms = self.get_train_state(state)
         found_m = self.binary_search(pms, 0, len(pms) -1 , move[0])
-        found_m[1] += move[1]
-        found_m[2] += move[2]
-        found_m[3] += move[3]
+        found_m[1] = move[1]
+        found_m[2] = move[2]
+        found_m[3] = move[3]
 
         self.train_data[self.enc.encode(state)] = self.enc.encode(pms)
 
