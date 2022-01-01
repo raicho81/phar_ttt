@@ -2,7 +2,7 @@
 
 * I've implemented a multicore version for training with multiprocessing
 * The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation.
-  Without msgpack even on 4X4 desk the program takes too much memory.
+  Without msgpack even on 4X4 desk the program takes too much memory. I've also made another RAM/speed optimisation - I don't save the states but rather a integer hash without collisions and I've cached the hash computing function with functools.lru_cache.
     * install with:
       * bash$ python3 -m pip install dynaconf
       * bash$ python3 -m pip install msgpack,
