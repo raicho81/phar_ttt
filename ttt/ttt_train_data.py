@@ -121,7 +121,7 @@ class TTTTrainData(TTTTrainDataBase):
         except FileNotFoundError as e:
             logging.info(e)
 
-    @functools.lru_cache(16384)
+    @functools.lru_cache(8192)
     def int_none_tuple_hash(self, t, hash_base=3):
         tuple_hash = 0
         power = 0
@@ -185,3 +185,7 @@ class TTTTrainData(TTTTrainDataBase):
     def clear(self):
         self.total_games_finished = 0
         self.train_data = {}
+        # self.int_none_tuple_hash.cache_clear()
+
+    def cache_info(self):
+        return self.int_none_tuple_hash.cache_info()
