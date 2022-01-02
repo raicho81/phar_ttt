@@ -20,13 +20,13 @@ class TTTTrainDataMove:
         self.n_draws = n_draws
         self.n_looses = n_looses
 
-    def __add__(self, other):
+    def __iadd__(self, other):
         if self.move_idx != other.move_id:
             raise ValueError("Move index values do not match!")
         self.n_wins += other.n_wins
         self.n_draws += other.n_draws
         self.n_looses += other.n_looses
-
+        return self
 
 class TTTTrainDataBase:
     @ttt_dependency_injection.DependencyInjection.inject

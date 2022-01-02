@@ -1,8 +1,8 @@
 
 
 class TTTPlayerType:
-    PLAYER_TYPE_COMPUTER = 0
-    PLAYER_TYPE_HUMAN = 1
+    PLAYER_TYPE_COMPUTER = 1
+    PLAYER_TYPE_HUMAN = 2
     PLAYER_TYPE_STRING = {PLAYER_TYPE_COMPUTER: "Computer", PLAYER_TYPE_HUMAN: "Human"}
 
     @staticmethod
