@@ -2,6 +2,8 @@ import os
 from multiprocessing import freeze_support, Pool, Manager
 from multiprocessing.managers import BaseManager
 import functools
+import gc
+gc.set_threshold(100, 5, 3)
 
 from dynaconf import settings
 
@@ -38,13 +40,13 @@ class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
         # self.training_data_shared = ttt_train_data.TTTTrainData((), {'filename': settings.TRAINING_DATA_FILE})
+        self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.process_manager = manager
         self.m = Manager()
         self.data_lock = self.m.Lock()
         self.process_manager.start()
         self.training_data_shared = self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
         self.training_data_shared.load()
-        self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.iterations = iterations
 
     def run(self):
