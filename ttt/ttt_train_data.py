@@ -28,6 +28,18 @@ class TTTTrainDataMove:
         self.n_looses += other.n_looses
         return self
 
+
+    def __add__(self, other):
+        if self.move_idx != other.move_id:
+            raise ValueError("Move index values do not match!")
+        new_obj = TTTTrainDataMove(
+            self.move_idx,
+            self.n_wins + other.n_wins,
+            self.n_draws + other.n_draws,
+            self.n_looses + other.n_looses
+        )
+        return new_obj
+
 class TTTTrainDataBase:
     @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, filename=None, * , data_encoder=ttt_dependency_injection.Dependency(ttt_data_encoder.TTTDataEncoder)):
@@ -54,6 +66,21 @@ class TTTTrainDataBase:
                 return self.binary_search(state_possible_moves, mid + 1, high, x)
         else:
             raise ValueError("Move index not found!")
+
+    @functools.lru_cache(4096)
+    def int_none_tuple_hash(self, t, hash_base=3):
+        tuple_hash = 0
+        power = 0
+        for i in range(len(t)):
+            for j in range(len(t[i])):
+                update = (hash_base ** power) * (t[i][j] if t[i][j] is not None else 0)
+                tuple_hash += update
+                power += 1
+        return tuple_hash
+
+    @property
+    def cache_info(self):
+        return self.int_none_tuple_hash.cache_info()
 
     def save(self):
         pass
@@ -121,17 +148,6 @@ class TTTTrainData(TTTTrainDataBase):
         except FileNotFoundError as e:
             logging.info(e)
 
-    @functools.lru_cache(4096)
-    def int_none_tuple_hash(self, t, hash_base=3):
-        tuple_hash = 0
-        power = 0
-        for i in range(len(t)):
-            for j in range(len(t[i])):
-                update = (hash_base ** power) * (t[i][j] if t[i][j] is not None else 0)
-                tuple_hash += update
-                power += 1
-        return tuple_hash
-
     def has_state(self, state):
         return self.int_none_tuple_hash(state) in self.train_data.keys()
 
@@ -185,7 +201,3 @@ class TTTTrainData(TTTTrainDataBase):
     def clear(self):
         self.total_games_finished = 0
         self.train_data = {}
-        # self.int_none_tuple_hash.cache_clear()
-
-    def cache_info(self):
-        return self.int_none_tuple_hash.cache_info()
