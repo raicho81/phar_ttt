@@ -29,7 +29,7 @@ class TTTDesk:
             win = False
             player = row[0]
             if player is None:
-                break
+                continue
             for square in row[1:]:
                 if square is not player:
                     win = False
@@ -46,7 +46,7 @@ class TTTDesk:
             win = False
             player = self.desk[0][x]
             if player is None:
-                break
+                continue
             for y in range(1, self.size):
                 square = self.desk[y][x]
                 if square is not player:
