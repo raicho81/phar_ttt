@@ -4,6 +4,7 @@ import itertools
 import os
 
 from dynaconf import settings
+import numpy
 
 import ttt_train_data
 import ttt_desk
@@ -56,9 +57,10 @@ class TTTPlay():
 
     def choose_next_move_random_idx(self):
         possible_moves_indices = self.desk.get_possible_moves_indices()
-        # choose the next random move
-        next_move_idx = random.choice(possible_moves_indices)
-        return next_move_idx
+        if len(possible_moves_indices) == 1:
+            return possible_moves_indices[0]
+        else:
+            return possible_moves_indices[numpy.random.randint(0, len(possible_moves_indices))]
 
     def choose_next_best_move_idx(self):
         # choose the next move by selecting the best possible move from the training data
@@ -189,5 +191,7 @@ class TTTPlay():
             with lock:
                 self.training_data_shared.update(self.train_data)
                 logging.info("Total games played for training until now: {}".format(self.training_data_shared.get_total_games_finished()))
-                logging.info("self.training_data.int_none_tuple_hash.cache_info(): {}, Cache Hits %: {}".format(self.train_data.cache_info(), 100 * self.train_data.cache_info().hits / (self.train_data.cache_info().hits + self.train_data.cache_info().misses) ))
+                logging.info("self.training_data.int_none_tuple_hash.cache_info(): {}, Cache Hits %: {}".format(
+                    self.train_data.cache_info, 100 * self.train_data.cache_info.hits / (self.train_data.cache_info.hits + self.train_data.cache_info.misses)
+                ))
                 self.train_data.clear()
