@@ -222,7 +222,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if rec is None:
             self.cursor.execute(
                                 """
-                                    INSERT INTO 
+                                    INSERT INTO
                                         "Desks" (size)
                                     VALUES (%s)
                                     RETURNING id
@@ -339,12 +339,12 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 WHERE "States".desk_id = %s
                                 AND "States".state = %s
                             """,
-                            (self.desk_id, state)
+                            (self.desk_id, self.int_none_tuple_hash(state))
         )
-        self.conn.commit()
+        # self.conn.commit()
         res = self.cursor.fetchall()
         if len(res) > 0:
-            moves = [[r[0], r[1], r[2], r[3]] for r in res]
+            moves = [[r[2], r[3], r[4], r[5]] for r in res]
             return moves
         return None
 
@@ -371,7 +371,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (move[1], move[2], move[3], self.desk_id, state, move[0])
         )
-        self.conn.commit()
+            self.conn.commit()
 
     def get_train_data(self):
         raise NotImplementedError("Samo bez GEYSKI nomera be EI maina MRYSNA :D")

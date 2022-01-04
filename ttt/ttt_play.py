@@ -191,7 +191,5 @@ class TTTPlay():
         if self.train:
             self.training_data_shared.update(self.train_data)
             logging.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
-            logging.info("self.training_data.int_none_tuple_hash.cache_info(): {}, Cache Hits %: {}".format(
-                self.train_data.cache_info, 100 * self.train_data.cache_info.hits / (self.train_data.cache_info.hits + self.train_data.cache_info.misses)
-            ))
-            self.train_data.clear()
+        logging.info("self.training_data.cache_info(): {}, self.train_data.cache_info()")
+        self.train_data.clear()
