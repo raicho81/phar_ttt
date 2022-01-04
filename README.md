@@ -2,8 +2,7 @@
 
 * I am using git LFS in this repo (because of the traing data files) so you may need to install/initialize git LFS
 * I've implemented a multicore version for training with multiprocessing
-* The only additional modules, which I use are dynaconf for reading settings and msgpack for memory usage optimisation.
-  Without msgpack even on 4X4 desk the program takes too much memory. I've also made another RAM/speed optimisation - I don't save the states but rather a integer "hash" without collisions, which is indeed number representing exactly the state (I am using base=3) and I've cached the "hash" computing function with functools.lru_cache.
+* I've implemented (finally) ingesting of the training data in Postgres. 
     * install with:
       * bash$ python3 -m pip install dynaconf
       * bash$ python3 -m pip install msgpack,
