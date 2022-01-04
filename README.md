@@ -1,7 +1,7 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
 
 * I am using git LFS in this repo (because of the traing data files) so you may need to install/initialize git LFS
-* I've implemented a multicore version for training with multiprocessing and also now ingesting that from multiple machines running the program should be OK.
+* I've implemented a multicore version for training with multiprocessing and also now ingesting training data from multiple machines running the program should be OK.
 * I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
     * install with:
       * bash$ python3 -m pip install numpy
