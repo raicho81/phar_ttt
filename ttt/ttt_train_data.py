@@ -122,9 +122,8 @@ class TTTTrainDataBase:
 
 
 class TTTTrainData(TTTTrainDataBase):
-    def __init__(self, filename):
-        super().__init__(filename)
-        self.filename = filename
+    def __init__(self):
+        super().__init__()
         self.total_games_finished = 0
         self.train_data = {}
 
@@ -306,16 +305,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         raise NotImplementedError("Ot go vikash tva be geyzer :D")
-        # self.cursor.execute(
-        #     f"""SELECT "State_Moves".* FROM "States" JOIN "State_Moves"
-        #         ON "States".id = "State_Moves".state_id
-        #         WHERE "State".desk_id = {self.desk_id}
-        #         AND "State".state= {state}
-        #         AND "State_Moves".move_idx = {move_idx}"""
-        # )
-        # self.conn.commit()
-        # res = self.cursor.fetchone()
-        # return res
 
     def inc_total_games_finished(self, count):
         self.cursor.execute(
@@ -341,7 +330,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_id, self.int_none_tuple_hash(state))
         )
-        # self.conn.commit()
         res = self.cursor.fetchall()
         if len(res) > 0:
             moves = [[r[2], r[3], r[4], r[5]] for r in res]

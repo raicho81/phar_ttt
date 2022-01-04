@@ -64,7 +64,6 @@ class TTTPlay():
             return possible_moves_indices[numpy.random.randint(0, len(possible_moves_indices))]
 
     def choose_next_best_move_idx(self):
-        # choose the next move by selecting the best possible move from the training data
         state = self.desk.get_state()
         possible_moves = self.training_data_shared.get_train_state(state)
         if possible_moves is None:

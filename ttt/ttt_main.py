@@ -25,14 +25,14 @@ class TTTManager(BaseManager):
 
 def init_process_pool_manager():
     TTTManager.register('TTTTrainDataPostgres', ttt_train_data.TTTTrainDataPostgres)
-
+ 
 def init_dep_injection():
     ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)
     if settings.ENCODE_TRAIN_DATA:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderMsgpack)
     else:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
-    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={'filename': settings.TRAINING_DATA_FILE})
+    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={})
 
 
 class TTTMain():
