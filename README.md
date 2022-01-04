@@ -2,7 +2,7 @@
 
 * I am using git LFS in this repo (because of the traing data files) so you may need to install/initialize git LFS
 * I've implemented a multicore version for training with multiprocessing
-* I've implemented (finally) ingesting of the training data in Postgres. 
+* I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
     * install with:
       * bash$ python3 -m pip install dynaconf
       * bash$ python3 -m pip install msgpack,
