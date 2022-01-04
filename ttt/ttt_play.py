@@ -2,10 +2,9 @@ import random
 import sys
 import itertools
 import os
-
+import logging
 from dynaconf import settings
 import numpy
-
 import ttt_train_data
 import ttt_desk
 import ttt_player
@@ -16,8 +15,10 @@ import ttt_game_type
 import ttt_dependency_injection
 
 
-import logging
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), 
+                    filemode = 'a+',
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class TTTPlay():

@@ -2,17 +2,17 @@ import pickle
 import os
 import functools
 import logging
-
 from dynaconf import settings
 import psycopg2
 import psycopg2.extras
-
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
-logger = logging.getLogger(__name__)
-
 import ttt_dependency_injection
 import ttt_data_encoder
-import ttt_train_data
+
+
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
+                    filemode = 'a+',
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class TTTTrainDataMove:
@@ -212,7 +212,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         self.cursor.execute(
                             """
-                                SELECT * FROM "Desks" WHERE size = %s
+                                SELECT *
+                                FROM "Desks"
+                                WHERE size = %s
                             """,
                             (desk_size, )
         )
@@ -220,7 +222,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if rec is None:
             self.cursor.execute(
                                 """
-                                    INSERT INTO "Desks" (size) VALUES (%s)
+                                    INSERT INTO 
+                                        "Desks" (size)
+                                    VALUES (%s)
                                     RETURNING id
                                 """,
                                 (desk_size, )
@@ -256,7 +260,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def has_state(self, state):
         self.cursor.execute(
                             """
-                                SELECT * FROM "States"
+                                SELECT *
+                                FROM "States"
                                 WHERE desk_id=%s
                                 AND state=%s
                             """,
@@ -270,21 +275,30 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def add_train_state(self, state, possible_moves):
         self.cursor.execute(
                             """
-                                INSERT INTO "States" (desk_id, state) VALUES(%s, %s)
-                                ON CONFLICT (state) DO NOTHING
+                                INSERT INTO
+                                    "States" (desk_id, state)
+                                VALUES(%s, %s)
+                                ON CONFLICT (state)
+                                DO NOTHING
                                 RETURNING id
                             """,
                             (self.desk_id, state)
         )
-        # self.conn.commit()
+        self.conn.commit()
         res = self.cursor.fetchone()
         state_insert_id = res["id"]
         for move in possible_moves:
             self.cursor.execute(
                                 """
-                                    INSERT INTO "State_Moves" (state_id, move_idx, wins, draws, looses) VALUES(%s , %s, %s, %s, %s)
-                                    ON CONFLICT (state_id, move_idx) UPDATE
-                                    SET wins += EXCLUDED.wins, draws += EXCLUDED.draws, looses += EXCLUDED.looses
+                                    INSERT INTO
+                                        "State_Moves" (state_id, move_idx, wins, draws, looses)
+                                    VALUES(%s , %s, %s, %s, %s)
+                                    ON CONFLICT (state_id, move_idx)
+                                    DO UPDATE
+                                    SET
+                                        wins = "State_Moves".wins + EXCLUDED.wins,
+                                        draws = "State_Moves".draws + EXCLUDED.draws,
+                                        looses = "State_Moves".looses + EXCLUDED.looses
                                 """,
                                 (state_insert_id, move[0], move[1], move[2], move[3])
             )
@@ -307,7 +321,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.cursor.execute(
                             """
                                 UPDATE "Desks"
-                                SET total_games_played = total_games_played + %s
+                                SET
+                                    total_games_played = total_games_played + %s
                                 WHERE id = %s
                             """,
                             (count, self.desk_id)
@@ -326,6 +341,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_id, state)
         )
+        self.conn.commit()
         res = self.cursor.fetchall()
         if len(res) > 0:
             moves = [[r[0], r[1], r[2], r[3]] for r in res]
@@ -339,10 +355,14 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         for move in moves:
             self.cursor.execute(
                                 """
-                                    UPDATE "State_Moves" SET wins += %s, draws += %s, looses += %s
+                                    UPDATE "State_Moves"
+                                    SET
+                                        wins = wins + %s, draws = draws + %s, looses = looses + %s
                                     WHERE "State_Moves".id =
                                         (
-                                            SELECT "State_Moves".id FROM "States" JOIN "State_Moves"
+                                            SELECT "State_Moves".id
+                                            FROM "States"
+                                            JOIN "State_Moves"
                                             ON "States".id = "State_Moves".state_id
                                             WHERE "States".desk_id = %s
                                             AND "States".state = %s
@@ -363,7 +383,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             if self.has_state(state):
                 self.update_train_state_moves(state, other_moves)
             else:
-                self.add_train_state(state, other_moves, True)
+                self.add_train_state(state, other_moves)
 
     def clear(self):
         raise NotImplementedError("Life SUX be Gay LOrd Fucker :D")
