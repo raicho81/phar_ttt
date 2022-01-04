@@ -2,15 +2,17 @@ import pickle
 import os
 import functools
 import logging
-
-import redis
-from pottery import RedisDict, synchronize
-
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), filemode = 'w', format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
-logger = logging.getLogger(__name__)
-
+from dynaconf import settings
+import psycopg2
+import psycopg2.extras
 import ttt_dependency_injection
 import ttt_data_encoder
+
+
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
+                    filemode = 'a+',
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class TTTTrainDataMove:
@@ -120,9 +122,8 @@ class TTTTrainDataBase:
 
 
 class TTTTrainData(TTTTrainDataBase):
-    def __init__(self, filename):
-        super().__init__(filename)
-        self.filename = filename
+    def __init__(self):
+        super().__init__()
         self.total_games_finished = 0
         self.train_data = {}
 
@@ -201,3 +202,176 @@ class TTTTrainData(TTTTrainDataBase):
     def clear(self):
         self.total_games_finished = 0
         self.train_data = {}
+
+class TTTTrainDataPostgres(TTTTrainDataBase):
+    def __init__(self, desk_size):
+        super().__init__()
+        self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
+        self.conn.set_session(autocommit=True)
+        self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        self.cursor.execute(
+                            """
+                                SELECT *
+                                FROM "Desks"
+                                WHERE size = %s
+                            """,
+                            (desk_size, )
+        )
+        rec = self.cursor.fetchone()
+        if rec is None:
+            self.cursor.execute(
+                                """
+                                    INSERT INTO
+                                        "Desks" (size)
+                                    VALUES (%s)
+                                    RETURNING id
+                                """,
+                                (desk_size, )
+            )
+            rec = self.cursor.fetchone()
+            self.desk_db_id = rec["id"]
+        else:
+            self.desk_db_id = rec["id"]
+        self.conn.commit()
+
+    @property
+    def desk_id(self):
+        return self.desk_db_id
+
+    def total_games_finished(self):
+       self.cursor.execute(
+                            """
+                                SELECT total_games_played
+                                FROM "Desks"
+                                WHERE id=%s
+                            """,
+                            (self.desk_db_id, )
+        )
+       row = self.cursor.fetchone()
+       return row["total_games_played"]
+
+    def save(self):
+        print("TTTTrainDataPostgres:save")
+
+    def load(self):
+        print("TTTTrainDataPostgres:load")
+
+    def has_state(self, state):
+        self.cursor.execute(
+                            """
+                                SELECT *
+                                FROM "States"
+                                WHERE desk_id=%s
+                                AND state=%s
+                            """,
+                            (self.desk_db_id, state)
+        )
+        res = self.cursor.fetchone()
+        if res is None:
+            return False
+        return True
+
+    def add_train_state(self, state, possible_moves):
+        self.cursor.execute(
+                            """
+                                INSERT INTO
+                                    "States" (desk_id, state)
+                                VALUES(%s, %s)
+                                ON CONFLICT (state)
+                                DO NOTHING
+                                RETURNING id
+                            """,
+                            (self.desk_id, state)
+        )
+        self.conn.commit()
+        res = self.cursor.fetchone()
+        state_insert_id = res["id"]
+        for move in possible_moves:
+            self.cursor.execute(
+                                """
+                                    INSERT INTO
+                                        "State_Moves" (state_id, move_idx, wins, draws, looses)
+                                    VALUES(%s , %s, %s, %s, %s)
+                                    ON CONFLICT (state_id, move_idx)
+                                    DO UPDATE
+                                    SET
+                                        wins = "State_Moves".wins + EXCLUDED.wins,
+                                        draws = "State_Moves".draws + EXCLUDED.draws,
+                                        looses = "State_Moves".looses + EXCLUDED.looses
+                                """,
+                                (state_insert_id, move[0], move[1], move[2], move[3])
+            )
+        self.conn.commit()
+
+    def find_train_state_possible_move_by_idx(self, state, move_idx):
+        raise NotImplementedError("Ot go vikash tva be geyzer :D")
+
+    def inc_total_games_finished(self, count):
+        self.cursor.execute(
+                            """
+                                UPDATE "Desks"
+                                SET
+                                    total_games_played = total_games_played + %s
+                                WHERE id = %s
+                            """,
+                            (count, self.desk_id)
+        )
+        self.conn.commit()
+
+    def get_train_state(self, state):
+        self.cursor.execute(
+                            """
+                                SELECT "State_Moves".*
+                                FROM "States"
+                                JOIN "State_Moves"
+                                ON "States".id = "State_Moves".state_id
+                                WHERE "States".desk_id = %s
+                                AND "States".state = %s
+                            """,
+                            (self.desk_id, self.int_none_tuple_hash(state))
+        )
+        res = self.cursor.fetchall()
+        if len(res) > 0:
+            moves = [[r[2], r[3], r[4], r[5]] for r in res]
+            return moves
+        return None
+
+    def update_train_state(self, state, move):
+        raise NotImplementedError("Wyrwql Solomon Passi po ulicata i hvyrlql pari a sled nego Kevork Kevorkqn gi sybiral i mu gi vryshtal :D")
+
+    def update_train_state_moves(self, state, moves):
+        for move in moves:
+            self.cursor.execute(
+                                """
+                                    UPDATE "State_Moves"
+                                    SET
+                                        wins = wins + %s, draws = draws + %s, looses = looses + %s
+                                    WHERE "State_Moves".id =
+                                        (
+                                            SELECT "State_Moves".id
+                                            FROM "States"
+                                            JOIN "State_Moves"
+                                            ON "States".id = "State_Moves".state_id
+                                            WHERE "States".desk_id = %s
+                                            AND "States".state = %s
+                                            AND "State_Moves".move_idx = %s
+                                        )
+                                """,
+                                (move[1], move[2], move[3], self.desk_id, state, move[0])
+        )
+            self.conn.commit()
+
+    def get_train_data(self):
+        raise NotImplementedError("Samo bez GEYSKI nomera be EI maina MRYSNA :D")
+
+    def update(self, other):
+        self.inc_total_games_finished(other.total_games_finished)
+        for state in other.get_train_data().keys():
+            other_moves = other.get_train_state(state, True)
+            if self.has_state(state):
+                self.update_train_state_moves(state, other_moves)
+            else:
+                self.add_train_state(state, other_moves)
+
+    def clear(self):
+        raise NotImplementedError("Life SUX be Gay LOrd Fucker :D")
