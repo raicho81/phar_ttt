@@ -1,18 +1,18 @@
 {
     "default": {
         "game_type": "CVsC",
-        "train": false,
-        "inner_iterations": 50,
-        "iterations": 250,
+        "train": true,
+        "inner_iterations": 10000,
+        "iterations": 100,
         "process_pool_size": 0,
         "board_size": 3,
         "training_data_file": "train_data_3x3.dat",
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
-        "redis_host": "192.168.1.3",
-        "redis_port": 6379,
-        "redis_secret": "secret",
-        "redis_train_data_hset_key": "__ttt__redis_train_data_hset_key",
-        "redis_tot_games_key": "__ttt__total_games_played"
+        "postgres_dbname": "postgres",
+        "postgres_port": 5432,
+        "postgres_host": "192.168.1.31",
+        "postgres_pass": "secret",
+        "postgres_user": "postgres"
     }
 }

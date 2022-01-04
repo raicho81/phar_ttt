@@ -22,7 +22,7 @@ logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.g
 
 class TTTPlay():
     @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, game_type, training_data_shared, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
@@ -176,7 +176,7 @@ class TTTPlay():
                     self.update_stats(game_state, win_player)
                 return
 
-    def run(self, lock):
+    def run(self):
         logging.info("TTTPlay started")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
@@ -188,10 +188,9 @@ class TTTPlay():
         if self.game_type is ttt_game_type.TTTGameTypeHVsC:
             self.play_game()
         if self.train:
-            with lock:
-                self.training_data_shared.update(self.train_data)
-                logging.info("Total games played for training until now: {}".format(self.training_data_shared.get_total_games_finished()))
-                logging.info("self.training_data.int_none_tuple_hash.cache_info(): {}, Cache Hits %: {}".format(
-                    self.train_data.cache_info, 100 * self.train_data.cache_info.hits / (self.train_data.cache_info.hits + self.train_data.cache_info.misses)
-                ))
-                self.train_data.clear()
+            self.training_data_shared.update(self.train_data)
+            logging.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
+            logging.info("self.training_data.int_none_tuple_hash.cache_info(): {}, Cache Hits %: {}".format(
+                self.train_data.cache_info, 100 * self.train_data.cache_info.hits / (self.train_data.cache_info.hits + self.train_data.cache_info.misses)
+            ))
+            self.train_data.clear()

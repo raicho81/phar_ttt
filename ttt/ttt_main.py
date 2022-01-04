@@ -1,9 +1,7 @@
+#!/usr/bin/python3
 import os
-from multiprocessing import freeze_support, Pool, Manager
+from multiprocessing import Pool
 from multiprocessing.managers import BaseManager
-import functools
-import gc
-gc.set_threshold(100, 5, 3)
 
 from dynaconf import settings
 
@@ -20,7 +18,7 @@ class TTTManager(BaseManager):
     pass
 
 def init_process_pool_manager():
-    TTTManager.register('TTTTrainData', ttt_train_data.TTTTrainData)
+    TTTManager.register('TTTTrainDataPostgres', ttt_train_data.TTTTrainDataPostgres)
 
 def init_dep_injection():
     ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)
@@ -29,50 +27,39 @@ def init_dep_injection():
     else:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
     ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={'filename': settings.TRAINING_DATA_FILE})
-    # ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainDataRedis, default_args=(),
-    #                                                             default_kwargs={'redis_host': settings.REDIS_HOST,
-    #                                                                             'redis_port': settings.REDIS_PORT,
-    #                                                                             'redis_secret': settings.REDIS_SECRET,
-    #                                                                             'redis_hset_key': settings.REDIS_TRAIN_DATA_HSET_KEY,
-    #                                                                             'redis_tot_games_key': settings.REDIS_TOT_GAMES_KEY})
+
 
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
-        # self.training_data_shared = ttt_train_data.TTTTrainData((), {'filename': settings.TRAINING_DATA_FILE})
         self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.process_manager = manager
-        self.m = Manager()
-        self.data_lock = self.m.Lock()
         self.process_manager.start()
-        self.training_data_shared = self.process_manager.TTTTrainData(filename=settings.TRAINING_DATA_FILE)
-        self.training_data_shared.load()
+        self.training_data_shared = self.process_manager.TTTTrainDataPostgres(settings.BOARD_SIZE)
         self.iterations = iterations
 
     def run(self):
         res = []
         game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
         if game_type is ttt_game_type.TTTGameTypeCVsC and settings.TRAIN:
-            instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                           n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
             for _ in range(self.iterations):
                 for instance in instances:
-                    f = functools.partial(instance.run, self.data_lock)
-                    res.append(self.process_pool.apply_async(f))
+                    res.append(self.process_pool.apply_async(instance.run))
             self.process_pool.close()
             self.process_pool.join()
-            # instance = ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            # instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
             #                              n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
-            # instance.run(self.data_lock)
+            # for _ in range(self.iterations):
+            #     instance.run()
         else:
-            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, game_type, self.training_data_shared, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
-            instance.run(self.data_lock)
-        if settings.TRAIN:
-            self.training_data_shared.save()
+            instance.run()
+
 
 if __name__ == "__main__":
-    freeze_support()
     init_process_pool_manager()
     init_dep_injection()
     main = TTTMain(settings.ITERATIONS)
