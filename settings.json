@@ -4,7 +4,7 @@
         "train": true,
         "inner_iterations": 10000,
         "iterations": 250,
-        "process_pool_size": 1,
+        "process_pool_size": 0,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
