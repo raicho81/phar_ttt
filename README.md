@@ -1,12 +1,13 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
 
-* I am using git LFS in this repo (because of the traing data files) so you may need to install/initialize git LFS
+* I am using git LFS in this repo so you may need to install/initialize git LFS
 * I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
 * I've implemented a multicore version for training with multiprocessing and also now ingesting training data from multiple machines running the program should be OK. I had some *really* bad time trying to implement the the multicore version wih Processes isntead of threads.
 * install with:
   * bash$ python3 -m pip install numpy
   * bash$ python3 -m pip install dynaconf
-  * bash$ python3 -m pip install msgpack,
+  * bash$ python3 -m pip install msgpack
+  * bash$ python3 -m pip install psycopg2,
      or other suitable way for your distro.
   * bash$ python3 -m pip freeze > requirements.txt to freeze rquirements
 * Run it from the project directory with:
@@ -14,4 +15,4 @@
 * Check the README.settings for some program parameters explanation
 * Tested with:
     Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
-* train_data_3x3.dat (now legacy) is pre-filled with statistics from 30x10^6 random iterations (games) and train_data_4x4.dat (now legacy) is pre-filled with statistics from 30x10^6 random iterations (games) for boards with size 3 and 4. I am using batch training for the moment but it can be done incrementally just start the program one more time with more iterations and it should just amend the existing training data. If there is no training data for a given desk state it is just added on the fly with 0 possible outcomes counts (probabilities) when playing and then it starts to get filled with the correct statistics. I must note that I don't use floating point numbers but really just counts and it really doesnt matter if you compare the counts or the counts divided by the total games, which gives the probabilities. There is no difference if you evaluate the inequation 100/100000 < 200/100000  or just 100 < 200 the result is the same but there is no division and no loss of precision and in some cases probably it can make actually a difference.
+* postgres.sql.gz - Contains DB stucture and some training data
