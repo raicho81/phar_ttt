@@ -207,7 +207,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def __init__(self, desk_size):
         super().__init__()
         self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
-        self.conn.set_session(autocommit=True)
         self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         self.cursor.execute(
                             """
@@ -248,6 +247,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_db_id, )
         )
+       self.conn.commit()
        row = self.cursor.fetchone()
        return row["total_games_played"]
 
@@ -263,6 +263,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_db_id, )
         )
+        self.conn.commit()        
         res = self.cursor.fetchone()
         logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
         self.cursor.execute(
@@ -272,6 +273,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_db_id, )
         )
+        self.conn.commit()
         res = self.cursor.fetchone()
         logger.info("DB contains Data for: {} total states".format(res[0]))
         self.cursor.execute(
@@ -282,6 +284,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_db_id, )
         )
+        self.conn.commit()
         res = self.cursor.fetchone()
         logger.info("DB contains Data for: {} total states moves".format(res[0]))
 
@@ -295,6 +298,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_db_id, state)
         )
+        self.conn.commit()
         res = self.cursor.fetchone()
         if res is None:
             return False
@@ -322,7 +326,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     WHERE desk_id=%s AND state=%s
                                 """,
                                 (self.desk_id, state))
-            res = self.cursor.fetchone()
+            self.conn.commit()
+        res = self.cursor.fetchone()
         state_insert_id = res["id"]
         for move in possible_moves:
             self.cursor.execute(
@@ -368,6 +373,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_id, self.int_none_tuple_hash(state))
         )
+        self.conn.commit()
         res = self.cursor.fetchall()
         if len(res) > 0:
             moves = [[r[2], r[3], r[4], r[5]] for r in res]
@@ -396,8 +402,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                         )
                                 """,
                                 (move[1], move[2], move[3], self.desk_id, state, move[0])
-        )
-            self.conn.commit()
+            )
+        self.conn.commit()
 
     def get_train_data(self):
         raise NotImplementedError()
