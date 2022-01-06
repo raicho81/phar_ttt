@@ -301,13 +301,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         return True
 
     def add_train_state(self, state, possible_moves):
-        print(                            """
-                                INSERT INTO
-                                    "States" (desk_id, state)
-                                VALUES(%s, %s)
-                                ON CONFLICT (state)
-                                DO NOTHING
-                            """)
         self.cursor.execute(
                             """
                                 INSERT INTO

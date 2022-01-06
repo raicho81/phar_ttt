@@ -25,7 +25,7 @@ class TTTManager(BaseManager):
 
 def init_process_pool_manager():
     TTTManager.register('TTTTrainDataPostgres', ttt_train_data.TTTTrainDataPostgres)
- 
+
 def init_dep_injection():
     ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)
     if settings.ENCODE_TRAIN_DATA:
