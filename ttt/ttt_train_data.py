@@ -11,7 +11,7 @@ import ttt_data_encoder
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -233,6 +233,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         else:
             self.desk_db_id = rec["id"]
         self.conn.commit()
+        self.load()
 
     @property
     def desk_id(self):
@@ -254,7 +255,35 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         print("TTTTrainDataPostgres:save")
 
     def load(self):
-        print("TTTTrainDataPostgres:load")
+        self.cursor.execute(
+                            """
+                                SELECT total_games_played
+                                FROM "Desks"
+                                WHERE id=%s
+                            """,
+                            (self.desk_db_id, )
+        )
+        res = self.cursor.fetchone()
+        logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
+        self.cursor.execute(
+                            """
+                                SELECT count(*) FROM "States"
+                                WHERE desk_id=%s
+                            """,
+                            (self.desk_db_id, )
+        )
+        res = self.cursor.fetchone()
+        logger.info("DB contains Data for: {} total states".format(res[0]))
+        self.cursor.execute(
+                            """
+                                SELECT count(*) FROM "State_Moves"
+                                JOIN "States" on "States".id="State_Moves".state_id
+                                WHERE "States".desk_id=%s
+                            """,
+                            (self.desk_db_id, )
+        )
+        res = self.cursor.fetchone()
+        logger.info("DB contains Data for: {} total states moves".format(res[0]))
 
     def has_state(self, state):
         self.cursor.execute(
@@ -272,12 +301,19 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         return True
 
     def add_train_state(self, state, possible_moves):
+        print(                            """
+                                INSERT INTO
+                                    "States" (desk_id, state)
+                                VALUES(%s, %s)
+                                ON CONFLICT (state)
+                                DO NOTHING
+                            """)
         self.cursor.execute(
                             """
                                 INSERT INTO
                                     "States" (desk_id, state)
                                 VALUES(%s, %s)
-                                ON CONFLICT (state)
+                                ON CONFLICT (desk_id, state)
                                 DO NOTHING
                                 RETURNING id
                             """,
@@ -285,6 +321,15 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         )
         self.conn.commit()
         res = self.cursor.fetchone()
+        if res is None: # ON CONFLICT DO NOTHING ACtivated
+            self.cursor.execute(
+                                """
+                                    SELECT "States".id
+                                    FROM "States"
+                                    WHERE desk_id=%s AND state=%s
+                                """,
+                                (self.desk_id, state))
+            res = self.cursor.fetchone()
         state_insert_id = res["id"]
         for move in possible_moves:
             self.cursor.execute(
@@ -304,7 +349,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.conn.commit()
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
-        raise NotImplementedError("Ot go vikash tva be geyzer :D")
+        raise NotImplementedError()
 
     def inc_total_games_finished(self, count):
         self.cursor.execute(
@@ -337,7 +382,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         return None
 
     def update_train_state(self, state, move):
-        raise NotImplementedError("Wyrwql Solomon Passi po ulicata i hvyrlql pari a sled nego Kevork Kevorkqn gi sybiral i mu gi vryshtal :D")
+        raise NotImplementedError()
 
     def update_train_state_moves(self, state, moves):
         for move in moves:
@@ -362,7 +407,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             self.conn.commit()
 
     def get_train_data(self):
-        raise NotImplementedError("Samo bez GEYSKI nomera be EI maina MRYSNA :D")
+        raise NotImplementedError()
 
     def update(self, other):
         self.inc_total_games_finished(other.total_games_finished)

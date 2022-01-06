@@ -14,9 +14,9 @@ import ttt_data_encoder
 import ttt_dependency_injection
 
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), 
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -41,7 +41,10 @@ class TTTMain():
         self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.process_manager = manager
         self.process_manager.start()
-        logger.info("IPC manager started:self.process_manager:{}".format(self.process_manager))
+        logger.info("IPC manager started")
+        logger.info(f"Desk size: {settings.BOARD_SIZE}")
+        logger.info(f"Game type: {settings.GAME_TYPE}")
+        logger.info(f"Train: {settings.TRAIN}")
         self.training_data_shared = self.process_manager.TTTTrainDataPostgres(settings.BOARD_SIZE)
         self.iterations = iterations
 

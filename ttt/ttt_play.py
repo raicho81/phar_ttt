@@ -17,7 +17,7 @@ import ttt_dependency_injection
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), 
                     filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
+                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -67,7 +67,9 @@ class TTTPlay():
         state = self.desk.get_state()
         possible_moves = self.training_data_shared.get_train_state(state)
         if possible_moves is None:
-            self.training_data_shared.add_train_state(state, [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())])
+            self.training_data_shared.add_train_state(self.training_data_shared.int_none_tuple_hash(state),
+                                                      [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())]
+            )
             possible_moves = self.training_data_shared.get_train_state(state)
         possible_moves_sorted_by_wins_rev = sorted(possible_moves, key=lambda m: m[1], reverse=True)
         for move in possible_moves_sorted_by_wins_rev:
