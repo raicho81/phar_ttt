@@ -403,13 +403,13 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         raise NotImplementedError()
 
     def update(self, other):
+        self.inc_total_games_finished(other.total_games_finished)
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
             if self.has_state(state):
                 self.update_train_state_moves(state, other_moves)
             else:
                 self.add_train_state(state, other_moves)
-        self.inc_total_games_finished(other.total_games_finished)
 
     def clear(self):
         raise NotImplementedError("Life SUX be Gay LOrd Fucker :D")
