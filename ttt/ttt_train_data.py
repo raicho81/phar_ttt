@@ -210,7 +210,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
         self.conn.cursor_factory = psycopg2.extras.DictCursor
         self.cursor = self.conn.cursor()
-        # self.conn.set_session(readonly=True, autocommit=True)
         try:
             self.cursor.execute(
                         """
@@ -220,6 +219,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                         """,
                         (desk_size, )
             )
+            self.conn.commit()
             rec = self.cursor.fetchone()
             if rec is None:
                 self.cursor.execute(
@@ -231,8 +231,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (desk_size, )
                 )
+                self.conn.commit()
                 rec = self.cursor.fetchone()
-            self.conn.commit()
+
         except psycopg2.DatabaseError as error:
             logger.error(error)
         self.desk_db_id = rec["id"]
@@ -252,8 +253,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             """,
                             (self.desk_id, )
             )
-            row = self.cursor.fetchone()
             self.conn.commit()
+            row = self.cursor.fetchone()
         except psycopg2.DatabaseError as error:
             logger.error(error)
         return row["total_games_played"]
@@ -271,6 +272,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (self.desk_id, )
             )
+            self.conn.commit()
             res = self.cursor.fetchone()
             logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
             self.cursor.execute(
@@ -280,6 +282,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (self.desk_id, )
             )
+            self.conn.commit()
             res = self.cursor.fetchone()
             logger.info("DB contains Data for: {} total states".format(res[0]))
             self.cursor.execute(
@@ -290,9 +293,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                     (self.desk_id, )
             )
+            self.conn.commit()
             res = self.cursor.fetchone()
             logger.info("DB contains Data for: {} total states moves".format(res[0]))
-            self.conn.commit()
+
         except psycopg2.DatabaseError as error:
             logger.error(error)
 
@@ -305,10 +309,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             WHERE desk_id=%s
                             AND state=%s
                         """,
-                        (self.desk_db_id, state)
+                        (self.desk_id, state)
             )
-            res = self.cursor.fetchone()
             self.conn.commit()
+            res = self.cursor.fetchone()
         except psycopg2.DatabaseError as error:
             logger.error(error)
         if res is None:
@@ -328,6 +332,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                         """,
                         (self.desk_id, state)
             )
+            self.conn.commit()
             res = self.cursor.fetchone()
             if res is None: # ON CONFLICT DO NOTHING ACtivated
                 self.cursor.execute(
@@ -337,8 +342,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 WHERE desk_id=%s AND state=%s
                             """,
                             (self.desk_id, state))
+                self.conn.commit()
                 res = self.cursor.fetchone()
-            self.conn.commit()
         except psycopg2.DatabaseError as error:
                 logger.error(error)
         state_insert_id = res["id"]
@@ -394,8 +399,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                         """,
                         (self.desk_id, self.int_none_tuple_hash(state))
             )
-            res = self.cursor.fetchall()
             self.conn.commit()
+            res = self.cursor.fetchall()
         except psycopg2.DatabaseError as error:
             logger.error(error)
         if len(res) > 0:
@@ -427,7 +432,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (move[1], move[2], move[3], self.desk_id, state, move[0])
                     )
-                self.conn.commit()
+            self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error)
 
