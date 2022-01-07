@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import os
-from multiprocessing import Pool
+from multiprocessing import Pool, Manager
 from multiprocessing.managers import BaseManager
 
 import logging 
@@ -45,14 +45,14 @@ class TTTMain():
         logger.info(f"Desk size: {settings.BOARD_SIZE}")
         logger.info(f"Game type: {settings.GAME_TYPE}")
         logger.info(f"Train: {settings.TRAIN}")
-        self.training_data_shared = self.process_manager.TTTTrainDataPostgres(settings.BOARD_SIZE)
+        self.training_data_shared = [self.process_manager.TTTTrainDataPostgres(settings.BOARD_SIZE) for _ in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
         self.iterations = iterations
 
     def run(self):
         res = []
         game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
         if game_type is ttt_game_type.TTTGameTypeCVsC and settings.TRAIN:
-            instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[instance], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                           n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
             for _ in range(self.iterations):
                 for instance in instances:

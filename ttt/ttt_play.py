@@ -35,7 +35,6 @@ class TTTPlay():
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
         self.player_types = self.init_player_types()
         self.next_player = None
-        self.rlock = None
 
     def init_player_types(self):
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
@@ -192,5 +191,5 @@ class TTTPlay():
         if self.train:
             self.training_data_shared.update(self.train_data)
             logging.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
-        logging.info("self.training_data.cache_info(): {}, self.train_data.cache_info()")
+        logging.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
         self.train_data.clear()
