@@ -1,4 +1,3 @@
-from enum import auto
 import pickle
 import os
 import functools
@@ -8,7 +7,7 @@ import psycopg2
 import psycopg2.extras
 import ttt_dependency_injection
 import ttt_data_encoder
-import threading
+
 
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
@@ -410,7 +409,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_train_state_moves(self, state, moves):
         try:
             for move in moves:
-                    self.cursor.execute(
+                self.cursor.execute(
                                 """
                                     UPDATE "State_Moves"
                                     SET
@@ -428,7 +427,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (move[1], move[2], move[3], self.desk_id, state, move[0])
                     )
-            self.conn.commit()
+                self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error)
 
