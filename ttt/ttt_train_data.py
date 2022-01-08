@@ -300,7 +300,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         try:
             self.cursor.execute(
                                 """
-                                    SELECT *
+                                    SELECT id
                                     FROM "States"
                                     WHERE desk_id=%s
                                     AND state=%s
@@ -344,7 +344,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     INSERT INTO "State_Moves" (state_id, moves)
                                     VALUES(%s, %s)
                                     ON CONFLICT (state_id) DO NOTHING
-                                    RETURNING "State_Moves".id
+                                    RETURNING id
                                 """,
                                 (state_insert_id, psycopg2.Binary(self.enc.encode(possible_moves)))
             )
@@ -432,7 +432,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         try:
             self.cursor.execute(
                                 """
-                                    SELECT "State_Moves".*
+                                    SELECT "State_Moves".moves
                                     FROM "States"
                                     JOIN "State_Moves"
                                     ON "States".id = "State_Moves".state_id
