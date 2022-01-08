@@ -59,12 +59,12 @@ class TTTMain():
                     res.append(self.process_pool.apply_async(instance.run))
             self.process_pool.close()
             self.process_pool.join()
-            # instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            # instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[0], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
             #                              n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
             # for _ in range(self.iterations):
             #     instance.run()
         else:
-            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared, game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[0], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
             instance.run()
 
