@@ -211,31 +211,31 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
             self.conn.autocommit = True
             self.conn.cursor_factory = psycopg2.extras.DictCursor
-            self.cursor = self.conn.cursor()
-            self.cursor.execute(
-                                """
-                                    SELECT id
-                                    FROM "Desks"
-                                    WHERE size = %s
-                                """,
-                                (desk_size, )
-            )
-            rec = self.cursor.fetchone()
-            if rec is None:
-                self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                     """
-                                        INSERT INTO
-                                            "Desks" (size)
-                                        VALUES (%s)
-                                        RETURNING id
+                                        SELECT id
+                                        FROM "Desks"
+                                        WHERE size = %s
                                     """,
                                     (desk_size, )
                 )
-                rec = self.cursor.fetchone()
-            self.desk_db_id = rec["id"]
+                rec = c.fetchone()
+                if rec is None:
+                    c.execute(
+                                        """
+                                            INSERT INTO
+                                                "Desks" (size)
+                                            VALUES (%s)
+                                            RETURNING id
+                                        """,
+                                        (desk_size, )
+                    )
+                    rec = c.fetchone()
+                self.desk_db_id = rec["id"]
             # self.conn.commit()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
         self.load()
 
     @property
@@ -244,18 +244,19 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def total_games_finished(self):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     SELECT total_games_played
                                     FROM "Desks"
                                     WHERE id=%s
                                 """,
                                 (self.desk_id, )
-            )
+             )
             # self.conn.commit()
-            row = self.cursor.fetchone()
+                row = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
         return row["total_games_played"]
 
     def save(self):
@@ -263,61 +264,64 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def load(self):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     SELECT total_games_played
                                     FROM "Desks"
                                     WHERE id=%s
                                 """,
                                 (self.desk_id, )
-            )
-            res = self.cursor.fetchone()
-            logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
-            self.cursor.execute(
-                                """
-                                    SELECT count(*) FROM "States"
-                                    WHERE desk_id=%s
-                                """,
-                                (self.desk_id, )
-            )
-            res = self.cursor.fetchone()
-            logger.info("DB contains Data for: {} total states".format(res[0]))
-            self.cursor.execute(
-                                """
-                                    SELECT count(*) FROM "State_Moves"
-                                    JOIN "States" on "States".id="State_Moves".state_id
-                                    WHERE "States".desk_id=%s
-                                """,
+                )
+                res = c.fetchone()
+                logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
+                c.execute(
+                                    """
+                                        SELECT count(*) FROM "States"
+                                        WHERE desk_id=%s
+                                    """,
                                     (self.desk_id, )
-            )
-            # self.conn.commit()
-            res = self.cursor.fetchone()
-            logger.info("DB contains Data for: {} total states moves".format(res[0]))
+                )
+                res = c.fetchone()
+                logger.info("DB contains Data for: {} total states".format(res[0]))
+                c.execute(
+                                    """
+                                        SELECT count(*) FROM "State_Moves"
+                                        JOIN "States" on "States".id="State_Moves".state_id
+                                        WHERE "States".desk_id=%s
+                                    """,
+                                        (self.desk_id, )
+                )
+                # self.conn.commit()
+                res = c.fetchone()
+                logger.info("DB contains Data for: {} total states moves".format(res[0]))
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
 
     def has_state(self, state, commit=True):
         try:
-            self.cursor.execute(
-                                """
-                                    SELECT id
-                                    FROM "States"
-                                    WHERE desk_id=%s
-                                    AND state=%s
-                                """,
-                                (self.desk_id, state)
-            )
-            res = self.cursor.fetchone()
+            with self.conn.cursor() as c:
+                c.execute(
+                            """
+                                SELECT id
+                                FROM "States"
+                                WHERE desk_id=%s
+                                AND state=%s
+                            """,
+                            (self.desk_id, state)
+                )
+                res = c.fetchone()
             # commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
         if res is None:
             return False
         return True
 
     def add_train_state(self, state, possible_moves, commit=True):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     INSERT INTO
                                         "States" (desk_id, state)
@@ -327,31 +331,31 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     RETURNING id
                                 """,
                                 (self.desk_id, state)
-            )
-            res = self.cursor.fetchone()
-            if res is None:
-                self.cursor.execute(
+                )
+                res = c.fetchone()
+                if res is None:
+                    c.execute(
+                                        """
+                                            SELECT "States".id
+                                            FROM "States"
+                                            WHERE desk_id=%s AND state=%s
+                                        """,
+                                        (self.desk_id, state))
+                    res = c.fetchone()
+                state_insert_id = res["id"]
+                c.execute(
                                     """
-                                        SELECT "States".id
-                                        FROM "States"
-                                        WHERE desk_id=%s AND state=%s
+                                        INSERT INTO "State_Moves" (state_id, moves)
+                                        VALUES(%s, %s)
+                                        ON CONFLICT (state_id) DO NOTHING
+                                        RETURNING id
                                     """,
-                                    (self.desk_id, state))
-                res = self.cursor.fetchone()
-            state_insert_id = res["id"]
-            self.cursor.execute(
-                                """
-                                    INSERT INTO "State_Moves" (state_id, moves)
-                                    VALUES(%s, %s)
-                                    ON CONFLICT (state_id) DO NOTHING
-                                    RETURNING id
-                                """,
-                                (state_insert_id, psycopg2.Binary(self.enc.encode(possible_moves)))
-            )
-            res = self.cursor.fetchone()
+                                    (state_insert_id, psycopg2.Binary(self.enc.encode(possible_moves)))
+                )
+                res = c.fetchone()
             # commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
         if res is None:
             self.update_train_state_moves(state, possible_moves, commit)
 
@@ -360,7 +364,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def inc_total_games_finished(self, count):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     UPDATE "Desks"
                                     SET
@@ -368,42 +373,43 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     WHERE id = %s
                                 """,
                                 (count, self.desk_id)
-            )
+                )
             # self.conn.commit()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
 
     def update_train_state_moves(self, state, moves, commit=True):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     SELECT "States".id
                                     FROM "States"
                                     WHERE desk_id=%s AND state=%s
                                 """,
                                 (self.desk_id, state))
-            res = self.cursor.fetchone()
-            state_insert_id = res["id"]
-            self.cursor.execute(
-                                """
-                                    SELECT * FROM "State_Moves" WHERE state_id=%s
-                                """,
-                                (state_insert_id, )
-            )
-            rec_moves_encoded = self.cursor.fetchone()
-            moves_encoded = rec_moves_encoded["moves"]
-            moves_decoded = self.enc.decode(moves_encoded)
-            for i, move in enumerate(moves):
-                moves_decoded[i][1] += move[1]
-                moves_decoded[i][2] += move[2]
-                moves_decoded[i][3] += move[3]
-            self.cursor.execute(
-                                """
-                                    UPDATE "State_Moves"
-                                    SET moves=%s WHERE state_id=%s
-                                """,
-                                (psycopg2.Binary(self.enc.encode(moves_decoded)), state_insert_id)
-            )
+                res = c.fetchone()
+                state_insert_id = res["id"]
+                c.execute(
+                                    """
+                                        SELECT * FROM "State_Moves" WHERE state_id=%s
+                                    """,
+                                    (state_insert_id, )
+                )
+                rec_moves_encoded = c.fetchone()
+                moves_encoded = rec_moves_encoded["moves"]
+                moves_decoded = self.enc.decode(moves_encoded)
+                for i, move in enumerate(moves):
+                    moves_decoded[i][1] += move[1]
+                    moves_decoded[i][2] += move[2]
+                    moves_decoded[i][3] += move[3]
+                c.execute(
+                                    """
+                                        UPDATE "State_Moves"
+                                        SET moves=%s WHERE state_id=%s
+                                    """,
+                                    (psycopg2.Binary(self.enc.encode(moves_decoded)), state_insert_id)
+                )
 
             # for move in moves:
             #     self.cursor.execute(
@@ -426,11 +432,12 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             #         )
             # commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.error(error.with_traceback())
 
     def get_train_state(self, state, commit=True):
         try:
-            self.cursor.execute(
+            with self.conn.cursor() as c:
+                c.execute(
                                 """
                                     SELECT "State_Moves".moves
                                     FROM "States"
@@ -440,12 +447,12 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     AND "States".state = %s
                                 """,
                         (self.desk_id, self.int_none_tuple_hash(state))
-            )
-            res = self.cursor.fetchone()
+                )
+                res = c.fetchone()
             # commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error)
-        if len(res) > 0:
+        if res is not None:
             moves_decoded = self.enc.decode(res["moves"])
             return moves_decoded
         return None
