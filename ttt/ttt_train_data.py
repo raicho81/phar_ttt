@@ -209,7 +209,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         super().__init__()
         try:
             self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
-            self.conn.autocommit = True
+            # self.conn.autocommit = True
             self.conn.cursor_factory = psycopg2.extras.DictCursor
             with self.conn.cursor() as c:
                 c.execute(
@@ -233,7 +233,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     )
                     rec = c.fetchone()
                 self.desk_db_id = rec["id"]
-            # self.conn.commit()
+            self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
         self.load()
@@ -253,8 +253,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (self.desk_id, )
              )
-            # self.conn.commit()
                 row = c.fetchone()
+                self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
         return row["total_games_played"]
@@ -292,9 +292,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     """,
                                         (self.desk_id, )
                 )
-                # self.conn.commit()
                 res = c.fetchone()
                 logger.info("DB contains Data for: {} total states moves".format(res[0]))
+                self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
 
@@ -311,7 +311,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                             (self.desk_id, state)
                 )
                 res = c.fetchone()
-            # commit and self.conn.commit()
+                commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
         if res is None:
@@ -353,7 +353,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     (state_insert_id, psycopg2.Binary(self.enc.encode(possible_moves)))
                 )
                 res = c.fetchone()
-            # commit and self.conn.commit()
+                commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
         if res is None:
@@ -374,7 +374,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 """,
                                 (count, self.desk_id)
                 )
-            # self.conn.commit()
+                self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
 
@@ -410,7 +410,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     """,
                                     (psycopg2.Binary(self.enc.encode(moves_decoded)), state_insert_id)
                 )
-            # commit and self.conn.commit()
+                commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
 
@@ -429,7 +429,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                         (self.desk_id, self.int_none_tuple_hash(state))
                 )
                 res = c.fetchone()
-            # commit and self.conn.commit()
+                commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error)
         if res is not None:
@@ -447,10 +447,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Update DB")
         for state in other.get_train_data().keys():
            other_moves = other.get_train_state(state, True)
-           if self.has_state(state, False):
-               self.update_train_state_moves(state, other_moves, False)
+           if self.has_state(state, True):
+               self.update_train_state_moves(state, other_moves, True)
            else:
-               self.add_train_state(state, other_moves, False)
+               self.add_train_state(state, other_moves, True)
         # self.conn.commit()
         self.inc_total_games_finished(other.total_games_finished)
 
