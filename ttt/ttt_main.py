@@ -41,7 +41,7 @@ class TTTMain():
         self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.process_managers = [TTTManager() for _ in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
         [self.process_managers[i].start() for i in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
-        logger.info("IPC manager started")
+        logger.info("IPC managers started")
         logger.info(f"Desk size: {settings.BOARD_SIZE}")
         logger.info(f"Game type: {settings.GAME_TYPE}")
         logger.info(f"Train: {settings.TRAIN}")
