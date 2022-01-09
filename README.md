@@ -15,4 +15,4 @@
 * Check the README.settings for some program parameters explanation
 * Tested with:
     Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
-* postgres.sql.gz - Contains DB stucture and some training data
+* postgres.sql - Contains DB stucture no training data
