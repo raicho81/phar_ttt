@@ -441,11 +441,18 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         raise NotImplementedError()
 
     def update(self, other):
-        logger.info("Updating Intermediate data to DB ...")
+        logger.info("Updating Intermediate data to DB: 0% ...")
+        s = len(other.get_train_data())
+        vis = s // 10
+        count = 0
         for state in other.get_train_data().keys():
-           other_moves = other.get_train_state(state, True)
-           if self.has_state(state):
-               self.update_train_state_moves(state, other_moves)
-           else:
-               self.add_train_state(state, other_moves)
+            other_moves = other.get_train_state(state, True)
+            if self.has_state(state):
+                self.update_train_state_moves(state, other_moves)
+            else:
+                self.add_train_state(state, other_moves)
+            count += 1
+            if count % vis == 0:
+                logger.info("Updating Intermediate data to DB: {}% ...".format(int((count / s) * 100)))
+        logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
