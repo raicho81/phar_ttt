@@ -1,7 +1,9 @@
+from copy import Error
 import pickle
 import os
 import functools
 import logging
+from types import TracebackType
 
 from dynaconf import settings
 import psycopg2
@@ -218,28 +220,28 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             self.conn.cursor_factory = psycopg2.extras.DictCursor
             with self.conn.cursor() as c:
                 c.execute(
-                                    """
-                                        SELECT id
-                                        FROM "Desks"
-                                        WHERE size = %s
-                                    """,
-                                    (desk_size, )
+                                """
+                                    SELECT id
+                                    FROM "Desks"
+                                    WHERE size = %s
+                                """,
+                                (desk_size, )
                 )
                 rec = c.fetchone()
                 if rec is None:
                     c.execute(
-                                        """
-                                            INSERT INTO
-                                                "Desks" (size)
-                                            VALUES (%s)
-                                            RETURNING id
-                                        """,
-                                        (desk_size, )
+                                """
+                                    INSERT INTO
+                                        "Desks" (size)
+                                    VALUES (%s)
+                                    RETURNING id
+                                """,
+                                (desk_size, )
                     )
                     rec = c.fetchone()
                 self.desk_db_id = rec["id"]
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
         self.load()
 
     @property
@@ -259,7 +261,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
              )
                 row = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
         return row["total_games_played"]
 
     def save(self):
@@ -296,9 +298,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                         (self.desk_id, )
                 )
                 res = c.fetchone()
-                logger.info("DB contains Data for: {} total states moves".format(res[0]))
+                logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
 
     def has_state(self, state):
         try:
@@ -314,7 +316,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
         if res is None:
             return False
         return True
@@ -355,7 +357,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
         if res is None:
             self.update_train_state_moves(state, possible_moves)
 
@@ -375,64 +377,32 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 (count, self.desk_id)
                 )
         except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
+            logger.error(error)
 
-    def update_train_state_moves(self, state, moves):
+    def update_train_state_moves(self, state_insert_id, moves_to_upd, moves):
         try:
             with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    SELECT "States".id
-                                    FROM "States"
-                                    WHERE desk_id=%s AND state=%s
-                                """,
-                                (self.desk_id, state))
-                res = c.fetchone()
-                state_insert_id = res["id"]
-                c.execute(
-                                    """
-                                        SELECT * FROM "State_Moves" WHERE state_id=%s
-                                    """,
-                                    (state_insert_id, )
-                )
-                rec_moves_encoded = c.fetchone()
-                moves_encoded = rec_moves_encoded["moves"]
-                moves_decoded = self.enc.decode(moves_encoded)
                 for i, move in enumerate(moves):
-                    moves_decoded[i][1] += move[1]
-                    moves_decoded[i][2] += move[2]
-                    moves_decoded[i][3] += move[3]
-                c.execute(
-                                    """
-                                        UPDATE "State_Moves"
-                                        SET moves=%s WHERE state_id=%s
-                                    """,
-                                    (psycopg2.Binary(self.enc.encode(moves_decoded)), state_insert_id)
-                )
-        except psycopg2.DatabaseError as error:
-            logger.error(error.with_traceback())
-
-    def get_train_state(self, state, commit=True):
-        try:
-            with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    SELECT "State_Moves".moves
-                                    FROM "States"
-                                    JOIN "State_Moves"
-                                    ON "States".id = "State_Moves".state_id
-                                    WHERE "States".desk_id = %s
-                                    AND "States".state = %s
-                                """,
-                        (self.desk_id, self.int_none_tuple_hash(state))
-                )
-                res = c.fetchone()
+                    moves_to_upd[i][1] += move[1]
+                    moves_to_upd[i][2] += move[2]
+                    moves_to_upd[i][3] += move[3]
+                c.execute("CALL update_state_moves(%s, %s)", (state_insert_id, psycopg2.Binary(self.enc.encode(moves_to_upd))))
         except psycopg2.DatabaseError as error:
             logger.error(error)
-        if res is not None:
-            moves_decoded = self.enc.decode(res["moves"])
-            return moves_decoded
-        return None
+
+    def get_train_state(self, state):
+        try:
+            with self.conn.cursor() as c:
+                c.callproc("get_desk_state_moves", (self.desk_id, state))
+                rec = c.fetchone()
+                if rec is not None:
+                    state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
+                    return state_insert_id, moves_decoded
+                return None, None
+        except psycopg2.DatabaseError as error:
+            logger.error(error)
+        except Error as error:
+            logger.error(error)
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
@@ -449,12 +419,13 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
-            if self.has_state(state):
-                self.update_train_state_moves(state, other_moves)
+            state_insert_id, moves_decoded = self.get_train_state(state)
+            if state_insert_id is not None:
+                self.update_train_state_moves(state_insert_id, moves_decoded, other_moves)
             else:
                 self.add_train_state(state, other_moves)
             count += 1
             if count % vis == 0:
-                logger.info("Updating Intermediate data to DB: {}% ...".format(int((count / s) * 100)))
+                logger.info("Updating Intermediate data to DB is complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)

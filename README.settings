@@ -10,8 +10,7 @@
                                                     // performance depending mostly on the Postgres DB performance
         "board_size": 4,                            // desk (board) size
         "train_iterations_info_skip": 1000,         // How many iterations to skip logging when training because we don't want to waste log output
-        "encode_training_data" : true,              // If true: encode training data with msgpack to save memory because otherwise even 4x4 board takes too much RAM else don't do encoding
-                                                    // Probably this will be removed
+        "encode_training_data" : true,              // If true: encode training data with msgpack to save memory. Probably this will be removed.
         "postgres_dbname": "postgres",	            // Postgres DB name
         "postgres_port": 5432,	  	                // Posgres DB port
         "postgres_host": "192.168.1.3",	            // Postgres DB Host

@@ -1,11 +1,11 @@
 {
     "default": {
-        "game_type": "HVsC",
+        "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 5000,
+        "inner_iterations": 1000,
         "iterations": 250,
-        "process_pool_size": 0,
-        "board_size": 3,
+        "process_pool_size": 16,
+        "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_dbname": "postgres",
