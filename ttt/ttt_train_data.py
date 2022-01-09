@@ -457,6 +457,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         raise NotImplementedError()
 
     def update(self, other):
+        logger.info("Update DB")
         for state in other.get_train_data().keys():
            other_moves = other.get_train_state(state, True)
            if self.has_state(state, False):
