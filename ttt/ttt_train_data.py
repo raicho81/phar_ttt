@@ -410,26 +410,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     """,
                                     (psycopg2.Binary(self.enc.encode(moves_decoded)), state_insert_id)
                 )
-
-            # for move in moves:
-            #     self.cursor.execute(
-            #                     """
-            #                         UPDATE "State_Moves"
-            #                         SET
-            #                             wins = wins + %s, draws = draws + %s, looses = looses + %s
-            #                         WHERE "State_Moves".id =
-            #                             (
-            #                                 SELECT "State_Moves".id
-            #                                 FROM "States"
-            #                                 JOIN "State_Moves"
-            #                                 ON "States".id = "State_Moves".state_id
-            #                                 WHERE "States".desk_id = %s
-            #                                 AND "States".state = %s
-            #                                 AND "State_Moves".move_idx = %s
-            #                             )
-            #                     """,
-            #                     (move[1], move[2], move[3], self.desk_id, state, move[0])
-            #         )
             # commit and self.conn.commit()
         except psycopg2.DatabaseError as error:
             logger.error(error.with_traceback())
