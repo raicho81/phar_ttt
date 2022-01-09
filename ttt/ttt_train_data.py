@@ -444,6 +444,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB: 0% ...")
         s = len(other.get_train_data())
         vis = s // 10
+        if vis ==0 :
+            vis = 2
         count = 0
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
