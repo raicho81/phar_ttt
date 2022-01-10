@@ -393,10 +393,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def get_train_state(self, state):
         try:
             with self.conn.cursor() as c:
-                c.callproc("get_desk_state_moves", (self.desk_id, state))
+                c.callproc("get_desk_state_moves_decoded", (self.desk_id, state))
                 rec = c.fetchone()
                 if rec is not None:
-                    state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
+                    state_insert_id, moves_decoded = rec["state_insert_id"], rec["moves"]
                     return state_insert_id, moves_decoded
                 return None, None
         except psycopg2.DatabaseError as error:
