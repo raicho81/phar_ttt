@@ -419,7 +419,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
-            state_insert_id, moves_decoded = self.get_train_state(state)
+            state_insert_id, moves_decoded = self.get_train_state(state, raw=True)
             if state_insert_id is not None:
                 self.update_train_state_moves(state_insert_id, moves_decoded, other_moves)
             else:
