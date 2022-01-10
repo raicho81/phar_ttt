@@ -38,7 +38,6 @@ def init_dep_injection():
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
-        self.process_pool = Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())
         self.process_managers = [TTTManager() for _ in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
         [self.process_managers[i].start() for i in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
         logger.info("IPC manager started")
@@ -55,10 +54,11 @@ class TTTMain():
             instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[instance], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                           n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
             for _ in range(self.iterations):
-                for instance in instances:
-                    res.append(self.process_pool.apply_async(instance.run))
-            self.process_pool.close()
-            self.process_pool.join()
+                with Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count()) as pool:
+                    for instance in instances:
+                            res = [pool.apply_async(instance.run)]
+                    pool.close()
+                    pool.join()
             # instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[0], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
             #                              n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
             # for _ in range(self.iterations):

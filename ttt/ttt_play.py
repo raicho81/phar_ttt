@@ -193,3 +193,4 @@ class TTTPlay():
             logging.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
         logging.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
         self.train_data.clear()
+        return True
