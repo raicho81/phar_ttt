@@ -241,7 +241,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     rec = c.fetchone()
                 self.desk_db_id = rec["id"]
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         self.load()
 
     @property
@@ -261,7 +261,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
              )
                 row = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         return row["total_games_played"]
 
     def save(self):
@@ -300,7 +300,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 res = c.fetchone()
                 logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def has_state(self, state):
         try:
@@ -316,7 +316,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         if res is None:
             return False
         return True
@@ -357,7 +357,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         if res is None:
             self.update_train_state_moves(state, possible_moves)
 
@@ -377,7 +377,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 (count, self.desk_id)
                 )
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def update_train_state_moves(self, state_insert_id, moves_to_upd, moves):
         try:
@@ -388,7 +388,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     moves_to_upd[i][3] += move[3]
                 c.execute("CALL update_state_moves(%s, %s)", (state_insert_id, psycopg2.Binary(self.enc.encode(moves_to_upd))))
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def get_train_state(self, state, raw=False):
         try:
@@ -400,9 +400,11 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     return state_insert_id, moves_decoded
                 return None, None
         except psycopg2.DatabaseError as error:
-            logger.error(error)
-        except Error as error:
-            logger.error(error)
+            logger.exception(error)
+        if res is not None:
+            moves_decoded = self.enc.decode(res["moves"])
+            return moves_decoded
+        return None
 
     def update_train_state(self, state, move):
         raise NotImplementedError()

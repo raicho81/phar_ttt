@@ -64,7 +64,7 @@ class TTTMain():
             # for _ in range(self.iterations):
             #     instance.run()
         else:
-            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[0], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
+            instance = ttt_play.TTTPlay(settings.BOARD_SIZE, ttt_train_data.TTTTrainDataPostgres(settings.BOARD_SIZE), game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP)
             instance.run()
 
