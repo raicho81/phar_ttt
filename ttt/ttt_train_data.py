@@ -382,22 +382,22 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_train_state_moves(self, state_insert_id, moves_to_upd, moves):
         try:
             with self.conn.cursor() as c:
-                for i, move in enumerate(moves):
-                    moves_to_upd[i][1] += move[1]
-                    moves_to_upd[i][2] += move[2]
-                    moves_to_upd[i][3] += move[3]
-                c.execute("CALL update_state_moves(%s, %s)", (state_insert_id, psycopg2.Binary(self.enc.encode(moves_to_upd))))
+                # for i, move in enumerate(moves):
+                #     moves_to_upd[i][1] += move[1]
+                #     moves_to_upd[i][2] += move[2]
+                #     moves_to_upd[i][3] += move[3]
+                c.execute("CALL update_state_moves_v2(%s, %s)", (state_insert_id, psycopg2.Binary(self.enc.encode(moves_to_upd))))
         except psycopg2.DatabaseError as error:
             logger.error(error)
 
     def get_train_state(self, state, raw=False):
         try:
             with self.conn.cursor() as c:
-                c.callproc("get_desk_state_moves_decoded", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
+                c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
                 rec = c.fetchone()
                 if rec is not None:
-                    state_insert_id, moves_decoded = rec["state_insert_id"], rec["moves"]
-                    return state_insert_id, moves_decoded
+                    state_insert_id, moves_encoded = rec["state_insert_id"], rec["moves"]
+                    return state_insert_id, self.enc.decode(moves_encoded)
                 return None, None
         except psycopg2.DatabaseError as error:
             logger.error(error)

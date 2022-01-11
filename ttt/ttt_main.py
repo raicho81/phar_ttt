@@ -3,7 +3,7 @@ import os
 from multiprocessing import Pool, Manager
 from multiprocessing.managers import BaseManager
 
-import logging 
+import logging
 from dynaconf import settings
 
 
