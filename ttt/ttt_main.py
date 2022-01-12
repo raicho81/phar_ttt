@@ -3,7 +3,7 @@ import os
 from multiprocessing import Pool, Manager
 from multiprocessing.managers import BaseManager
 
-import logging 
+import logging
 from dynaconf import settings
 
 
@@ -37,14 +37,15 @@ def init_dep_injection():
 
 class TTTMain():
     @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, iterations, *, manager=ttt_dependency_injection.Dependency(BaseManager)):
-        self.process_managers = [TTTManager() for _ in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
-        [self.process_managers[i].start() for i in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
+    def __init__(self, iterations):
+        self.concurrency = settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count()
+        self.process_managers = [TTTManager() for _ in range(self.concurrency)]
+        [m.start() for m in self.process_managers]
         logger.info("IPC manager started")
         logger.info(f"Desk size: {settings.BOARD_SIZE}")
         logger.info(f"Game type: {settings.GAME_TYPE}")
         logger.info(f"Train: {settings.TRAIN}")
-        self.training_data_shared = [self.process_managers[_].TTTTrainDataPostgres(settings.BOARD_SIZE) for _ in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count())]
+        self.training_data_shared = [self.process_managers[i].TTTTrainDataPostgres(settings.BOARD_SIZE) for i in range(self.concurrency)]
         self.iterations = iterations
 
     def run(self):

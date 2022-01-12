@@ -137,7 +137,7 @@ class TTTTrainData(TTTTrainDataBase):
        return self.total_games_finished
 
     def save(self):
-        logging.info("Saving training data to: {}".format(self.filename))
+        logger.info("Saving training data to: {}".format(self.filename))
         with open(self.filename, "wb") as f:
             pickle.dump((self.total_games_finished, self.train_data), f)
 
@@ -153,7 +153,7 @@ class TTTTrainData(TTTTrainDataBase):
                     self.filename, self.total_games_finished,
                     len(self.train_data)))
         except FileNotFoundError as e:
-            logging.info(e)
+            logger.exception(e)
 
     def has_state(self, state):
         return self.int_none_tuple_hash(state) in self.train_data.keys()
@@ -302,18 +302,11 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
+    @functools.lru_cache(maxsize=10**6)
     def has_state(self, state):
         try:
             with self.conn.cursor() as c:
-                c.execute(
-                            """
-                                SELECT id
-                                FROM "States"
-                                WHERE desk_id=%s
-                                AND state=%s
-                            """,
-                            (self.desk_id, state)
-                )
+                c.callproc("get_state_id", (self.desk_id, state))
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
             logger.exception(error)
@@ -379,32 +372,26 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
-    def update_train_state_moves(self, state_insert_id, moves_to_upd, moves):
+    def update_train_state_moves(self, state, moves):
         try:
             with self.conn.cursor() as c:
-                for i, move in enumerate(moves):
-                    moves_to_upd[i][1] += move[1]
-                    moves_to_upd[i][2] += move[2]
-                    moves_to_upd[i][3] += move[3]
-                c.execute("CALL update_state_moves(%s, %s)", (state_insert_id, psycopg2.Binary(self.enc.encode(moves_to_upd))))
+                c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
         try:
             with self.conn.cursor() as c:
-                c.callproc("get_desk_state_moves_decoded", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
+                c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
                 rec = c.fetchone()
                 if rec is not None:
-                    state_insert_id, moves_decoded = rec["state_insert_id"], rec["moves"]
+                    state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
                     return state_insert_id, moves_decoded
                 return None, None
         except psycopg2.DatabaseError as error:
             logger.exception(error)
-        if res is not None:
-            moves_decoded = self.enc.decode(res["moves"])
-            return moves_decoded
-        return None
+        except Error as error:
+            logger.exception(error)
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
@@ -412,18 +399,21 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def get_train_data(self):
         raise NotImplementedError()
 
+    def cache_info(self):
+        return (self.has_state.cache_info().hits) / (self.has_state.cache_info().hits + self.has_state.cache_info().misses)
+
     def update(self, other):
         logger.info("Updating Intermediate data to DB: 0% ...")
         s = len(other.get_train_data())
         vis = s // 10
-        if vis ==0 :
+        if vis == 0 :
             vis = 2
         count = 0
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
-            state_insert_id, moves_decoded = self.get_train_state(state, raw=True)
-            if state_insert_id is not None:
-                self.update_train_state_moves(state_insert_id, moves_decoded, other_moves)
+            # state_insert_id, moves_decoded = self.get_train_state(state, raw=True)
+            if self.has_state(state):
+                self.update_train_state_moves(state, other_moves)
             else:
                 self.add_train_state(state, other_moves)
             count += 1
