@@ -7,6 +7,8 @@ CREATE OR REPLACE PROCEDURE public.update_state_moves_v2(
 	IN _new_moves bytea)
 LANGUAGE 'plpgsql'
     SET jit='true'
+    SET jit_optimize_above_cost='1'
+    SET jit_inline_above_cost='1'
 AS $BODY$
 declare
 	_new_moves_decoded jsonb;
@@ -33,9 +35,9 @@ begin
 					(SELECT jsonb_array_elements(_current_moves_decoded)) _moves_rs,
 					(SELECT jsonb_array_elements(_new_moves_decoded)) _new_moves_rs
 				WHERE
-					(_moves_rs.jsonb_array_elements::jsonb->0)::integer = (_new_moves_rs.jsonb_array_elements::jsonb->0)::integer
+					_moves_rs.jsonb_array_elements::jsonb->0 = _new_moves_rs.jsonb_array_elements::jsonb->0
 				ORDER BY
-					(_moves_rs.jsonb_array_elements::jsonb->0)::integer
+					_moves_rs.jsonb_array_elements::jsonb->0
 				) _jsonb_build_array_rs
 			)
 		)
