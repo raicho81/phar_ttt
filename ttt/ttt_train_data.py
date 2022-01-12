@@ -302,6 +302,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
+    @functools.lru_cache(maxsize=16384)
     def has_state(self, state):
         try:
             with self.conn.cursor() as c:

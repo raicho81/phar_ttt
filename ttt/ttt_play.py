@@ -108,7 +108,7 @@ class TTTPlay():
             try:
                 next_move_idx = int(text)
             except ValueError as e:
-                logging.info(e)
+                logger.exception(e)
                 continue
             if next_move_idx < 1 or next_move_idx > (self.desk.size ** 2):
                 print("Invalid move (invalid square index?): {}".format(next_move_idx))
@@ -178,19 +178,20 @@ class TTTPlay():
                 return
 
     def run(self):
-        logging.info("TTTPlay started")
+        logger.info("TTTPlay started")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
             while n_iterations < self.train_iterations:
                 self.play_game()
                 n_iterations += 1
-                self.train and n_iterations % self.n_iter_info_skip == 0 and (logging.info("Training iteration {} finished. More {} left".format(n_iterations, self.train_iterations - n_iterations)))
-            logging.info("Done {} with {} iterations.".format("training" if self.train else "playing", self.train_iterations))
+                self.train and n_iterations % self.n_iter_info_skip == 0 and (logger.info("Training iteration {} finished. More {} left".format(n_iterations, self.train_iterations - n_iterations)))
+            logger.info("Done {} with {} iterations.".format("training" if self.train else "playing", self.train_iterations))
         if self.game_type is ttt_game_type.TTTGameTypeHVsC:
             self.play_game()
         if self.train:
             self.training_data_shared.update(self.train_data)
-            logging.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
-        logging.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
+            logger.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
+        logger.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
+        logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.train_data_shared.has_state.cache_info()))
         self.train_data.clear()
         return True
