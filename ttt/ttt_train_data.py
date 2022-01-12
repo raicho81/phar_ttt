@@ -305,15 +305,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def has_state(self, state):
         try:
             with self.conn.cursor() as c:
-                c.execute(
-                            """
-                                SELECT id
-                                FROM "States"
-                                WHERE desk_id=%s
-                                AND state=%s
-                            """,
-                            (self.desk_id, state)
-                )
+                c.callproc("get_state_id", (self.desk_id, state))
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
             logger.exception(error)
@@ -410,7 +402,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB: 0% ...")
         s = len(other.get_train_data())
         vis = s // 10
-        if vis ==0 :
+        if vis == 0 :
             vis = 2
         count = 0
         for state in other.get_train_data().keys():
