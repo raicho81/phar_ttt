@@ -8,13 +8,14 @@ CREATE OR REPLACE PROCEDURE public.update_state_moves_v2(
 	IN _new_moves bytea)
 LANGUAGE 'plpgsql'
 AS $BODY$
+
 declare
 	_new_moves_decoded jsonb;
 	_current_moves_decoded jsonb;
 begin
 	SELECT msgpack_decode(_new_moves) INTO _new_moves_decoded;
-	SELECT (get_desk_state_moves_decoded(_desk_id, _state)).moves
-		INTO _current_moves_decoded;
+	SELECT ((get_desk_state_moves_decoded(_desk_id, _state)).moves)
+			INTO _current_moves_decoded;
 	UPDATE "State_Moves" SET moves =
 		msgpack_encode(
 			(SELECT jsonb_agg(jsonb_build_array) FROM
@@ -34,10 +35,7 @@ begin
 				) _jsonb_build_array_rs
 			)
 		)
-		WHERE state_id = (SELECT "States".id FROM "States"
-						  WHERE "States".desk_id = _desk_id
-						  AND "States".state = _state
-						 );
+		WHERE "State_Moves".state_id = (SELECT get_state_id(_desk_id, _state));
 	COMMIT;
 end;
 $BODY$;
