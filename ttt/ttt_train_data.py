@@ -137,7 +137,7 @@ class TTTTrainData(TTTTrainDataBase):
        return self.total_games_finished
 
     def save(self):
-        logging.info("Saving training data to: {}".format(self.filename))
+        logger.info("Saving training data to: {}".format(self.filename))
         with open(self.filename, "wb") as f:
             pickle.dump((self.total_games_finished, self.train_data), f)
 
@@ -153,7 +153,7 @@ class TTTTrainData(TTTTrainDataBase):
                     self.filename, self.total_games_finished,
                     len(self.train_data)))
         except FileNotFoundError as e:
-            logging.info(e)
+            logger.exception(e)
 
     def has_state(self, state):
         return self.int_none_tuple_hash(state) in self.train_data.keys()
@@ -241,7 +241,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     rec = c.fetchone()
                 self.desk_db_id = rec["id"]
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         self.load()
 
     @property
@@ -261,7 +261,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
              )
                 row = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         return row["total_games_played"]
 
     def save(self):
@@ -300,7 +300,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 res = c.fetchone()
                 logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def has_state(self, state):
         try:
@@ -316,7 +316,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         if res is None:
             return False
         return True
@@ -357,7 +357,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 )
                 res = c.fetchone()
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         if res is None:
             self.update_train_state_moves(state, possible_moves)
 
@@ -377,14 +377,14 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                 (count, self.desk_id)
                 )
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def update_train_state_moves(self, state, moves):
         try:
             with self.conn.cursor() as c:
                 c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
 
     def get_train_state(self, state, raw=False):
         try:
@@ -396,9 +396,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     return state_insert_id, moves_decoded
                 return None, None
         except psycopg2.DatabaseError as error:
-            logger.error(error)
+            logger.exception(error)
         except Error as error:
-            logger.error(error)
+            logger.exception(error)
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
