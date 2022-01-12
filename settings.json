@@ -3,7 +3,7 @@
         "game_type": "CVsC",
         "train": true,
         "inner_iterations": 1000,
-        "iterations": 1,
+        "iterations": 100,
         "process_pool_size": 0,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
