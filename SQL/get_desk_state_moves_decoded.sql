@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION public.get_desk_state_moves_decoded(
     LANGUAGE 'sql'
     COST 100
     STABLE PARALLEL SAFE
-    ROWS 1000
+    ROWS 1
 
 AS $BODY$
 SELECT "State_Moves".state_id, msgpack_decode("State_Moves".moves)
