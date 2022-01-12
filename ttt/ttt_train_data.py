@@ -302,7 +302,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
-    @functools.lru_cache(maxsize=16384)
+    @functools.lru_cache(maxsize=10**6)
     def has_state(self, state):
         try:
             with self.conn.cursor() as c:
@@ -398,6 +398,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def get_train_data(self):
         raise NotImplementedError()
+
+    def cache_info(self):
+        return (self.has_state.cache_info().hits) / (self.has_state.cache_info().hits + self.has_state.cache_info().misses)
 
     def update(self, other):
         logger.info("Updating Intermediate data to DB: 0% ...")
