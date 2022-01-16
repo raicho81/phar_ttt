@@ -206,7 +206,7 @@ class TTTTrainData(TTTTrainDataBase):
                 self.add_train_state(state, other_moves, True)
 
     def clear(self):
-        super().clear()
+        # super().clear()
         self.total_games_finished = 0
         self.train_data = {}
 
@@ -306,53 +306,18 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def has_state(self, state):
         try:
             with self.conn.cursor() as c:
-                c.callproc("get_state_id", (self.desk_id, state))
+                c.callproc("has_state", (self.desk_id, state))
                 res = c.fetchone()
+                return res[0]
         except psycopg2.DatabaseError as error:
             logger.exception(error)
-        if res is None:
-            return False
-        return True
 
     def add_train_state(self, state, possible_moves):
         try:
             with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    INSERT INTO
-                                        "States" (desk_id, state)
-                                    VALUES(%s, %s)
-                                    ON CONFLICT (desk_id, state)
-                                    DO NOTHING
-                                    RETURNING id
-                                """,
-                                (self.desk_id, state)
-                )
-                res = c.fetchone()
-                if res is None:
-                    c.execute(
-                                        """
-                                            SELECT "States".id
-                                            FROM "States"
-                                            WHERE desk_id=%s AND state=%s
-                                        """,
-                                        (self.desk_id, state))
-                    res = c.fetchone()
-                state_insert_id = res["id"]
-                c.execute(
-                                    """
-                                        INSERT INTO "State_Moves" (state_id, moves)
-                                        VALUES(%s, %s)
-                                        ON CONFLICT (state_id) DO NOTHING
-                                        RETURNING id
-                                    """,
-                                    (state_insert_id, psycopg2.Binary(self.enc.encode(possible_moves)))
-                )
-                res = c.fetchone()
+                c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(possible_moves))))
         except psycopg2.DatabaseError as error:
             logger.exception(error)
-        if res is None:
-            self.update_train_state_moves(state, possible_moves)
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         raise NotImplementedError()
@@ -400,7 +365,12 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         raise NotImplementedError()
 
     def cache_info(self):
-        return (self.has_state.cache_info().hits) / (self.has_state.cache_info().hits + self.has_state.cache_info().misses)
+        return "has_state.cache_info[hit_rate: {} %, hits: {}, misses: {}, currsize: {}, maxsize: {}]".format(
+            self.has_state.cache_info().hits * 100 / (self.has_state.cache_info().hits + self.has_state.cache_info().misses),
+            self.has_state.cache_info().hits,
+            self.has_state.cache_info().misses,
+            self.has_state.cache_info().currsize,
+            self.has_state.cache_info().maxsize)
 
     def update(self, other):
         logger.info("Updating Intermediate data to DB: 0% ...")
@@ -411,7 +381,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         for state in other.get_train_data().keys():
             other_moves = other.get_train_state(state, True)
-            # state_insert_id, moves_decoded = self.get_train_state(state, raw=True)
             if self.has_state(state):
                 self.update_train_state_moves(state, other_moves)
             else:

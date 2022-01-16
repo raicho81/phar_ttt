@@ -36,7 +36,6 @@ def init_dep_injection():
 
 
 class TTTMain():
-    @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, iterations):
         self.concurrency = settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count()
         self.process_managers = [TTTManager() for _ in range(self.concurrency)]
@@ -53,7 +52,7 @@ class TTTMain():
         game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
         if game_type is ttt_game_type.TTTGameTypeCVsC and settings.TRAIN:
             instances = [ttt_play.TTTPlay(settings.BOARD_SIZE, self.training_data_shared[instance], game_type, settings.TRAIN, train_iterations=settings.INNER_ITERATIONS,
-                                          n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
+                                        n_iter_info_skip=settings.TRAIN_ITERATIONS_INFO_SKIP,) for instance in range(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE!=0 else os.cpu_count())]
             for _ in range(self.iterations):
                 with Pool(settings.PROCESS_POOL_SIZE if settings.PROCESS_POOL_SIZE !=0 else os.cpu_count()) as pool:
                     for instance in instances:

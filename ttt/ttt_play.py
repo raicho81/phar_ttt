@@ -179,6 +179,8 @@ class TTTPlay():
 
     def run(self):
         logger.info("TTTPlay started")
+        logger.info("TTTPlay re-seed the RNG")
+        numpy.random.seed()
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
             while n_iterations < self.train_iterations:
@@ -194,4 +196,5 @@ class TTTPlay():
         logger.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
         logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.training_data_shared.cache_info()))
         self.train_data.clear()
+        logger.info("Training Data Cleared!")
         return True
