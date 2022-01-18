@@ -2,7 +2,7 @@
 
 * I am using git LFS in this repo so you may need to install/initialize git LFS
 * I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
-* I've implemented a multicore version for training with multiprocessing and also now ingesting training data from multiple machines running the program should be OK. I had some *really* bad time trying to implement the the multicore version wih Processes isntead of threads.
+* I've implemented a multicore version for training with multiprocessing and multi-threading and Postgres connection pooling (well a little bit rudimentary) and also now ingesting training data from multiple machines running the program should be OK. I had some *really* bad time trying to implement the the multicore version wih Processes isntead of threads.
 * install with:
   * bash$ python3 -m pip install numpy
   * bash$ python3 -m pip install dynaconf
