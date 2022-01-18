@@ -109,8 +109,8 @@ class MainProcessPoolRunner:
                     pool.join()
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
+                ttm = TTTMain(self.iterations, self.game_type, self.train, self.board_size, self.threads_count, self.dbname, self.user, self.password, self.host, self.port)
                 for _ in range(self.iterations):
-                    ttm = TTTMain(self.iterations, self.game_type, self.train, self.board_size, self.threads_count, self.dbname, self.user, self.password, self.host, self.port)
                     ttm.run()
             elif self.game_type is ttt_game_type.TTTGameTypeHVsC:
                     ttm = TTTMain(self.iterations, self.game_type, self.train, self.board_size, self.threads_count, self.dbname, self.user, self.password, self.host, self.port)

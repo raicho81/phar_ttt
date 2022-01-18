@@ -4,7 +4,7 @@
         "train": true,
         "inner_iterations": 5000,
         "iterations": 125,
-        "process_pool_size": 16,
+        "process_pool_size": 4,
         "threads_count": 4,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
