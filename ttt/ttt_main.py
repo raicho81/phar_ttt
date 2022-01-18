@@ -45,8 +45,8 @@ class ReallyThreadedPGConnectionPool(psycopg2.pool.ThreadedConnectionPool):
 
 
 class TTTMain():
-    def __init__(self, inner_iterations, game_type, train, board_size, concurrency, dbname, user, password, host, port):
-        self.n_iter_info_skip = settings.TRAIN_ITERATIONS_INFO_SKIP
+    def __init__(self, inner_iterations, n_iter_info_skip, game_type, train, board_size, concurrency, dbname, user, password, host, port):
+        self.n_iter_info_skip = 
         self.train = train
         self.concurrency = concurrency
         self.board_size = board_size
@@ -77,7 +77,7 @@ class TTTMain():
 
 
 class MainProcessPoolRunner:
-    def __init__(self, process_pool_size, iterations, inner_iterations, game_type, train, board_size, threads_count,
+    def __init__(self, process_pool_size, iterations, inner_iterations, n_iter_info_skip, game_type, train, board_size, threads_count,
                  dbname, user, password, host, port):
         self.process_pool_size = process_pool_size
         self.iterations = iterations
@@ -91,10 +91,10 @@ class MainProcessPoolRunner:
         self.host = host
         self.port = port
         self.game_type = game_type
-
+        self.n_iter_info_skip = n_iter_info_skip
 
     def pool_main_run(self):
-        m = TTTMain(self.inner_iterations, self.game_type, self.train, self.board_size, self.threads_count, self.dbname, self.user, self.password, self.host, self.port)
+        m = TTTMain(self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count, self.dbname, self.user, self.password, self.host, self.port)
         m.run()
 
     def run(self):
@@ -120,6 +120,7 @@ class MainProcessPoolRunner:
 if __name__ == "__main__":
     init_dep_injection()
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
-    mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT,
-                                 settings.POSTGRES_DBNAME, settings.POSTGRES_USER, settings.POSTGRES_PASS, settings.POSTGRES_HOST, settings.POSTGRES_PORT)
+    mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
+                                 game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,
+                                 settings.POSTGRES_USER, settings.POSTGRES_PASS, settings.POSTGRES_HOST, settings.POSTGRES_PORT)
     mppr.run()
