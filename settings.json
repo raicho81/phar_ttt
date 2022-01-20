@@ -1,9 +1,9 @@
 {
     "default": {
-        "game_type": "HVsC",
+        "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 5,
-        "iterations": 10,
+        "inner_iterations": 1000,
+        "iterations": 312,
         "process_pool_size": 8,
         "threads_count": 4,
         "board_size": 4,

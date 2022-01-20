@@ -56,10 +56,10 @@ class TTTMain():
         logger.info(f"Train: {self.train}")
         tp_conn_count = self.concurrency // connection_pooling_factor or 1
         self.posgres_conn_pool_threaded = ReallyThreadedPGConnectionPool(1, tp_conn_count , f"dbname={dbname} user={user} password={password} host={host} port={port}")
-        self.training_data_shared = [ttt_train_data.TTTTrainDataPostgres(self.board_size, self.posgres_conn_pool_threaded) for _ in range(self.concurrency)]
+        self.training_data_shared = ttt_train_data.TTTTrainDataPostgres(self.board_size, self.posgres_conn_pool_threaded)
         self.inner_iterations = inner_iterations
         self.iterations = iterations
-        self.instances = [ttt_play.TTTPlay(self.board_size, self.training_data_shared[_], game_type, self.train, self.inner_iterations,
+        self.instances = [ttt_play.TTTPlay(self.board_size, self.training_data_shared, game_type, self.train, self.inner_iterations,
                                     self.n_iter_info_skip) for _ in range(self.concurrency)]
 
 
