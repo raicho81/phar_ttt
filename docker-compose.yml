@@ -11,6 +11,9 @@ services:
       POSTGRES_PASSWORD: secret
     ports:
       - 5432:5432
+    build:
+     shm_size: '4096mb'
+    shm_size: '4096mb'
 
   adminer:
     image: adminer
