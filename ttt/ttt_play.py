@@ -15,9 +15,9 @@ import ttt_game_type
 import ttt_dependency_injection
 
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()), 
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
+                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -181,6 +181,8 @@ class TTTPlay():
         logger.info("TTTPlay started")
         logger.info("TTTPlay re-seed the RNG")
         numpy.random.seed()
+        self.train_data.clear()
+        logger.info("Training Data Cleared!")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
             while n_iterations < self.train_iterations:
@@ -195,6 +197,4 @@ class TTTPlay():
             logger.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
             logger.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
             logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.training_data_shared.cache_info()))
-        self.train_data.clear()
-        logger.info("Training Data Cleared!")
         return True

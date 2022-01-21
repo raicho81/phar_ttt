@@ -7,6 +7,7 @@ from types import TracebackType
 
 from dynaconf import settings
 import psycopg2
+import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
 
@@ -17,7 +18,7 @@ import ttt_data_encoder
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
+                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -211,38 +212,57 @@ class TTTTrainData(TTTTrainDataBase):
         self.train_data = {}
 
 class TTTTrainDataPostgres(TTTTrainDataBase):
-    def __init__(self, desk_size):
+    def __init__(self, desk_size, postgres_pool):
         super().__init__()
+        self.postgres_pool = postgres_pool
         try:
-            self.conn = psycopg2.connect(f"dbname={settings.POSTGRES_DBNAME} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASS} host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT}")
-            # self.conn.autocommit = True
-            self.conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
-            self.conn.cursor_factory = psycopg2.extras.DictCursor
-            with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    SELECT id
-                                    FROM "Desks"
-                                    WHERE size = %s
-                                """,
-                                (desk_size, )
-                )
-                rec = c.fetchone()
-                if rec is None:
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
                     c.execute(
-                                """
-                                    INSERT INTO
-                                        "Desks" (size)
-                                    VALUES (%s)
-                                    RETURNING id
-                                """,
-                                (desk_size, )
+                                    """
+                                        SELECT id
+                                        FROM "Desks"
+                                        WHERE size = %s
+                                    """,
+                                    (desk_size, )
                     )
                     rec = c.fetchone()
-                self.desk_db_id = rec["id"]
+                    if rec is None:
+                        c.execute(
+                                    """
+                                        INSERT INTO
+                                            "Desks" (size)
+                                        VALUES (%s)
+                                        ON CONFLICT(size) DO NOTHING
+                                        RETURNING id
+                                    """,
+                                    (desk_size, )
+                        )
+                        rec = c.fetchone()
+                    self.desk_db_id = rec["id"]
+                    if self.desk_db_id is None:
+                        c.execute(
+                                        """
+                                            SELECT id
+                                            FROM "Desks"
+                                            WHERE size = %s
+                                        """,
+                                        (desk_size, )
+                        )
+                        rec = c.fetchone()
+                        self.desk_db_id = rec["id"]
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
         self.load()
+
+    def get_conn_from_pg_pool(self):
+        conn = self.postgres_pool.getconn()
+        conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
+        conn.cursor_factory = psycopg2.extras.DictCursor
+        return conn
 
     @property
     def desk_id(self):
@@ -250,16 +270,20 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def total_games_finished(self):
         try:
-            with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    SELECT total_games_played
-                                    FROM "Desks"
-                                    WHERE id=%s
-                                """,
-                                (self.desk_id, )
-             )
-                row = c.fetchone()
+            try:
+                conn = self.get_conn_from_pg_pool()
+                with conn.cursor() as c:
+                    c.execute(
+                                    """
+                                        SELECT total_games_played
+                                        FROM "Desks"
+                                        WHERE id=%s
+                                    """,
+                                    (self.desk_id, )
+                )
+                    row = c.fetchone()
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
         return row["total_games_played"]
@@ -269,53 +293,55 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def load(self):
         try:
-            with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    SELECT total_games_played
-                                    FROM "Desks"
-                                    WHERE id=%s
-                                """,
-                                (self.desk_id, )
-                )
-                res = c.fetchone()
-                logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
-                c.execute(
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.execute(
                                     """
-                                        SELECT count(*) FROM "States"
-                                        WHERE desk_id=%s
+                                        SELECT total_games_played
+                                        FROM "Desks"
+                                        WHERE id=%s
                                     """,
                                     (self.desk_id, )
-                )
-                res = c.fetchone()
-                logger.info("DB contains Data for: {} total states".format(res[0]))
-                c.execute(
-                                    """
-                                        SELECT count(*) FROM "State_Moves"
-                                        JOIN "States" on "States".id="State_Moves".state_id
-                                        WHERE "States".desk_id=%s
-                                    """,
+                    )
+                    res = c.fetchone()
+                    logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
+                    c.execute(
+                                        """
+                                            SELECT count(*) FROM "States"
+                                            WHERE desk_id=%s
+                                        """,
                                         (self.desk_id, )
-                )
-                res = c.fetchone()
-                logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
+                    )
+                    res = c.fetchone()
+                    logger.info("DB contains Data for: {} total states".format(res[0]))
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
-    @functools.lru_cache(maxsize=10**6)
+    @functools.lru_cache(maxsize=10*10**6)
     def has_state(self, state):
         try:
-            with self.conn.cursor() as c:
-                c.callproc("has_state", (self.desk_id, state))
-                res = c.fetchone()
-                return res[0]
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.callproc("has_state", (self.desk_id, state))
+                    res = c.fetchone()
+                    return res[0]
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
     def add_train_state(self, state, possible_moves):
         try:
-            with self.conn.cursor() as c:
-                c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(possible_moves))))
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(possible_moves))))
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
@@ -324,35 +350,48 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def inc_total_games_finished(self, count):
         try:
-            with self.conn.cursor() as c:
-                c.execute(
-                                """
-                                    UPDATE "Desks"
-                                    SET
-                                        total_games_played = total_games_played + %s
-                                    WHERE id = %s
-                                """,
-                                (count, self.desk_id)
-                )
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.execute(
+                                    """
+                                        UPDATE "Desks"
+                                        SET
+                                            total_games_played = total_games_played + %s
+                                        WHERE id = %s
+                                    """,
+                                    (count, self.desk_id)
+                    )
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
+
     def update_train_state_moves(self, state, moves):
         try:
-            with self.conn.cursor() as c:
-                c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
         try:
-            with self.conn.cursor() as c:
-                c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
-                rec = c.fetchone()
-                if rec is not None:
-                    state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
-                    return state_insert_id, moves_decoded
-                return None, None
+            conn = self.get_conn_from_pg_pool()
+            try:
+                with conn.cursor() as c:
+                    c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
+                    rec = c.fetchone()
+                    if rec is not None:
+                        state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
+                        return state_insert_id, moves_decoded
+                    return None, None
+            finally:
+                self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
             logger.exception(error)
         except Error as error:

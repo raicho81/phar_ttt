@@ -6,7 +6,8 @@
                                                     // I've used 10^10 training iterations to collect training data for board of size 3 [ train_data-3x3.dat ], 10 for testing playing of CVsC play,
                                                     // which always ends up with a draw. The stastistics converges to the middle square, which is a well known strategy for playing TTT
         "iterations": 100,                          // how many processes to spawn (inner_iteration * iterations * process_pool_size = total games played for training)
-        "process_pool_size": 32,                    // process pool size. If zero defaults to os.cpu_count(). Probably you have to expirement with this to reach optimal
+        "threads_count": 8                          // How many threads to spawn per process
+        "process_pool_size": 8,                     // process pool size. If zero defaults to os.cpu_count(). Probably you have to expirement with this to reach optimal
                                                     // performance depending mostly on the Postgres DB performance
         "board_size": 4,                            // desk (board) size
         "train_iterations_info_skip": 1000,         // How many iterations to skip logging when training because we don't want to waste log output
