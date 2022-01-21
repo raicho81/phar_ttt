@@ -234,12 +234,24 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                         INSERT INTO
                                             "Desks" (size)
                                         VALUES (%s)
+                                        ON CONFLICT(size) DO NOTHING
                                         RETURNING id
                                     """,
                                     (desk_size, )
                         )
                         rec = c.fetchone()
-                    self.desk_db_id = rec["id"]
+                        self.desk_db_id = rec["id"]
+                    if self.desk_db_id is None:
+                        c.execute(
+                                        """
+                                            SELECT id
+                                            FROM "Desks"
+                                            WHERE size = %s
+                                        """,
+                                        (desk_size, )
+                        )
+                        rec = c.fetchone()
+                        self.desk_db_id = rec["id"]
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
