@@ -5,15 +5,15 @@ from multiprocessing import Pool
 
 import logging
 from dynaconf import settings
-import psycopg2.pool
 
 import ttt_play
 import ttt_game_type
 import ttt_train_data
+import ttt_train_data_redis
+import ttt_train_data_postgres
 import ttt_data_encoder
 import ttt_dependency_injection
 
-from threading import Semaphore
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
@@ -28,20 +28,6 @@ def init_dep_injection():
     else:
         ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
     ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={})
-
-
-class ReallyThreadedPGConnectionPool(psycopg2.pool.ThreadedConnectionPool):
-    def __init__(self, minconn, maxconn, *args, **kwargs):
-        self._semaphore = Semaphore(maxconn)
-        super().__init__(minconn, maxconn, *args, **kwargs)
-
-    def getconn(self, *args, **kwargs):
-        self._semaphore.acquire()
-        return super().getconn(*args, **kwargs)
-
-    def putconn(self, *args, **kwargs):
-        super().putconn(*args, **kwargs)
-        self._semaphore.release()
 
 
 class TTTMain():
@@ -95,14 +81,14 @@ class MainProcessPoolRunner:
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
 
     def pool_update_redis_to_db_run(self):
-        training_data_shared_redis = ttt_train_data.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                            settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
-        postgres_conn_pool_threaded = ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-        training_data_shared_postgres = ttt_train_data.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
+        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
         training_data_shared_postgres.update(training_data_shared_redis)
 
     def pool_main_run_train_cvsc(self):
-        training_data_shared_redis = ttt_train_data.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                            settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         m = TTTMain(training_data_shared_redis, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
         m.run()
@@ -117,8 +103,8 @@ class MainProcessPoolRunner:
                     pool.close()
                     pool.join()
         else:
-            postgres_conn_pool_threaded = ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-            training_data_shared_postgres = ttt_train_data.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+            postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
+            training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)
                 ttm.run()
