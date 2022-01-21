@@ -3,19 +3,18 @@ import pickle
 import os
 import functools
 import logging
-from types import TracebackType
 
-from dynaconf import settings
 import psycopg2
-import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
+import redis
+from pottery import RedisDict
 
 import ttt_dependency_injection
 import ttt_data_encoder
 
 
-
+logging.getLogger("pottery").setLevel(logging.WARNING)
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
@@ -418,7 +417,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if vis == 0 :
             vis = 2
         count = 0
-        for state in other.get_train_data().keys():
+        for state in other.get_train_data():
             other_moves = other.get_train_state(state, True)
             if self.has_state(state):
                 self.update_train_state_moves(state, other_moves)
@@ -432,38 +431,21 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
 
 class TTTTrainDataRedis(TTTTrainDataBase):
-    def __init__(self, desk_size, postgres_pool):
+    def __init__(self, desk_size, host, port, password, redis_desks_hset_key, redis_states_hset_key_prefix):
         super().__init__()
-        self.postgres_pool = postgres_pool
+        self.redis_desks_hset_key = redis_desks_hset_key
+        self.redis_states_hset_key_prefix = redis_states_hset_key_prefix
+        self.desk_size = desk_size
+        self.redis_states_hset_key = "{}:size:{}".format(redis_states_hset_key_prefix, self.desk_size)
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT id
-                                        FROM "Desks"
-                                        WHERE size = %s
-                                    """,
-                                    (desk_size, )
-                    )
-                    rec = c.fetchone()
-                    if rec is None:
-                        c.execute(
-                                    """
-                                        INSERT INTO
-                                            "Desks" (size)
-                                        VALUES (%s)
-                                        RETURNING id
-                                    """,
-                                    (desk_size, )
-                        )
-                        rec = c.fetchone()
-                    self.desk_db_id = rec["id"]
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            self.__r = redis.Redis(host=host,
+                                    port=port,
+                                    password=password,
+                                    decode_responses=True)
+            self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
+            self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
+        except redis.RedisError as re:
+            logger.exception(re)
         self.load()
 
     @property
@@ -472,148 +454,87 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def total_games_finished(self):
         try:
-            try:
-                conn = self.get_conn_from_pg_pool()
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT total_games_played
-                                        FROM "Desks"
-                                        WHERE id=%s
-                                    """,
-                                    (self.desk_id, )
-                )
-                    row = c.fetchone()
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
-        return row["total_games_played"]
+            return self.redis_desks_dict[self.desk_size]
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def save(self):
-        print("TTTTrainDataPostgres:save")
+        raise NotImplementedError()
 
     def load(self):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT total_games_played
-                                        FROM "Desks"
-                                        WHERE id=%s
-                                    """,
-                                    (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
-                    c.execute(
-                                        """
-                                            SELECT count(*) FROM "States"
-                                            WHERE desk_id=%s
-                                        """,
-                                        (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total states".format(res[0]))
-                    c.execute(
-                                        """
-                                            SELECT count(*) FROM "State_Moves"
-                                            JOIN "States" on "States".id="State_Moves".state_id
-                                            WHERE "States".desk_id=%s
-                                        """,
-                                            (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            games_finished = self.redis_desks_dict.get(self.desk_size, 0)
+            if games_finished == 0:
+                self.inc_total_games_finished(0)
+            logger.info("Redis DB contains Data for: {} total games played for training".format(self.redis_desks_dict[self.desk_size]))
+            logger.info("Redis DB contains Data for: {} total states".format(len(self.redis_states_dict)))
+        except redis.RedisError as re:
+            logger.exception(re)
 
-    @functools.lru_cache(maxsize=10*10**6)
+    # @functools.lru_cache(maxsize=10*10**6)
     def has_state(self, state):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.callproc("has_state", (self.desk_id, state))
-                    res = c.fetchone()
-                    return res[0]
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            return state in self.redis_states_dict
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def add_train_state(self, state, possible_moves):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(possible_moves))))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            def transaction(pipeline):
+                if state not in self.redis_desks_dict:
+                    self.redis_states_dict[state] = possible_moves
+                    return True
+                else:
+                    return False
+            add = self.__r.transaction(transaction, value_from_callable=True)
+            if not add:
+                self.update_train_state_moves(state, possible_moves)
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         raise NotImplementedError()
 
     def inc_total_games_finished(self, count):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        UPDATE "Desks"
-                                        SET
-                                            total_games_played = total_games_played + %s
-                                        WHERE id = %s
-                                    """,
-                                    (count, self.desk_id)
-                    )
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            def transaction(pipeline):
+                current_total = self.redis_desks_dict.get(self.desk_size, None)
+                if current_total is not None:
+                    current_total += count
+                else:
+                    current_total = count
+                self.redis_desks_dict[self.desk_size] = current_total
+            self.__r.transaction(transaction)
+        except redis.RedisError as re:
+            logger.exception(re)
 
 
-    def update_train_state_moves(self, state, moves):
+    def update_train_state_moves(self, state, other_moves):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
+            def transaction(pipeline):
+                moves_to_update_decoded = self.redis_states_dict[state]
+                for i, this_move in enumerate(moves_to_update_decoded):
+                    this_move[1] += other_moves[i][1]
+                    this_move[2] += other_moves[i][2]
+                    this_move[3] += other_moves[i][3]
+                self.redis_states_dict[state] = moves_to_update_decoded
+            self.__r.transaction(transaction)
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def get_train_state(self, state, raw=False):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
-                    rec = c.fetchone()
-                    if rec is not None:
-                        state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
-                        return state_insert_id, moves_decoded
-                    return None, None
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.DatabaseError as error:
-            logger.exception(error)
-        except Error as error:
-            logger.exception(error)
+            def transaction(pipeline):
+                return self.redis_states_dict[state if raw == True else self.int_none_tuple_hash(state)]
+            return self.__r.transaction(transaction, value_from_callable=True)
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
 
     def get_train_data(self):
-        raise NotImplementedError()
+        return self.redis_states_dict
 
     def cache_info(self):
         return "has_state.cache_info[hit_rate: {} %, hits: {}, misses: {}, currsize: {}, maxsize: {}]".format(
@@ -623,14 +544,18 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             self.has_state.cache_info().currsize,
             self.has_state.cache_info().maxsize)
 
+    def clear(self):
+        self.redis_desks_dict.clear()
+        self.redis_states_dict.clear()
+
     def update(self, other):
-        logger.info("Updating Intermediate data to DB: 0% ...")
+        logger.info("Updating Intermediate data to Redis DB: 0% ...")
         s = len(other.get_train_data())
         vis = s // 10
         if vis == 0 :
             vis = 2
         count = 0
-        for state in other.get_train_data().keys():
+        for state in other.get_train_data():
             other_moves = other.get_train_state(state, True)
             if self.has_state(state):
                 self.update_train_state_moves(state, other_moves)
@@ -638,6 +563,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 self.add_train_state(state, other_moves)
             count += 1
             if count % vis == 0:
-                logger.info("Updating Intermediate data to DB is complete@{}%".format(int((count / s) * 100)))
-        logger.info("Updating Intermediate data to DB Done.")
+                logger.info("Updating Intermediate data to Redis DB is complete@{}%".format(int((count / s) * 100)))
+        logger.info("Updating Intermediate data to Redis DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
