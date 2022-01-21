@@ -249,3 +249,21 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to DB is complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
+
+    def update_from_redis(self, d):
+        logger.info("Updating Intermediate Redis data to DB: 0% ...")
+        s = len(d)
+        vis = s // 10
+        if vis == 0 :
+            vis = 2
+        count = 0
+        for state in d:
+            other_moves = d[state]
+            if self.has_state(state):
+                self.update_train_state_moves(state, other_moves)
+            else:
+                self.add_train_state(state, other_moves)
+            count += 1
+            if count % vis == 0:
+                logger.info("Updating Intermediate Redis data to DB is complete@{}%".format(int((count / s) * 100)))
+        logger.info("Updating Intermediate Redis data to DB Done.")

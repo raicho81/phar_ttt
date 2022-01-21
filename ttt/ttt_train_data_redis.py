@@ -31,6 +31,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
         self.load()
 
+    def hscan_states(self, count=100):
+        cursor = 0
+        while True:
+            cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
+            yield entries.items()
+            if cursor == 0:
+                break
+
     def total_games_finished(self):
         try:
             return self.redis_desks_dict[self.desk_size]
@@ -136,3 +144,4 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to Redis DB is complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to Redis DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
+
