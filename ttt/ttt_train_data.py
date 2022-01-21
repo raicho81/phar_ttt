@@ -240,7 +240,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                     (desk_size, )
                         )
                         rec = c.fetchone()
-                        self.desk_db_id = rec["id"]
+                    self.desk_db_id = rec["id"]
                     if self.desk_db_id is None:
                         c.execute(
                                         """
