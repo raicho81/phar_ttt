@@ -1,16 +1,18 @@
 {
     "default": {
-        "game_type": "HVsC",
+        "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 5,
-        "iterations": 125,
-        "process_pool_size": 80,
-        "board_size": 3,
+        "inner_iterations": 1000,
+        "iterations": 312,
+        "process_pool_size": 8,
+        "threads_count": 4,
+        "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
+        "postgres_connection_pooling_factor": 1,
         "postgres_dbname": "postgres",
         "postgres_port": 5432,
-        "postgres_host": "192.168.1.18",
+        "postgres_host": "192.168.1.31",
         "postgres_pass": "secret",
         "postgres_user": "postgres"
     }
