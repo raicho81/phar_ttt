@@ -303,16 +303,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     )
                     res = c.fetchone()
                     logger.info("DB contains Data for: {} total states".format(res[0]))
-                    c.execute(
-                                        """
-                                            SELECT count(*) FROM "State_Moves"
-                                            JOIN "States" on "States".id="State_Moves".state_id
-                                            WHERE "States".desk_id=%s
-                                        """,
-                                            (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total states moves packed arrays of moves".format(res[0]))
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
