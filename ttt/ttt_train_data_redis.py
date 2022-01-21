@@ -37,7 +37,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
             yield entries.items()
             if cursor == 0:
-                yield[]
+                raise StopIteration()
 
     def total_games_finished(self):
         try:
