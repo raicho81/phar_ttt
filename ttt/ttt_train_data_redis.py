@@ -31,10 +31,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
         self.load()
 
-    @property
-    def desk_id(self):
-        return self.desk_db_id
-
     def total_games_finished(self):
         try:
             return self.redis_desks_dict[self.desk_size]
@@ -117,14 +113,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def get_train_data(self):
         return self.redis_states_dict
-
-    def cache_info(self):
-        return "has_state.cache_info[hit_rate: {} %, hits: {}, misses: {}, currsize: {}, maxsize: {}]".format(
-            self.has_state.cache_info().hits * 100 / (self.has_state.cache_info().hits + self.has_state.cache_info().misses),
-            self.has_state.cache_info().hits,
-            self.has_state.cache_info().misses,
-            self.has_state.cache_info().currsize,
-            self.has_state.cache_info().maxsize)
 
     def clear(self):
         self.redis_desks_dict.clear()
