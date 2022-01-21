@@ -104,11 +104,11 @@ class MainProcessPoolRunner:
 
     def run(self):
         if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
-                with Pool(self.process_pool_size) as pool:
-                    for _ in range(self.process_pool_size):
-                        pool.apply_async(self.pool_main_run)
-                    pool.close()
-                    pool.join()
+            with Pool(self.process_pool_size) as pool:
+                for _ in range(self.process_pool_size):
+                    pool.apply_async(self.pool_main_run)
+                pool.close()
+                pool.join()
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count,
