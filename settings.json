@@ -6,7 +6,7 @@
         "iterations": 60,
         "process_pool_size": 8,
         "threads_count": 8,
-        "board_size": 3,
+        "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_connection_pooling_factor": 2,
