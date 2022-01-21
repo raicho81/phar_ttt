@@ -2,9 +2,9 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 1000,
-        "iterations": 312,
-        "process_pool_size": 8,
+        "inner_iterations": 5000,
+        "iterations": 60,
+        "process_pool_size": 4,
         "threads_count": 4,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
@@ -17,6 +17,8 @@
         "postgres_user": "postgres",
         "redis_host": "192.168.1.31",
         "redis_port": 6379,
-        "redis_pass": "secret"
+        "redis_pass": "secret",
+        "redis_desks_hset_key": "ttt_desks_hset",
+        "redis_states_hset_key_prefix": "ttt_states_hset"
     }
 }

@@ -194,7 +194,8 @@ class TTTPlay():
             self.play_game()
         if self.train:
             self.training_data_shared.update(self.train_data)
+            self.training_data_shared.load()
             logger.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
             logger.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
-            logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.training_data_shared.cache_info()))
+            # logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.training_data_shared.cache_info()))
         return True

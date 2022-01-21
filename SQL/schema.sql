@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
--- Dumped by pg_dump version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
+-- Dumped from database version 14.1 (Debian 14.1-1.pgdg110+1)
+-- Dumped by pg_dump version 14.1 (Debian 14.1-1.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -37,33 +37,19 @@ COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
 CREATE PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea)
     LANGUAGE plpgsql
     AS $$
-
 DECLARE 
 	state_insert_id integer;
 	state_moves_insert_id integer;
-
 BEGIN
-	INSERT INTO "States" (desk_id, state)
-		VALUES(_desk_id, _state)
-		ON CONFLICT (desk_id, state) DO NOTHING
-		RETURNING id INTO state_insert_id;
-	
+	INSERT INTO "States" (desk_id, state, moves)
+	VALUES(_desk_id, _state, _moves_encoded)
+	ON CONFLICT (desk_id, state) DO NOTHING
+	RETURNING id INTO state_insert_id;
+
 	IF state_insert_id IS NULL THEN
-		SELECT get_state_id(_desk_id, _state) INTO state_insert_id;
-	END IF;
-	
-	INSERT INTO "State_Moves" (state_id, moves)
-		VALUES(state_insert_id, _moves_encoded)
-		ON CONFLICT (state_id) DO NOTHING
-		RETURNING id INTO state_moves_insert_id;
-	
-	COMMIT;
-	
-	IF state_moves_insert_id IS NULL THEN
 		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
 	END IF;
 END;
-
 $$;
 
 
@@ -75,12 +61,10 @@ ALTER PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, IN
 
 CREATE FUNCTION public.get_desk_state_moves(_desk_id integer, _state bigint) RETURNS TABLE(state_insert_id integer, moves bytea)
     LANGUAGE sql STABLE ROWS 1 PARALLEL SAFE
-    AS $$SELECT "State_Moves".state_id, "State_Moves".moves
-FROM "State_Moves"
-WHERE state_id = (SELECT "States".id
-				  FROM "States"
-				  WHERE desk_id=_desk_id
-				  AND state=_state)
+    AS $$
+SELECT "States".id, "States".moves FROM "States"
+WHERE desk_id=_desk_id
+AND state=_state
 $$;
 
 
@@ -93,12 +77,10 @@ ALTER FUNCTION public.get_desk_state_moves(_desk_id integer, _state bigint) OWNE
 CREATE FUNCTION public.get_desk_state_moves_decoded(_desk_id integer, _state bigint) RETURNS TABLE(state_insert_id integer, moves jsonb)
     LANGUAGE sql STABLE ROWS 1 PARALLEL SAFE
     AS $$
-SELECT "State_Moves".state_id, msgpack_decode("State_Moves".moves)
-FROM "State_Moves"
-WHERE state_id = (SELECT "States".id
-				  FROM "States"
-				  WHERE desk_id=_desk_id
-				  AND state=_state)
+SELECT "States".id, msgpack_decode("States".moves)
+FROM "States"
+WHERE desk_id=_desk_id
+AND state=_state;
 $$;
 
 
@@ -115,7 +97,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public."States" (
     id integer NOT NULL,
     desk_id integer NOT NULL,
-    state bigint NOT NULL
+    state bigint NOT NULL,
+    moves bytea NOT NULL
 );
 
 
@@ -689,20 +672,6 @@ $$;
 ALTER FUNCTION public.msgpack_encode(_data jsonb) OWNER TO postgres;
 
 --
--- Name: update_state_moves(bytea, integer); Type: PROCEDURE; Schema: public; Owner: postgres
---
-
-CREATE PROCEDURE public.update_state_moves(IN _moves bytea, IN _state_id integer)
-    LANGUAGE sql
-    AS $$UPDATE "State_Moves"
-    SET moves = _moves
-        WHERE "State_Moves".state_id = _state_id
-$$;
-
-
-ALTER PROCEDURE public.update_state_moves(IN _moves bytea, IN _state_id integer) OWNER TO postgres;
-
---
 -- Name: update_state_moves_v2(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
 --
 
@@ -717,7 +686,7 @@ begin
 	SELECT msgpack_decode(_new_moves) INTO _new_moves_decoded;
 	SELECT ((get_desk_state_moves_decoded(_desk_id, _state)).moves)
 			INTO _current_moves_decoded;
-	UPDATE "State_Moves" SET moves = 
+	UPDATE "States" SET moves = 
 		msgpack_encode(
 			(SELECT jsonb_agg(jsonb_build_array) FROM 
 				(SELECT jsonb_build_array(
@@ -736,7 +705,7 @@ begin
 				) _jsonb_build_array_rs
 			)
 		)
-		WHERE "State_Moves".state_id = (SELECT get_state_id(_desk_id, _state));
+		WHERE "States".desk_id = _desk_id and "States".state = _state;
 	COMMIT;
 end; 
 $$;
@@ -780,41 +749,6 @@ ALTER SEQUENCE public."Desks_id_seq" OWNED BY public."Desks".id;
 
 
 --
--- Name: State_Moves; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."State_Moves" (
-    id integer NOT NULL,
-    state_id integer NOT NULL,
-    moves bytea NOT NULL
-);
-
-
-ALTER TABLE public."State_Moves" OWNER TO postgres;
-
---
--- Name: State_Moves_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public."State_Moves_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public."State_Moves_id_seq" OWNER TO postgres;
-
---
--- Name: State_Moves_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public."State_Moves_id_seq" OWNED BY public."State_Moves".id;
-
-
---
 -- Name: States_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -844,13 +778,6 @@ ALTER TABLE ONLY public."Desks" ALTER COLUMN id SET DEFAULT nextval('public."Des
 
 
 --
--- Name: State_Moves id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."State_Moves" ALTER COLUMN id SET DEFAULT nextval('public."State_Moves_id_seq"'::regclass);
-
-
---
 -- Name: States id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -866,19 +793,26 @@ ALTER TABLE ONLY public."Desks"
 
 
 --
--- Name: State_Moves State_Moves_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."State_Moves"
-    ADD CONSTRAINT "State_Moves_pkey" PRIMARY KEY (id);
-
-
---
 -- Name: States States_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."States"
     ADD CONSTRAINT "States_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Desks size_unique_constraint; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Desks"
+    ADD CONSTRAINT size_unique_constraint UNIQUE (size);
+
+
+--
+-- Name: States_desk_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "States_desk_id_idx" ON public."States" USING btree (desk_id);
 
 
 --
@@ -889,18 +823,10 @@ CREATE UNIQUE INDEX "States_desk_id_state_unique_idx" ON public."States" USING b
 
 
 --
--- Name: state_moves_state_id_unique_idx; Type: INDEX; Schema: public; Owner: postgres
+-- Name: States_state_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX state_moves_state_id_unique_idx ON public."State_Moves" USING btree (state_id);
-
-
---
--- Name: State_Moves State_Moves_state_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."State_Moves"
-    ADD CONSTRAINT "State_Moves_state_id_fkey" FOREIGN KEY (state_id) REFERENCES public."States"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+CREATE INDEX "States_state_idx" ON public."States" USING btree (state);
 
 
 --
