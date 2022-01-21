@@ -112,6 +112,7 @@ class MainProcessPoolRunner:
                             pool.apply_async(self.pool_update_redis_to_db_run, args=(d,))
                         pool.close()
                         pool.join()
+                # update #of games played in Redis to DB and
                 # training_data_shared_redis.clear()
         else:
             postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
