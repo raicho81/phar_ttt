@@ -46,7 +46,6 @@ class TTTMain():
         self.instances = [ttt_play.TTTPlay(self.board_size, self.training_data_shared, game_type, self.train, self.inner_iterations,
                                     self.n_iter_info_skip) for _ in range(self.concurrency)]
 
-
     def run(self):
         logger.debug(f"TTTMain::run(), game_type: {ttt_game_type.TTTGameTypeCVsC.get_string()}, train: {self.train}")
         game_type = self.game_type
@@ -85,10 +84,9 @@ class MainProcessPoolRunner:
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
-        for t in threads:
-            t.start()
-        for t in threads:
-            t.join()
+        [t.start() for t in threads]
+        [t.join() for t in threads]
+
 
     def pool_main_run_train_cvsc(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
