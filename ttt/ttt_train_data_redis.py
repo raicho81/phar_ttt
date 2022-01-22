@@ -31,13 +31,13 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
         self.load()
 
-    def hscan_states(self, count=100):
-        cursor = 0
-        while True:
-            cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
-            yield entries.items()
-            if cursor == 0:
-                raise StopIteration()
+    def hscan_states(self, count):
+            cursor = 0
+            while True:
+                cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
+                yield entries
+                if cursor == 0:
+                    break
 
     def total_games_finished(self):
         try:

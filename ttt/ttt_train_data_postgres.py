@@ -140,7 +140,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.DatabaseError as error:
             logger.exception(error)
 
-    @functools.lru_cache(maxsize=10*10**6)
     def has_state(self, state):
         try:
             conn = self.get_conn_from_pg_pool()
@@ -193,7 +192,14 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             conn = self.get_conn_from_pg_pool()
             try:
                 with conn.cursor() as c:
-                    c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
+                    c.callproc("get_desk_state_moves", (self.desk_id, state))
+                    res = c.fetchone()
+                    curr_moves_decoded = self.enc.decode(res['moves'])
+                    for curr_move, new_move in zip(curr_moves_decoded, moves):
+                        curr_move[1] += new_move[1]
+                        curr_move[2] += new_move[2]
+                        curr_move[3] += new_move[3]
+                    c.execute("CALL update_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(curr_moves_decoded))))
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.DatabaseError as error:
