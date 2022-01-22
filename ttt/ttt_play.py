@@ -60,7 +60,7 @@ class TTTPlay():
         if len(possible_moves_indices) == 1:
             return possible_moves_indices[0]
         else:
-            return possible_moves_indices[numpy.random.randint(0, len(possible_moves_indices))]
+            return possible_moves_indices[random.randrange(0, len(possible_moves_indices))]
 
     def choose_next_best_move_idx(self):
         state = self.desk.get_state()
@@ -180,7 +180,7 @@ class TTTPlay():
     def run(self):
         logger.info("TTTPlay started")
         logger.info("TTTPlay re-seed the RNG")
-        numpy.random.seed()
+        random.seed()
         self.train_data.clear()
         logger.info("Training Data Cleared!")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
