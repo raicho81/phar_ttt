@@ -195,10 +195,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     c.callproc("get_desk_state_moves", (self.desk_id, state))
                     res = c.fetchone()
                     curr_moves_decoded = self.enc.decode(res['moves'])
-                    for curr_move, new_move in zip(curr_moves_decoded, moves):
-                        curr_move[1] += new_move[1]
-                        curr_move[2] += new_move[2]
-                        curr_move[3] += new_move[3]
+                    for i, curr_move in enumerate(curr_moves_decoded):
+                        curr_move[1] += moves[i][1]
+                        curr_move[2] += moves[i][2]
+                        curr_move[3] += moves[i][3]
                     c.execute("CALL update_state_moves(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(curr_moves_decoded))))
             finally:
                 self.postgres_pool.putconn(conn)

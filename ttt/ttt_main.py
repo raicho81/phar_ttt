@@ -105,15 +105,20 @@ class MainProcessPoolRunner:
                     pool.close()
                     pool.join()
                 training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
-
                 scan_gen = training_data_shared_redis.hscan_states(count=1000)
-                next_slice = next(scan_gen)
+                try:
+                    next_slice = next(scan_gen)
+                except StopIteration:
+                    next_slice = None
                 while next_slice:
                     with Pool(self.process_pool_size) as pool:
                         for _ in range(self.process_pool_size):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
-                                thrs_data.append(next_slice)
+                                d = {}
+                                for state, moves in next_slice.items():
+                                    d[int(state)] = json.loads(moves)
+                                thrs_data.append(d)
                                 try:
                                     next_slice = next(scan_gen)
                                 except StopIteration:
@@ -125,7 +130,6 @@ class MainProcessPoolRunner:
                                 break
                         pool.close()
                         pool.join()
-
                 postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
                 training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
                 training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
