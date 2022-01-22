@@ -81,10 +81,14 @@ class MainProcessPoolRunner:
         self.conn_pool_factor = conn_pool_factor
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
 
-    def pool_update_redis_to_db_run(self, d):
-        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, 2 , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
+    def pool_update_redis_to_db_run_threaded(self, thrs_data):
+        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
-        training_data_shared_postgres.update_from_redis(d)
+        threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
 
     def pool_main_run_train_cvsc(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
@@ -106,10 +110,13 @@ class MainProcessPoolRunner:
                 for items in training_data_shared_redis.hscan_states(count=10000):
                     with Pool(self.process_pool_size) as pool:
                         for _ in range(self.process_pool_size):
-                            d = {}
-                            for state, moves in items:
-                                d[int(state)] = json.loads(moves)
-                            pool.apply_async(self.pool_update_redis_to_db_run, args=(d,))
+                            thrs_data = []
+                            for n_thr in range(self.concurrency):
+                                d = {}
+                                for state, moves in items:
+                                    d[int(state)] = json.loads(moves)
+                                thrs_data.append(d)
+                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
                         pool.close()
                         pool.join()
                 # update #of games played in Redis to DB and
