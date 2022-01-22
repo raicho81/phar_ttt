@@ -87,8 +87,8 @@ class MainProcessPoolRunner:
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
-
-
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
+                                                                    settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
     def pool_main_run_train_cvsc(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                         settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
@@ -137,7 +137,7 @@ class MainProcessPoolRunner:
                             pool.close()
                             pool.join()
                     training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
-                    training_data_shared_redis.clear()
+                    # training_data_shared_redis.clear()
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)

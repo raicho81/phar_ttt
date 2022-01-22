@@ -39,6 +39,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 if cursor == 0:
                     break
 
+    def remove_state_from_cache(self, state):
+        self.redis_states_dict.pop(state)
+
     def total_games_finished(self):
         try:
             return self.redis_desks_dict[self.desk_size]

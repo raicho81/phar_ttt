@@ -20,9 +20,9 @@
         "redis_pass": "secret",
         "redis_desks_hset_key": "ttt_desks_hset",
         "redis_states_hset_key_prefix": "ttt_states_hset",
-        "redis_hscan_slice_size": 1000,
+        "redis_hscan_slice_size": 5000,
         "master": true,
-        "slave": true,
-        "clear_redis_data_on_start": true
+        "slave": false,
+        "clear_redis_data_on_start": false
     }
 }

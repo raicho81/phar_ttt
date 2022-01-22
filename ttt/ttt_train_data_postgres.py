@@ -7,9 +7,10 @@ import psycopg2
 import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
+from dynaconf import settings
 
 from ttt_train_data_base import TTTTrainDataBase
-
+import ttt_train_data_redis
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
@@ -34,6 +35,7 @@ class ReallyThreadedPGConnectionPool(psycopg2.pool.ThreadedConnectionPool):
 class TTTTrainDataPostgres(TTTTrainDataBase):
     def __init__(self, desk_size, postgres_pool):
         super().__init__()
+        self.desk_size = desk_size
         self.postgres_pool = postgres_pool
         try:
             conn = self.get_conn_from_pg_pool()
@@ -257,6 +259,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.inc_total_games_finished(other.total_games_finished)
 
     def update_from_redis(self, d):
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
+                                                                    settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         logger.info("Updating Intermediate Redis data to DB: 0% ...")
         s = len(d)
         vis = s // 10
@@ -272,4 +276,5 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             count += 1
             if count % vis == 0:
                 logger.info("Updating Intermediate Redis data to DB is complete@{}%".format(int((count / s) * 100)))
+            training_data_shared_redis.remove_state_from_cache(state)
         logger.info("Updating Intermediate Redis data to DB Done.")
