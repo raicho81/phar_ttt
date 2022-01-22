@@ -48,7 +48,7 @@ class TTTMain():
                                     self.n_iter_info_skip) for _ in range(self.concurrency)]
 
     def run(self):
-        logger.debug(f"TTTMain::run(), game_type: {ttt_game_type.TTTGameTypeCVsC.get_string()}, train: {self.train}")
+        logger.debug(f"TTTMain::run(), game_type: {self.game_type.get_string()}, train: {self.train}")
         game_type = self.game_type
         if game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
             threads = [Thread(target=play.run) for play in self.instances]
@@ -96,47 +96,49 @@ class MainProcessPoolRunner:
         m.run()
 
     def run(self):
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
+        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
+        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
         if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
+            if settings.MASTER and settings.CLEAR_REDIS_DATA_ON_START:
+                training_data_shared_redis.clear()
             for run_n in range(self.iterations):
                 # self.pool_main_run_train_cvsc() # For debug purposes
-                with Pool(self.process_pool_size) as pool:
-                    for _ in range(self.process_pool_size):
-                        pool.apply_async(self.pool_main_run_train_cvsc)
-                    pool.close()
-                    pool.join()
-                training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
-                scan_gen = training_data_shared_redis.hscan_states(count=1000)
-                try:
-                    next_slice = next(scan_gen)
-                except StopIteration:
-                    next_slice = None
-                while next_slice:
+                if settings.SLAVE:
                     with Pool(self.process_pool_size) as pool:
                         for _ in range(self.process_pool_size):
-                            thrs_data = []
-                            for n_thr in range(self.concurrency):
-                                d = {}
-                                for state, moves in next_slice.items():
-                                    d[int(state)] = json.loads(moves)
-                                thrs_data.append(d)
-                                try:
-                                    next_slice = next(scan_gen)
-                                except StopIteration:
-                                    next_slice = None
-                                    break
-                            if thrs_data != []:
-                                pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
-                            if next_slice is None:
-                                break
+                            pool.apply_async(self.pool_main_run_train_cvsc)
                         pool.close()
                         pool.join()
-                postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-                training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
-                training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
-                training_data_shared_redis.clear()
+                if settings.MASTER:
+                    scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_HSCAN_SLICE_SIZE)
+                    try:
+                        next_slice = next(scan_gen)
+                    except StopIteration:
+                        next_slice = None
+                    while next_slice:
+                        with Pool(self.process_pool_size) as pool:
+                            for _ in range(self.process_pool_size):
+                                thrs_data = []
+                                for n_thr in range(self.concurrency):
+                                    d = {}
+                                    for state, moves in next_slice.items():
+                                        d[int(state)] = json.loads(moves)
+                                    thrs_data.append(d)
+                                    try:
+                                        next_slice = next(scan_gen)
+                                    except StopIteration:
+                                        next_slice = None
+                                        break
+                                if thrs_data != []:
+                                    pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
+                                if next_slice is None:
+                                    break
+                            pool.close()
+                            pool.join()
+                    training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
+                    training_data_shared_redis.clear()
         else:
-            postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-            training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)
                 ttm.run()
