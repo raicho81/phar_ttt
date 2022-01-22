@@ -36,6 +36,6 @@ begin
 			)
 		)
 		WHERE "State_Moves".state_id = (SELECT get_state_id(_desk_id, _state));
-	COMMIT;
+--	COMMIT;
 end;
 $BODY$;
