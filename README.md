@@ -19,4 +19,4 @@
 * Check the README.settings for some program parameters explanation (currently out of date)
 * Tested with:
     Python 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
-* postgres.sql - Contains DB stucture no training data. dump.pg_dump contains test DB dump made with pg_dump
+* SQL/schema.sql - Contains DB stucture with no training data. dump.pg_dump is out of date.
