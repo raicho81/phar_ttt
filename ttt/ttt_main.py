@@ -136,6 +136,7 @@ class MainProcessPoolRunner:
                                     break
                             pool.close()
                             pool.join()
+                    training_data_shared_postgres.inc_total_games_finished(-training_data_shared_postgres.total_games_finished())
                     training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
                     # training_data_shared_redis.clear()
         else:
