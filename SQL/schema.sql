@@ -672,6 +672,20 @@ $$;
 ALTER FUNCTION public.msgpack_encode(_data jsonb) OWNER TO postgres;
 
 --
+-- Name: update_state_moves(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea)
+    LANGUAGE sql
+    AS $$UPDATE "States" SET 
+    moves = _moves
+WHERE desk_id = _desk_id
+AND state = _state$$;
+
+
+ALTER PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea) OWNER TO postgres;
+
+--
 -- Name: update_state_moves_v2(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
 --
 
@@ -698,15 +712,15 @@ begin
 				FROM
 					(SELECT jsonb_array_elements(_current_moves_decoded)) _moves_rs,
 					(SELECT jsonb_array_elements(_new_moves_decoded)) _new_moves_rs
-				WHERE
-					_moves_rs.jsonb_array_elements::jsonb->0 = _new_moves_rs.jsonb_array_elements::jsonb->0
-				ORDER BY
+					WHERE
+						_moves_rs.jsonb_array_elements::jsonb->0 = _new_moves_rs.jsonb_array_elements::jsonb->0
+					ORDER BY
 					_moves_rs.jsonb_array_elements::jsonb->0
 				) _jsonb_build_array_rs
 			)
 		)
 		WHERE "States".desk_id = _desk_id and "States".state = _state;
-	COMMIT;
+--	COMMIT;
 end; 
 $$;
 
@@ -809,24 +823,10 @@ ALTER TABLE ONLY public."Desks"
 
 
 --
--- Name: States_desk_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "States_desk_id_idx" ON public."States" USING btree (desk_id);
-
-
---
 -- Name: States_desk_id_state_unique_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE UNIQUE INDEX "States_desk_id_state_unique_idx" ON public."States" USING btree (desk_id, state);
-
-
---
--- Name: States_state_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "States_state_idx" ON public."States" USING btree (state);
 
 
 --
