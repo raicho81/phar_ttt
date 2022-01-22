@@ -1,5 +1,6 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
 
+* I didn't test if it is playable as I was busy with the Redis -> Postgres stuff. The db_dump is out of date currently, but the schema is ok and there is docker-compose.yml, which should make you running in no time :)
 * I am using git LFS in this repo so you may need to install/initialize git LFS
 * I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
 * I've implemented a multicore version for training with multiprocessing and multi-threading and Postgres connection pooling (well a little bit rudimentary) and also now ingesting training data from multiple machines running the program should be OK. 
