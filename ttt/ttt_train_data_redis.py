@@ -32,15 +32,21 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.load()
 
     def hscan_states(self, count):
+        try:
             cursor = 0
             while True:
                 cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
                 yield entries
                 if cursor == 0:
                     break
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def remove_state_from_cache(self, state):
-        self.redis_states_dict.pop(state)
+        try:
+            self.redis_states_dict.pop(state)
+        except redis.RedisError as re:
+            logger.exception(re)
 
     def total_games_finished(self):
         try:
@@ -68,6 +74,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
 
     def add_train_state(self, state, possible_moves):
+        add = False
         try:
             def transaction(pipeline):
                 if state not in self.redis_desks_dict:
@@ -76,6 +83,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 else:
                     return False
             add = self.__r.transaction(transaction, value_from_callable=True)
+        except redis.RedisError as re:
+            logger.exception(re)
+        try:
             if not add:
                 self.update_train_state_moves(state, possible_moves)
         except redis.RedisError as re:
