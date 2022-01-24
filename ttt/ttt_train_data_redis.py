@@ -130,7 +130,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_dict.clear()
 
     def update(self, other):
-        logger.info("Updating Intermediate data to Redis DB: 0% ...")
+        logger.info("Updating Intermediate data to Redis: 0% ...")
         s = len(other.get_train_data())
         vis = s // 10
         if vis == 0 :
@@ -144,7 +144,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 self.add_train_state(state, other_moves)
             count += 1
             if count % vis == 0:
-                logger.info("Updating Intermediate data to Redis DB is complete@{}%".format(int((count / s) * 100)))
-        logger.info("Updating Intermediate data to Redis DB Done.")
+                logger.info("Updating Intermediate data to Redis complete@{}%".format(int((count / s) * 100)))
+        logger.info("Updating Intermediate data to Redis Done.")
         self.inc_total_games_finished(other.total_games_finished)
 
