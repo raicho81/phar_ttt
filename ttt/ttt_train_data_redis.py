@@ -52,9 +52,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             cursor = 0
             while True:
                 cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
-                yield entries
+                while cursor != 0 and entries == {}:
+                    cursor, entries = self.__r.hscan(self.redis_states_hset_key, cursor, count=count)
                 if cursor == 0:
                     break
+                yield entries
         except redis.RedisError as re:
             logger.exception(re)
 
