@@ -105,11 +105,11 @@ class MainProcessPoolRunner:
             if settings.SLAVE:
                 for run_n in range(self.iterations):
                     # self.pool_main_run_train_cvsc() # For debug purposes
-                        with Pool(self.process_pool_size) as pool:
-                            for _ in range(self.process_pool_size):
-                                pool.apply_async(self.pool_main_run_train_cvsc)
-                            pool.close()
-                            pool.join()
+                    with Pool(self.process_pool_size) as pool:
+                        for _ in range(self.process_pool_size):
+                            pool.apply_async(self.pool_main_run_train_cvsc)
+                        pool.close()
+                        pool.join()
             if settings.MASTER:
                 scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_HSCAN_SLICE_SIZE)
                 try:
