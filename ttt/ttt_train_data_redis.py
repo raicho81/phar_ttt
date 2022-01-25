@@ -4,7 +4,7 @@ import functools
 
 import crc16
 import redis
-from pottery import RedisDict, synchronize
+from pottery import RedisDict
 
 from ttt_train_data_base import TTTTrainDataBase
 
@@ -34,18 +34,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         except redis.RedisError as re:
             logger.exception(re)
         self.load()
-        # self.inc_total_games_finished = synchronize(key="test_ttt_sync_inc_total_games_finished_333", masters={self.__r}, blocking=True)(self.inc_total_games_finished)
-        # self.total_games_finished = synchronize(key="test_ttt_sync_inc_total_games_finished_333", masters={self.__r}, blocking=True)(self.total_games_finished)
-        # self.add_train_state = synchronize(key="test_ttt_sync_add_train_states_333", masters={self.__r}, blocking=True)(self.add_train_state)
-        # self.update_train_state = synchronize(key="test_ttt_update_train_state_333", masters={self.__r}, blocking=True)(self.update_train_state)
-        # self.get_train_state = synchronize(key="test_ttt_get_train_state_333", masters={self.__r}, blocking=True)(self.get_train_state)
-        # self.has_state = synchronize(key="test_ttt_has_state_333", masters={self.__r}, blocking=True, timeout=1)(self.has_state)
-        self.cache_slots_count = self.desk_size ** 3
-
-    def slot_n(self, key):
-        crc_16 = crc16.crc16xmodem(bytes(key), 0xFFFF)
-        sn = crc_16 % self.cache_slots_count
-        return sn
 
     def hscan_states(self, count):
         try:
