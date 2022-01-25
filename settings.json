@@ -6,7 +6,7 @@
         "iterations": 10,
         "process_pool_size": 8,
         "threads_count": 4,
-        "board_size": 3,
+        "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_connection_pooling_factor": 4,
@@ -20,8 +20,8 @@
         "redis_pass": "secret",
         "redis_desks_hset_key": "ttt_desks_hset",
         "redis_states_hset_key_prefix": "ttt_states_hset",
-        "redis_hscan_slice_size": 10000,
-        "master": true,
+        "redis_hscan_slice_size": 5000,
+        "master": false,
         "slave": true,
         "clear_redis_data_on_start": false
     }
