@@ -87,8 +87,7 @@ class MainProcessPoolRunner:
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
-        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
-                                                                    settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
+
     def pool_main_run_train_cvsc(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                         settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
