@@ -102,41 +102,40 @@ class MainProcessPoolRunner:
         if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
             if settings.MASTER and settings.CLEAR_REDIS_DATA_ON_START:
                 training_data_shared_redis.clear()
-            for run_n in range(self.iterations):
-                # self.pool_main_run_train_cvsc() # For debug purposes
-                if settings.SLAVE:
-                    with Pool(self.process_pool_size) as pool:
-                        for _ in range(self.process_pool_size):
-                            pool.apply_async(self.pool_main_run_train_cvsc)
-                        pool.close()
-                        pool.join()
-                if settings.MASTER:
-                    scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_HSCAN_SLICE_SIZE)
-                    try:
-                        next_slice = next(scan_gen)
-                    except StopIteration:
-                        next_slice = None
-                    while next_slice:
+            if settings.SLAVE:
+                for run_n in range(self.iterations):
+                    # self.pool_main_run_train_cvsc() # For debug purposes
                         with Pool(self.process_pool_size) as pool:
                             for _ in range(self.process_pool_size):
-                                thrs_data = []
-                                for n_thr in range(self.concurrency):
-                                    d = {}
-                                    for state, moves in next_slice.items():
-                                        d[int(state)] = json.loads(moves)
-                                    thrs_data.append(d)
-                                    try:
-                                        next_slice = next(scan_gen)
-                                    except StopIteration:
-                                        next_slice = None
-                                        break
-                                if thrs_data != []:
-                                    pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
-                                if next_slice is None:
-                                    break
+                                pool.apply_async(self.pool_main_run_train_cvsc)
                             pool.close()
                             pool.join()
             if settings.MASTER:
+                scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_HSCAN_SLICE_SIZE)
+                try:
+                    next_slice = next(scan_gen)
+                except StopIteration:
+                    next_slice = None
+                while next_slice:
+                    with Pool(self.process_pool_size) as pool:
+                        for _ in range(self.process_pool_size):
+                            thrs_data = []
+                            for n_thr in range(self.concurrency):
+                                d = {}
+                                for state, moves in next_slice.items():
+                                    d[int(state)] = json.loads(moves)
+                                thrs_data.append(d)
+                                try:
+                                    next_slice = next(scan_gen)
+                                except StopIteration:
+                                    next_slice = None
+                                    break
+                            if thrs_data != []:
+                                pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
+                            if next_slice is None:
+                                break
+                        pool.close()
+                        pool.join()
                 training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
                 training_data_shared_redis.inc_total_games_finished(-training_data_shared_redis.total_games_finished())
         else:

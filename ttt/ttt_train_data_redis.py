@@ -2,10 +2,12 @@ import logging
 import os
 
 import redis
-from pottery import RedisDict
+from pottery import RedisDict, synchronize
 
 from ttt_train_data_base import TTTTrainDataBase
 
+
+logging.getLogger("pottery").setLevel("WARN")
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
@@ -30,6 +32,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         except redis.RedisError as re:
             logger.exception(re)
         self.load()
+        self.inc_total_games_finished = synchronize(key="test_ttt_sync_inc_total_games_finished_333", masters={self.__r}, blocking=True, timeout=1)(self.inc_total_games_finished)
+        self.total_games_finished = synchronize(key="test_ttt_sync_inc_total_games_finished_333", masters={self.__r}, blocking=True, timeout=1)(self.total_games_finished)
+        self.add_train_state = synchronize(key="test_ttt_sync_add_train_states_333", masters={self.__r}, blocking=True, timeout=1)(self.add_train_state)
+        self.update_train_state = synchronize(key="test_ttt_update_train_state_333", masters={self.__r}, blocking=True, timeout=1)(self.update_train_state)
+        self.get_train_state = synchronize(key="test_ttt_get_train_state_333", masters={self.__r}, blocking=True, timeout=1)(self.get_train_state)
+        # self.has_state = synchronize(key="test_ttt_has_state_333", masters={self.__r}, blocking=True, timeout=1)(self.has_state)
 
     def hscan_states(self, count):
         try:
@@ -74,18 +82,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
 
     def add_train_state(self, state, possible_moves):
-        add = False
         try:
-            def transaction(pipeline):
-                if state not in self.redis_desks_dict:
-                    self.redis_states_dict[state] = possible_moves
-                    return True
-                else:
-                    return False
-            add = self.__r.transaction(transaction, value_from_callable=True)
-        except redis.RedisError as re:
-            logger.exception(re)
-        try:
+            if state not in self.redis_desks_dict:
+                self.redis_states_dict[state] = possible_moves
+                add = True
+            else:
+                add = False
             if not add:
                 self.update_train_state_moves(state, possible_moves)
         except redis.RedisError as re:
@@ -96,36 +98,30 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def inc_total_games_finished(self, count):
         try:
-            def transaction(pipeline):
-                current_total = self.redis_desks_dict.get(self.desk_size, None)
-                if current_total is not None:
-                    current_total += count
-                else:
-                    current_total = count
-                self.redis_desks_dict[self.desk_size] = current_total
-            self.__r.transaction(transaction)
+            current_total = self.redis_desks_dict[self.desk_size]
+            if current_total is not None:
+                current_total = int(current_total) + count
+            else:
+                current_total = count
+            self.redis_desks_dict[self.desk_size] = current_total
         except redis.RedisError as re:
             logger.exception(re)
 
 
     def update_train_state_moves(self, state, other_moves):
         try:
-            def transaction(pipeline):
-                moves_to_update_decoded = self.redis_states_dict[state]
-                for i, this_move in enumerate(moves_to_update_decoded):
-                    this_move[1] += other_moves[i][1]
-                    this_move[2] += other_moves[i][2]
-                    this_move[3] += other_moves[i][3]
-                self.redis_states_dict[state] = moves_to_update_decoded
-            self.__r.transaction(transaction)
+            moves_to_update_decoded = self.redis_states_dict[state]
+            for i, this_move in enumerate(moves_to_update_decoded):
+                this_move[1] += other_moves[i][1]
+                this_move[2] += other_moves[i][2]
+                this_move[3] += other_moves[i][3]
+            self.redis_states_dict[state] = moves_to_update_decoded
         except redis.RedisError as re:
             logger.exception(re)
 
     def get_train_state(self, state, raw=False):
         try:
-            def transaction(pipeline):
-                return self.redis_states_dict[state if raw == True else self.int_none_tuple_hash(state)]
-            return self.__r.transaction(transaction, value_from_callable=True)
+            return self.redis_states_dict[state if raw == True else self.int_none_tuple_hash(state)]
         except redis.RedisError as re:
             logger.exception(re)
 

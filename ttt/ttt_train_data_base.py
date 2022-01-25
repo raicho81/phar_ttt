@@ -32,14 +32,14 @@ class TTTTrainDataBase:
             raise ValueError("Move index not found!")
 
     @functools.lru_cache(4096)
-    def int_none_tuple_hash(self, t, hash_base=3):
-        tuple_hash = 0
-        power = 0
-        for i in range(len(t)):
-            for j in range(len(t[i])):
-                update = (hash_base ** power) * (t[i][j] if t[i][j] is not None else 0)
-                tuple_hash += update
-                power += 1
+    def int_none_tuple_hash(self, t):
+        tuple_hash = hash(t)
+        # power = 0
+        # for i in range(len(t)):
+        #     for j in range(len(t[i])):
+        #         update = (hash_base ** power) * (t[i][j] if t[i][j] is not None else 0)
+        #         tuple_hash += update
+        #         power += 1
         return tuple_hash
 
     @property
