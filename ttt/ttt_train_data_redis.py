@@ -51,7 +51,10 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         try:
             lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
             with self.__r.lock(lock_key, timeout=0):
-                self.redis_states_dict.pop(state)
+                try:
+                    self.redis_states_dict.pop(state)
+                except KeyError as ke:
+                    pass
         except redis.RedisError as re:
             logger.exception(re)
 
