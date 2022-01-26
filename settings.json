@@ -3,13 +3,13 @@
         "game_type": "CVsC",
         "train": true,
         "inner_iterations": 5000,
-        "iterations": 10,
+        "iterations": 5,
         "process_pool_size": 8,
         "threads_count": 2,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
-        "postgres_connection_pooling_factor": 4,
+        "postgres_connection_pooling_factor": 1,
         "postgres_dbname": "postgres",
         "postgres_port": 5432,
         "postgres_host": "192.168.1.31",
@@ -20,9 +20,9 @@
         "redis_pass": "secret",
         "redis_desks_hset_key": "ttt_desks_hset",
         "redis_states_hset_key_prefix": "ttt_states_hset",
-        "redis_hscan_slice_size": 5000,
+        "redis_hscan_slice_size": 10000,
         "master": true,
-        "slave": true,
+        "slave": false,
         "clear_redis_data_on_start": false
     }
 }

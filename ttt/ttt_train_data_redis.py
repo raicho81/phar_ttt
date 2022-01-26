@@ -50,14 +50,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def remove_state_from_cache(self, state):
         try:
             lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
-            with self.__r.lock(lock_key, timeout=1):
+            with self.__r.lock(lock_key, timeout=0):
                 self.redis_states_dict.pop(state)
         except redis.RedisError as re:
             logger.exception(re)
 
     def total_games_finished(self):
         try:
-            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=1):
+            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=0):
                 return self.redis_desks_dict[self.desk_size]
         except redis.RedisError as re:
             logger.exception(re)
@@ -67,7 +67,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def load(self):
         try:
-            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=1):
+            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=0):
                 games_finished = self.redis_desks_dict.get(self.desk_size, None)
             if games_finished is None:
                 self.inc_total_games_finished(0)
@@ -78,14 +78,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def has_state(self, state):
         try:
-            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=1):
+            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=0):
                 return state in self.redis_states_dict
         except redis.RedisError as re:
             logger.exception(re)
 
     def add_train_state(self, state, possible_moves):
         try:
-            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=1):
+            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=2):
                 if state not in self.redis_desks_dict:
                     self.redis_states_dict[state] = possible_moves
                     add = True
@@ -101,7 +101,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def inc_total_games_finished(self, count):
         try:
-            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=1):
+            with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=0):
                 current_total = self.redis_desks_dict.get(self.desk_size, None)
                 if current_total is not None:
                     current_total = int(current_total) + count
@@ -114,7 +114,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def update_train_state_moves(self, state, other_moves):
         try:
-            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=1):
+            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=0):
                 moves_to_update_decoded = self.redis_states_dict[state]
                 for i, this_move in enumerate(moves_to_update_decoded):
                     this_move[1] += other_moves[i][1]
@@ -126,7 +126,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def get_train_state(self, state, raw=False):
         try:
-            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=1):
+            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=0):
                 return self.redis_states_dict[state if raw == True else self.int_none_tuple_hash(state)]
         except redis.RedisError as re:
             logger.exception(re)
