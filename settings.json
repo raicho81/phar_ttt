@@ -2,8 +2,8 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 5000,
-        "iterations": 5,
+        "inner_iterations": 10000,
+        "iterations": 10,
         "process_pool_size": 8,
         "threads_count": 2,
         "board_size": 4,
@@ -22,7 +22,7 @@
         "redis_states_hset_key_prefix": "ttt_states_hset",
         "redis_hscan_slice_size": 10000,
         "master": true,
-        "slave": false,
+        "slave": true,
         "clear_redis_data_on_start": false
     }
 }

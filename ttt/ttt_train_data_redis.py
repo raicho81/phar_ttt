@@ -124,6 +124,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                     this_move[2] += other_moves[i][2]
                     this_move[3] += other_moves[i][3]
                 self.redis_states_dict[state] = moves_to_update_decoded
+        except redis.exceptions.LockNotOwnedError as e:
+            pass
         except redis.RedisError as re:
             logger.exception(re)
 
