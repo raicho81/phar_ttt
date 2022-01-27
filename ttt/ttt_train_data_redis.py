@@ -219,6 +219,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         logger.info("Updating Intermediate data to Redis Done.")
         self.inc_total_games_finished(other.total_games_finished)
         while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
-            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, 5000)
+            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, 1000)
             states_to_update_to_db = [int(state) for (state , _) in states_to_update_to_db]
             self.pubsub_publish_states(str(states_to_update_to_db))
