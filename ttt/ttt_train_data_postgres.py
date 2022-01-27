@@ -207,6 +207,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             conn = self.get_conn_from_pg_pool()
             try:
                 with conn.cursor() as c:
+                    #
+                    # r: older code in, which the calculations were done in Python
+                    # currently te accumulation of the statistics is done directly in the DB thus saving some DB calls/transactions
+                    #
                     # c.callproc("get_desk_state_moves", (self.desk_id, state))
                     # res = c.fetchone()
                     # curr_moves_decoded = self.enc.decode(res['moves'])
@@ -280,7 +284,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                                                     settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         s = len(d)
         logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
-
         vis = s // 10
         if vis == 0 :
             vis = 2

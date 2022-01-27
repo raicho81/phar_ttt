@@ -111,12 +111,17 @@ class MainProcessPoolRunner:
                         pool.close()
                         pool.join()
             if settings.REDIS_MASTER:
+                #
+                # r: older code, which was used to iterate over the hash set of states / moves now replaced by the 
+                # zset from which data is extracted and then ingested in the DB through the Redis states updates channel
+                # from the slaves to the master
+                #
                 # scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_REDIS_HSCAN_SLICE_SIZE)
                 # try:
                 #     next_slice = next(scan_gen)
                 # except StopIteration:
                 #     next_slice = None
-                while True: # or STOP event is_set blah blah blah
+                while True: # or STOP event is_set blah blah blah for now run infinitely
                     with Pool(self.process_pool_size) as pool:
                         for _ in range(self.process_pool_size):
                             thrs_data = []
@@ -124,7 +129,7 @@ class MainProcessPoolRunner:
                                 next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
                                 if next_states_to_update is None:
                                     break
-                                while next_states_to_update['type'] != 'message':
+                                while next_states_to_update['type'] != 'message' and next_states_to_update['type'] != 'pmessage':
                                     next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
                                     if next_states_to_update is None:
                                         break
@@ -156,7 +161,7 @@ class MainProcessPoolRunner:
 
 
 if __name__ == "__main__":
-    init_dep_injection()
+    # init_dep_injection()
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
     mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
                                  game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,

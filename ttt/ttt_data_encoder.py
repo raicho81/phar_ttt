@@ -1,5 +1,5 @@
 import msgpack
-import zlib
+
 
 class TTTDataEncoder:
     def __init__(self, *args, **kwargs):
