@@ -1,9 +1,11 @@
 import logging
 import os
 import json
+import math
 
 import redis
 from pottery import RedisDict
+from dynaconf import settings
 
 from ttt_train_data_base import TTTTrainDataBase
 
@@ -23,6 +25,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_hset_key_prefix = redis_states_hset_key_prefix
         self.desk_size = desk_size
         self.redis_states_hset_key = "{}:size:{}".format(redis_states_hset_key_prefix, self.desk_size)
+        self.redis_states_updates_zset_key = "{}:states_updates_zset".format(self.redis_states_hset_key)
+        self.redis_states_updates_channel = "{}:states_updates_channel".format(self.redis_states_hset_key)
         try:
             self.__r = redis.Redis(host=host,
                                     port=port,
@@ -30,9 +34,22 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                                     decode_responses=True)
             self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
             self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
+            if settings.REDIS_MASTER:
+                self.pubsub = self.__r.pubsub()
+                self.pubsub.subscribe(self.redis_states_updates_channel)
         except redis.RedisError as re:
             logger.exception(re)
         self.load()
+
+    def pubsub_publish_states(self, states):
+        if settings.REDIS_MASTER:
+            raise RuntimeError("Only slaves can publish to Redis!")
+        self.__r.publish(self.redis_states_updates_channel, states)
+
+    def pubsub_get_states_to_update(self, timeout=0):
+        if not settings.REDIS_MASTER:
+            raise RuntimeError("Only master can read data from the Redis states updates channel!")
+        return self.pubsub.get_message(timeout=timeout)
 
     def hscan_states(self, count):
         try:
@@ -53,7 +70,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=5))
                 locks[-1].acquire()
-            self.redis_states_dict.delete(self.redis_states_hset_key, states)
+            self.__r.hdel(self.redis_states_hset_key, str(states))
+            self.__r.zrem(self.redis_states_updates_zset_key, str(states))
             for lock in locks:
                 lock.release()
         except redis.RedisError as re:
@@ -104,8 +122,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 else:
                     states_to_update.append(state)
                     moves_to_update.append(possible_moves[i])
-            if states_to_update != []:
+            if states_to_add != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for (state, moves) in zip(states_to_add, moves_to_add)})
+                self.__r.zadd(self.redis_states_updates_zset_key, {str(state): str(1) for state in states_to_add})
             for lock in locks:
                 lock.release()
             if states_to_update != []:
@@ -146,6 +165,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                         this_move[3] += other_moves[i][3]
             if all_moves_to_update_decoded != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for state, moves in zip(states, all_moves_to_update_decoded)})
+                for state in states:
+                    self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError as e:
@@ -169,11 +190,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def clear(self):
         self.redis_desks_dict.clear()
         self.redis_states_dict.clear()
+        self.__r.delete(self.redis_states_updates_zset_key)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")
         s = len(other.get_train_data())
-        vis = 5000
+        vis = settings.REDIS_UPDATE_SKIP
         if vis == 0 :
             vis = 2
         count = 0
@@ -182,7 +204,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         for state in other.get_train_data():
             other_moves.append(other.get_train_state(state, True))
             states.append(state)
-            if len(states) >= 20:
+            if len(states) >= settings.REDIS_KEYS_TO_UPDATE_AT_ONCE:
                 self.add_train_states(states, other_moves)
                 count += len(states)
                 states = []
@@ -196,4 +218,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to Redis complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to Redis Done.")
         self.inc_total_games_finished(other.total_games_finished)
-
+        while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
+            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, 5000)
+            states_to_update_to_db = [int(state) for (state , _) in states_to_update_to_db]
+            self.pubsub_publish_states(str(states_to_update_to_db))

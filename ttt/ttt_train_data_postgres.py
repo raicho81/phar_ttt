@@ -289,7 +289,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         while has_more:
             states = []
             other_moves = []
-            for _ in range(2000):
+            for _ in range(1000):
                 try:
                     (states_, other_moves_) = next(states_gen)
                     states.append(states_)

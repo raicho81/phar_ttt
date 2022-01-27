@@ -3,8 +3,9 @@ import sys
 import itertools
 import os
 import logging
+
 from dynaconf import settings
-import numpy
+
 import ttt_train_data
 import ttt_desk
 import ttt_player

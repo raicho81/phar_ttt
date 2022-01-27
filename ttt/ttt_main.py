@@ -2,10 +2,11 @@
 import json
 import os
 from threading import Thread
-from multiprocessing import Pool
+from multiprocessing import Pool, Manager
 
 import logging
 from dynaconf import settings
+import redis
 
 import ttt_play
 import ttt_game_type
@@ -97,10 +98,11 @@ class MainProcessPoolRunner:
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+
         if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
-            if settings.MASTER and settings.CLEAR_REDIS_DATA_ON_START:
+            if settings.REDIS_MASTER and settings.REDIS_CLEAR_DATA_ON_START:
                 training_data_shared_redis.clear()
-            if settings.SLAVE:
+            if not settings.REDIS_MASTER:
                 for run_n in range(self.iterations):
                     # self.pool_main_run_train_cvsc() # For debug purposes
                     with Pool(self.process_pool_size) as pool:
@@ -108,34 +110,40 @@ class MainProcessPoolRunner:
                             pool.apply_async(self.pool_main_run_train_cvsc)
                         pool.close()
                         pool.join()
-            if settings.MASTER:
-                scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_HSCAN_SLICE_SIZE)
-                try:
-                    next_slice = next(scan_gen)
-                except StopIteration:
-                    next_slice = None
-                while next_slice:
+            if settings.REDIS_MASTER:
+                # scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_REDIS_HSCAN_SLICE_SIZE)
+                # try:
+                #     next_slice = next(scan_gen)
+                # except StopIteration:
+                #     next_slice = None
+                while True: # or STOP event is_set blah blah blah
                     with Pool(self.process_pool_size) as pool:
                         for _ in range(self.process_pool_size):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
-                                d = {}
-                                for state, moves in next_slice.items():
-                                    d[int(state)] = json.loads(moves)
-                                thrs_data.append(d)
-                                try:
-                                    next_slice = next(scan_gen)
-                                except StopIteration:
-                                    next_slice = None
+                                next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
+                                if next_states_to_update is None:
                                     break
+                                while next_states_to_update['type'] != 'message':
+                                    next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
+                                    if next_states_to_update is None:
+                                        break
+                                if next_states_to_update is not None:
+                                    next_states_to_update = json.loads(next_states_to_update['data'])
+                                else:
+                                    break
+                                d = {}
+                                for state in next_states_to_update:
+                                    moves = training_data_shared_redis.get_train_state(state, True)
+                                    d[int(state)] = moves
+                                thrs_data.append(d)
                             if thrs_data != []:
+                                # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
                                 pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
-                            if next_slice is None:
-                                break
                         pool.close()
                         pool.join()
-                training_data_shared_postgres.inc_total_games_finished(training_data_shared_redis.total_games_finished())
-                training_data_shared_redis.inc_total_games_finished(-training_data_shared_redis.total_games_finished())
+                # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
+                # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)
