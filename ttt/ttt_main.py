@@ -142,8 +142,8 @@ class MainProcessPoolRunner:
                                 pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
                         pool.close()
                         pool.join()
-                # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
-                # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
+                training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
+                self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)
