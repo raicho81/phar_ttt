@@ -1,5 +1,5 @@
   Tic Tac Toe game implementation with self training Monte Carlo algorithm.
-
+* I've implemented a kind of master/slave strategy. Slaves are publishing to Redis and the Master is updating the data to the DB when more statistics is gathered for given states (well, 2 or more samples for now per state before the state goes to the DB). I am using Redis channel to post the updates from the slaves to the master. I guess I'll have to rework it to use Redis Streams if I want ti implement multiple Masters because now this is not posssible or the data in the DB will become thrashed.
 * I didn't test if it is playable as I was busy with the Redis -> Postgres stuff. The db_dump is out of date currently, but the schema is ok and there is docker-compose.yml, which should make you running in no time :)
 * I am using git LFS in this repo so you may need to install/initialize git LFS
 * I've implemented (finally) ingesting of the training data in Postgres instead of using RAM and dumping the training data in files.
