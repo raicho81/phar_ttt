@@ -278,8 +278,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_from_redis(self, d):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                     settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
-        logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(len(d)))
         s = len(d)
+        logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
+
         vis = s // 10
         if vis == 0 :
             vis = 2
@@ -289,7 +290,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         while has_more:
             states = []
             other_moves = []
-            for _ in range(1000):
+            for _ in range(100):
                 try:
                     (states_, other_moves_) = next(states_gen)
                     states.append(states_)
