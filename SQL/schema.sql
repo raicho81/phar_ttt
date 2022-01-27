@@ -38,22 +38,41 @@ CREATE PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, I
     LANGUAGE plpgsql
     AS $$
 DECLARE 
-	state_insert_id integer;
-	state_moves_insert_id integer;
 BEGIN
-	INSERT INTO "States" (desk_id, state, moves)
-	VALUES(_desk_id, _state, _moves_encoded)
-	ON CONFLICT (desk_id, state) DO NOTHING
-	RETURNING id INTO state_insert_id;
-
-	IF state_insert_id IS NULL THEN
+	IF has_state(_desk_id, _state) THEN
 		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
+	ELSE
+		INSERT INTO "States" (desk_id, state, moves)
+		VALUES(_desk_id, _states[i], _moves_encoded[i]);
 	END IF;
 END;
 $$;
 
 
 ALTER PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea) OWNER TO postgres;
+
+--
+-- Name: add_state_moves_batch(integer, bigint[], bytea[]); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.add_state_moves_batch(_desk_id integer, _states bigint[], _moves_encoded bytea[]) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	i integer;
+BEGIN
+	FOR i IN 1..cardinality(_states) LOOP
+		IF has_state(_desk_id, _states[i]) THEN
+			CALL update_state_moves_v2(_desk_id, _states[i], _moves_encoded[i]);
+		ELSE
+			CALL insert_state_moves(_desk_id, _states[i], _moves_encoded[i]);
+		END IF;
+	END LOOP;
+END;
+$$;
+
+
+ALTER FUNCTION public.add_state_moves_batch(_desk_id integer, _states bigint[], _moves_encoded bytea[]) OWNER TO postgres;
 
 --
 -- Name: get_desk_state_moves(integer, bigint); Type: FUNCTION; Schema: public; Owner: postgres
@@ -128,12 +147,35 @@ BEGIN
 	ELSE
 		RETURN false;
 	END IF;
-
 END;
 $$;
 
 
 ALTER FUNCTION public.has_state(_desk_id integer, _state bigint) OWNER TO postgres;
+
+--
+-- Name: insert_state_moves(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.insert_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea)
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	insert_id integer;
+BEGIN
+	INSERT INTO "States" (desk_id, state, moves)
+	VALUES(_desk_id, _state, _moves_encoded)
+	ON CONFLICT (desk_id, state)
+	DO NOTHING
+	RETURNING id INTO insert_id;
+	IF insert_id IS null THEN
+		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
+	END IF;
+END;
+$$;
+
+
+ALTER PROCEDURE public.insert_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea) OWNER TO postgres;
 
 --
 -- Name: msgpack_decode(bytea); Type: FUNCTION; Schema: public; Owner: postgres
@@ -677,10 +719,12 @@ ALTER FUNCTION public.msgpack_encode(_data jsonb) OWNER TO postgres;
 
 CREATE PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea)
     LANGUAGE sql
-    AS $$UPDATE "States" SET 
-    moves = _moves
-WHERE desk_id = _desk_id
-AND state = _state$$;
+    AS $$
+	UPDATE "States" SET 
+		moves = _moves
+	WHERE desk_id = _desk_id
+AND state = _state
+$$;
 
 
 ALTER PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea) OWNER TO postgres;
