@@ -283,7 +283,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         vis = s // 10
         if vis == 0 :
             vis = 2
-        total_count = len(d)
         count = 0
         has_more = True
         states_gen = self.states_gen(d)
@@ -302,7 +301,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 self.add_train_states_batch(states, other_moves)
                 count += len(states)
                 if count % vis == 0:
-                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / total_count))))
-                for s in states:
-                    training_data_shared_redis.remove_state_from_cache(s)
+                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+                for state in states:
+                    training_data_shared_redis.remove_state_from_cache(state)
         logger.info("Updating Intermediate Redis data to DB Done.")

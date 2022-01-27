@@ -2,10 +2,10 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 10000,
+        "inner_iterations": 1000,
         "iterations": 10,
         "process_pool_size": 8,
-        "threads_count": 2,
+        "threads_count": 4,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,

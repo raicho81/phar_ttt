@@ -125,7 +125,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                     this_move[3] += other_moves[i][3]
                 self.redis_states_dict[state] = moves_to_update_decoded
         except redis.exceptions.LockNotOwnedError as e:
-            pass
+            logger.exception(e)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -155,10 +155,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         count = 0
         for state in other.get_train_data():
             other_moves = other.get_train_state(state, True)
-            if self.has_state(state):
-                self.update_train_state_moves(state, other_moves)
-            else:
-                self.add_train_state(state, other_moves)
+            self.add_train_state(state, other_moves)
             count += 1
             if count % vis == 0:
                 logger.info("Updating Intermediate data to Redis complete@{}%".format(int((count / s) * 100)))
