@@ -74,6 +74,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             self.__r.zrem(self.redis_states_updates_zset_key, str(states))
             for lock in locks:
                 lock.release()
+        except redis.exceptions.LockNotOwnedError:
+            pass
         except redis.RedisError as re:
             logger.exception(re)
 
