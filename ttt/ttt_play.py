@@ -24,12 +24,12 @@ logger = logging.getLogger(__name__)
 
 class TTTPlay():
     # @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_train_data.TTTTrainData()):
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000):
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
         self.n_iter_info_skip = n_iter_info_skip
-        self.train_data = train_data
+        self.train_data = ttt_train_data.TTTTrainData()
         self.training_data_shared = training_data_shared
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
