@@ -173,7 +173,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             try:
                 with conn.cursor() as c:
                     pms_binary = [psycopg2.Binary(pm) for pm in possible_moves]
-                    c.callproc("add_state_moves_batch", (self.desk_id, states, pms_binary))
+                    c.execute("CALL add_state_moves_batch(%s, %s, %s)", (self.desk_id, states, pms_binary))
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.Error as error:
