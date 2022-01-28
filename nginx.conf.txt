@@ -1,13 +1,13 @@
-user  nginx; 
-events {     
+user  nginx;
+events {
 	worker_connections   1000;
-} 
+}
 http {
 	server {
-		listen 6380;             
+		listen 6380;
 		location /
-		{                 
+		{
 			proxy_pass tcp://redis:6380;
 		}
-	} 
+	}
 }

@@ -161,7 +161,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             try:
                 with conn.cursor() as c:
                     pms_binary = [psycopg2.Binary(pm) for pm in possible_moves]
-                    c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, states, pms_binary))
+                    c.execute("CALL insert_state_moves(%s, %s, %s)", (self.desk_id, states, pms_binary))
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.Error as error:
@@ -290,21 +290,17 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         has_more = True
         states_gen = self.states_gen(d)
+        states = []
         while has_more:
-            states = []
-            other_moves = []
-            for _ in range(settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE):
-                try:
-                    (states_, other_moves_) = next(states_gen)
-                    states.append(states_)
-                    other_moves.append(self.enc.encode(other_moves_))
-                except StopIteration:
-                    has_more = False
-                    break
-            if states != []:
-                self.add_train_states_batch(states, other_moves)
+            try:
+                (state, other_moves_) = next(states_gen)
+                states.append(state)
+                self.add_train_state(state, other_moves_)
                 count += len(states)
-                if count % vis == 0:
-                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-                training_data_shared_redis.remove_states_from_cache(states)
+            except StopIteration:
+                has_more = False
+                break
+            if count % vis == 0:
+                logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+        training_data_shared_redis.remove_states_from_cache(states)
         logger.info("Updating Intermediate Redis data to DB Done.")

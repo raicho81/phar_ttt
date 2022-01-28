@@ -94,6 +94,17 @@ class MainProcessPoolRunner:
         m = TTTMain(training_data_shared_redis, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
         m.run()
 
+    def get_next_states_to_update_from_redis_chan(self, training_data_shared_redis):
+        next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
+        if next_states_to_update is None:
+            return None
+        while next_states_to_update['type'] != 'message' and next_states_to_update['type'] != 'pmessage':
+            next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
+            if next_states_to_update is None:
+                return None
+            break
+        return json.loads(next_states_to_update['data'])
+
     def run(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
@@ -123,19 +134,11 @@ class MainProcessPoolRunner:
                 #     next_slice = None
                 while True: # or STOP event is_set blah blah blah for now run infinitely
                     with Pool(self.process_pool_size) as pool:
-                        for _ in range(self.process_pool_size):
+                        for pn in range(self.process_pool_size):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
-                                next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
+                                next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
                                 if next_states_to_update is None:
-                                    break
-                                while next_states_to_update['type'] != 'message' and next_states_to_update['type'] != 'pmessage':
-                                    next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
-                                    if next_states_to_update is None:
-                                        break
-                                if next_states_to_update is not None:
-                                    next_states_to_update = json.loads(next_states_to_update['data'])
-                                else:
                                     break
                                 d = {}
                                 for state in next_states_to_update:

@@ -23,7 +23,7 @@
         "redis_states_hset_key_prefix": "ttt_states_hset",
         "redis_hscan_slice_size": 10000,
         "redis_update_skip": 5000,
-        "redis_keys_to_update_at_once": 10,
+        "redis_keys_to_update_at_once": 5,
         "redis_zset_extract_size_from_slave": 2000,
         "redis_master":true,
         "redis_clear_data_on_start": false
