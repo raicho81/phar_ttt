@@ -12,6 +12,10 @@ from dynaconf import settings
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
 
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
+                    filemode = 'a+',
+                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
+
 logger = logging.getLogger(__name__)
 
 

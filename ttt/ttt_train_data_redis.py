@@ -10,6 +10,10 @@ from dynaconf import settings
 from ttt_train_data_base import TTTTrainDataBase
 
 
+logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
+                    filemode = 'a+',
+                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
+
 logging.getLogger("pottery").setLevel("WARN")
 logger = logging.getLogger(__name__)
 
