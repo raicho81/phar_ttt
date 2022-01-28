@@ -6,7 +6,6 @@ from multiprocessing import Pool, Manager
 
 import logging
 from dynaconf import settings
-import redis
 
 import ttt_play
 import ttt_game_type
@@ -17,11 +16,7 @@ import ttt_data_encoder
 import ttt_dependency_injection
 
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
-                    filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
-
 
 def init_dep_injection():
     # ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)

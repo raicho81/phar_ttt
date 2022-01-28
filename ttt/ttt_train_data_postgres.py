@@ -3,7 +3,7 @@ import os
 import functools
 from threading import Semaphore
 
-import psycopg2
+import psycopg2 as psycopg2
 import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
@@ -12,9 +12,6 @@ from dynaconf import settings
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
-                    filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
