@@ -3,7 +3,7 @@ import os
 import functools
 from threading import Semaphore
 
-import psycopg2
+import psycopg2 as psycopg2
 import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
@@ -12,9 +12,6 @@ from dynaconf import settings
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
-                    filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -160,8 +157,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             conn = self.get_conn_from_pg_pool()
             try:
                 with conn.cursor() as c:
-                    pms_binary = [psycopg2.Binary(pm) for pm in possible_moves]
-                    c.execute("CALL add_state_moves(%s, %s, %s)", (self.desk_id, states, pms_binary))
+                    c.execute("CALL insert_state_moves(%s, %s, %s)", (self.desk_id, states, psycopg2.Binary(self.enc.encode(possible_moves))))
             finally:
                 self.postgres_pool.putconn(conn)
         except psycopg2.Error as error:
@@ -275,10 +271,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
 
-    def states_gen(self, d):
-        for state, moves in d.items():
-            yield state, moves
-
     def update_from_redis(self, d):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                     settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
@@ -288,23 +280,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if vis == 0 :
             vis = 2
         count = 0
-        has_more = True
-        states_gen = self.states_gen(d)
-        while has_more:
-            states = []
-            other_moves = []
-            for _ in range(settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE):
-                try:
-                    (states_, other_moves_) = next(states_gen)
-                    states.append(states_)
-                    other_moves.append(self.enc.encode(other_moves_))
-                except StopIteration:
-                    has_more = False
-                    break
-            if states != []:
-                self.add_train_states_batch(states, other_moves)
-                count += len(states)
-                if count % vis == 0:
-                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-                training_data_shared_redis.remove_states_from_cache(states)
+        for state, other_moves_ in d.items():
+            self.add_train_state(state, other_moves_)
+            count += 1
+            if count % vis == 0:
+                logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+        training_data_shared_redis.remove_states_from_cache(d.keys())
         logger.info("Updating Intermediate Redis data to DB Done.")
