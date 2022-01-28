@@ -25,7 +25,7 @@
         "redis_update_skip": 5000,
         "redis_keys_to_update_at_once": 10,
         "redis_zset_extract_size_from_slave": 2000,
-        "redis_master": false,
+        "redis_master":true,
         "redis_clear_data_on_start": false
     }
 }
