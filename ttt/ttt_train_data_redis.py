@@ -124,7 +124,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                     moves_to_update.append(possible_moves[i])
             if states_to_add != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for (state, moves) in zip(states_to_add, moves_to_add)})
-                self.__r.zadd(self.redis_states_updates_zset_key, {str(state): str(1) for state in states_to_add})
+                for state in states_to_add:
+                    self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
             for lock in locks:
                 lock.release()
             if states_to_update != []:
