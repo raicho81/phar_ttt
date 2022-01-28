@@ -52,10 +52,10 @@ $$;
 ALTER PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea) OWNER TO postgres;
 
 --
--- Name: add_state_moves_batch(integer, bigint[], bytea[]); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: add_state_moves_batch(integer, bigint[], bytea[]); Type: PROCEDURE; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.add_state_moves_batch(_desk_id integer, _states bigint[], _moves_encoded bytea[]) RETURNS void
+CREATE PROCEDURE public.add_state_moves_batch(IN _desk_id integer, IN _states bigint[], IN _moves_encoded bytea[])
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -72,7 +72,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.add_state_moves_batch(_desk_id integer, _states bigint[], _moves_encoded bytea[]) OWNER TO postgres;
+ALTER PROCEDURE public.add_state_moves_batch(IN _desk_id integer, IN _states bigint[], IN _moves_encoded bytea[]) OWNER TO postgres;
 
 --
 -- Name: get_desk_state_moves(integer, bigint); Type: FUNCTION; Schema: public; Owner: postgres
