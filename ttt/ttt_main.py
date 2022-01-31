@@ -151,7 +151,6 @@ class MainProcessPoolRunner:
                             if thrs_data != []:
                                 # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
-                        print("res.len:", len(res))
                         for r in res:
                             r.wait()
                 # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
