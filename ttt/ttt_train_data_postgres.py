@@ -168,12 +168,12 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except psycopg2.Error as error:
             logger.exception(error)
 
-    def add_train_states_batch(self, states, possible_moves):
+    def add_train_states_batch(self, states, possible_moves_list):
         try:
             conn = self.get_conn_from_pg_pool()
             try:
                 with conn.cursor() as c:
-                    pms_binary = [psycopg2.Binary(pm) for pm in possible_moves]
+                    pms_binary = [psycopg2.Binary(self.enc.encode(pms)) for pms in possible_moves_list]
                     c.execute("CALL add_state_moves_batch(%s, %s, %s)", (self.desk_id, states, pms_binary))
             finally:
                 self.postgres_pool.putconn(conn)
@@ -285,12 +285,21 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if vis == 0 :
             vis = 2
         count = 0
+        states_batch = []
+        other_moves_batch = []
         for state in d:
             other_moves_ = training_data_shared_redis.get_train_state(state, True)
             if other_moves_ is not None:
-                self.add_train_state(state, other_moves_)
-            count += 1
-            if count % vis == 0:
-                logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+                states_batch.append(state)
+                other_moves_batch.append(other_moves_)
+            if len(states_batch) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE:
+                self.add_train_states_batch(states_batch, other_moves_batch)
+                count += len(states_batch)
+                states_batch = []
+                other_moves_batch = []
+                if count % vis == 0:
+                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+        if len(states_batch) >= 0:
+            self.add_train_states_batch(states_batch, other_moves_batch)
         training_data_shared_redis.remove_states_from_cache(d)
         logger.info("Updating Intermediate Redis data to DB Done.")
