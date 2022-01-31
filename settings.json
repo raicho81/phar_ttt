@@ -5,7 +5,7 @@
         "inner_iterations": 1000,
         "iterations": 3000,
         "process_pool_size": 4,
-        "threads_count": 4,
+        "threads_count": 2,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
@@ -15,7 +15,7 @@
         "postgres_host": "192.168.1.31",
         "postgres_pass": "secret",
         "postgres_user": "postgres",
-        "postgres_add_train_states_batch_size": 5,
+        "postgres_add_train_states_batch_size": 100,
         "redis_host": "192.168.1.31",
         "redis_port": 6379,
         "redis_pass": "secret",
@@ -24,8 +24,8 @@
         "redis_hscan_slice_size": 10000,
         "redis_update_skip": 5000,
         "redis_keys_to_update_at_once": 5,
-        "redis_zset_extract_size_from_slave": 10000,
-        "redis_master":false,
+        "redis_zset_extract_size_from_slave": 1000,
+        "redis_master":true,
         "redis_clear_data_on_start": false
     }
 }
