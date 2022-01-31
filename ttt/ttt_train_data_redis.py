@@ -1,4 +1,5 @@
 import logging
+from msilib.schema import Error
 import os
 import json
 import math
@@ -177,6 +178,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
         except redis.RedisError as re:
             logger.exception(re)
+        except Exception as e:
+            logger.exception(e)
 
     def get_train_state(self, state, raw=False):
         try:
