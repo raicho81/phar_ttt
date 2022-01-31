@@ -1,11 +1,11 @@
 {
     "default": {
         "game_type": "CVsC",
-        "train": false,
-        "inner_iterations": 5,
-        "iterations": 30,
+        "train": true,
+        "inner_iterations": 1000,
+        "iterations": 3000,
         "process_pool_size": 4,
-        "threads_count": 8,
+        "threads_count": 4,
         "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
@@ -24,8 +24,8 @@
         "redis_hscan_slice_size": 10000,
         "redis_update_skip": 5000,
         "redis_keys_to_update_at_once": 5,
-        "redis_zset_extract_size_from_slave": 2000,
-        "redis_master":true,
+        "redis_zset_extract_size_from_slave": 10000,
+        "redis_master":false,
         "redis_clear_data_on_start": false
     }
 }

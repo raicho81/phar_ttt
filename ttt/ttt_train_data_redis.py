@@ -70,8 +70,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=1))
                 locks[-1].acquire()
-            self.__r.hdel(self.redis_states_hset_key, str(states))
-            self.__r.zrem(self.redis_states_updates_zset_key, str(states))
+            # str_states = [str(s) for s in states]
+            self.__r.hdel(self.redis_states_hset_key, states)
+            self.__r.zrem(self.redis_states_updates_zset_key, states)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError:
@@ -169,7 +170,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             if all_moves_to_update_decoded != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for state, moves in zip(states, all_moves_to_update_decoded)})
                 for state in states:
-                    self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
+                    self.__r.zincrby(self.redis_states_updates_zset_key, str(2), state)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError as e:
