@@ -8,7 +8,7 @@
 * I've optimised some DB stuff with Stored Procedures and Functions in SQL and pl/pgSQL
 * install with:
 * * bash$ pyton3 -m venv venv
-* * source venv/bin/activate
+* * bash$ source venv/bin/activate
   * bash$ python3 -m pip install dynaconf
   * bash$ python3 -m pip install msgpack
   * bash$ python3 -m pip install psycopg2
