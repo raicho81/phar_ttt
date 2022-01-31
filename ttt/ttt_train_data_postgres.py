@@ -2,6 +2,7 @@ import logging
 import os
 import functools
 from threading import Semaphore
+import json
 
 import psycopg2 as psycopg2
 import psycopg2.pool
@@ -284,10 +285,11 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         if vis == 0 :
             vis = 2
         count = 0
-        for state, other_moves_ in d.items():
+        for state in d:
+            other_moves_ = training_data_shared_redis.get_train_state(state, True)
             self.add_train_state(state, other_moves_)
             count += 1
             if count % vis == 0:
                 logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-        training_data_shared_redis.remove_states_from_cache(d.keys())
+        training_data_shared_redis.remove_states_from_cache(d)
         logger.info("Updating Intermediate Redis data to DB Done.")

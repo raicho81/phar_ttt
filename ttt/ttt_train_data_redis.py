@@ -65,14 +65,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def remove_states_from_cache(self, states):
         try:
-            str_states = [str(s) for s in list(states)]
+#            str_states = [str(s) for s in states]
             locks = []
             for state in states:
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=5))
                 locks[-1].acquire()
-            self.__r.zrem(self.redis_states_updates_zset_key, *str_states)
-            self.__r.hdel(self.redis_states_hset_key, *str_states)
+            self.__r.zrem(self.redis_states_updates_zset_key, *states)
+            self.__r.hdel(self.redis_states_hset_key, *states)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError:

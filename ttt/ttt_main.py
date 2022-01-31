@@ -143,12 +143,7 @@ class MainProcessPoolRunner:
                                 next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
                                 if next_states_to_update is None:
                                     break
-                                d = {}
-                                for state in next_states_to_update:
-                                    moves = training_data_shared_redis.get_train_state(state, True)
-                                    if moves is not None:
-                                        d[int(state)] = moves
-                                thrs_data.append(d)
+                                thrs_data.append(next_states_to_update)
                             if thrs_data != []:
                                 # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
