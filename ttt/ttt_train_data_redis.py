@@ -181,7 +181,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def get_train_state(self, state, raw=False):
         try:
             with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5):
-                return self.redis_states_dict[state if raw == True else self.int_none_tuple_hash(state)]
+                return self.redis_states_dict.get(state if raw == True else self.int_none_tuple_hash(state), None)
         except redis.RedisError as re:
             logger.exception(re)
 
