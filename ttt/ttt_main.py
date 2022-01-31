@@ -115,13 +115,14 @@ class MainProcessPoolRunner:
             if settings.REDIS_MASTER and settings.REDIS_CLEAR_DATA_ON_START:
                 training_data_shared_redis.clear()
             if not settings.REDIS_MASTER:
-                for run_n in range(self.iterations):
-                    # self.pool_main_run_train_cvsc() # For debug purposes
-                    with Pool(self.process_pool_size) as pool:
+                with Pool(self.process_pool_size) as pool:
+                    for run_n in range(self.iterations):
+                        res = []
+                        # self.pool_main_run_train_cvsc() # For debug purposes
                         for _ in range(self.process_pool_size):
-                            pool.apply_async(self.pool_main_run_train_cvsc)
-                        pool.close()
-                        pool.join()
+                            res.append(pool.apply_async(self.pool_main_run_train_cvsc))
+                        for r in res:
+                            r.wait()
             if settings.REDIS_MASTER:
                 #
                 # r: older code, which was used to iterate over the hash set of states / moves now replaced by the 
