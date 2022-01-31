@@ -287,7 +287,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         for state in d:
             other_moves_ = training_data_shared_redis.get_train_state(state, True)
-            self.add_train_state(state, other_moves_)
+            if other_moves_ is not None:
+                self.add_train_state(state, other_moves_)
             count += 1
             if count % vis == 0:
                 logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
