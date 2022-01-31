@@ -1,4 +1,5 @@
 import logging
+from msilib.schema import Error
 import os
 import json
 import math
@@ -160,7 +161,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 locks[-1].acquire()
             all_moves_to_update_decoded = []
             for state in states:
-                all_moves_to_update_decoded = filter(lambda moves: moves is not None, self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states]))
+                all_moves_to_update_decoded = self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states])
                 all_moves_to_update_decoded = [json.loads(moves) for moves in all_moves_to_update_decoded]
                 for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
                     for i, this_move in enumerate(moves_to_update_decoded):
@@ -177,6 +178,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
         except redis.RedisError as re:
             logger.exception(re)
+        except Exception as e:
+            logger.exception(e)
 
     def get_train_state(self, state, raw=False):
         try:
