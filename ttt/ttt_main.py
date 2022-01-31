@@ -86,12 +86,14 @@ class MainProcessPoolRunner:
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
+        return True
 
     def pool_main_run_train_cvsc(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
                                                                         settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
         m = TTTMain(training_data_shared_redis, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
         m.run()
+        return True
 
     def get_next_states_to_update_from_redis_chan(self, training_data_shared_redis):
         next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
@@ -131,8 +133,9 @@ class MainProcessPoolRunner:
                 #     next_slice = next(scan_gen)
                 # except StopIteration:
                 #     next_slice = None
-                while True: # or STOP event is_set blah blah blah for now run infinitely
-                    with Pool(self.process_pool_size) as pool:
+                with Pool(self.process_pool_size) as pool:
+                    while True: # or STOP event is_set blah blah blah for now run infinitely
+                        res = []
                         for pn in range(self.process_pool_size):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
@@ -146,11 +149,12 @@ class MainProcessPoolRunner:
                                 thrs_data.append(d)
                             if thrs_data != []:
                                 # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
-                                pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,))
-                        pool.close()
-                        pool.join()
-                training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
-                self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
+                                res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
+                        print("res.len:", len(res))
+                        for r in res:
+                            r.wait()
+                # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
+                # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.iterations, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.threads_count)
@@ -164,6 +168,7 @@ class MainProcessPoolRunner:
 
 if __name__ == "__main__":
     # init_dep_injection()
+    # multiprocessing.set_start_method('spawn')
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
     mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
                                  game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,
