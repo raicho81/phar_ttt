@@ -1,5 +1,4 @@
 import logging
-from msilib.schema import Error
 import os
 import json
 import math
@@ -178,6 +177,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
         except redis.RedisError as re:
             logger.exception(re)
+        except json.decoder.JSONDecodeError as jde:
+            logger.exception(jde)
         except Exception as e:
             logger.exception(e)
 
