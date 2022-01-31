@@ -11,7 +11,7 @@
 * * bash$ source venv/bin/activate
   * bash$ python3 -m pip install dynaconf
   * bash$ python3 -m pip install msgpack
-  * bash$ python3 -m pip install psycopg2 (python3 -m pip install psycopg2-binary of you don't wan't to enter all the hustle ...)
+  * bash$ python3 -m pip install psycopg2 (python3 -m pip install psycopg2-binary if you don't wan't to enter all the hustle ...)
   * bash$ python3 -m pip install redis
   * bash$ python3 -m pip install pottery
   * bash$ python3 -m pip freeze > requirements.txt to freeze rquirements
