@@ -42,8 +42,7 @@ BEGIN
 	IF has_state(_desk_id, _state) THEN
 		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
 	ELSE
-		INSERT INTO "States" (desk_id, state, moves)
-		VALUES(_desk_id, _states[i], _moves_encoded[i]);
+		CALL insert_state_moves(_desk_id, _states[i], _moves_encoded);
 	END IF;
 END;
 $$;
@@ -142,7 +141,11 @@ CREATE FUNCTION public.has_state(_desk_id integer, _state bigint) RETURNS boolea
     LANGUAGE plpgsql STABLE COST 5 PARALLEL SAFE
     AS $$
 BEGIN
-	IF EXISTS (SELECT "States".id FROM "States" WHERE (("States".desk_id = has_state._desk_id) AND ("States".state = has_state._state))) THEN
+	IF EXISTS (
+				SELECT "States".id FROM "States" 
+			   	WHERE "States".desk_id = has_state._desk_id 
+			   	AND "States".state = has_state._state
+			  ) THEN
 		RETURN true;
 	ELSE
 		RETURN false;
