@@ -81,7 +81,7 @@ class MainProcessPoolRunner:
         self.n_iter_info_skip = n_iter_info_skip
         self.conn_pool_factor = conn_pool_factor
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
-        self.sema = Semaphore(self.process_pool_size)
+        self.update_to_db_sema = Semaphore(self.process_pool_size)
         
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
@@ -148,9 +148,9 @@ class MainProcessPoolRunner:
                                 break
                             thrs_data.append(next_states_to_update)
                         if thrs_data != []:
-                            self.sema.acquire()
+                            self.update_to_db_sema.acquire()
                             # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
-                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=lambda x: self.sema.release())
+                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=lambda res: self.update_to_db_sema.release())
                 # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
                 # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
