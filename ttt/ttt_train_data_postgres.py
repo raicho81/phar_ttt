@@ -80,7 +80,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 self.postgres_pool.putconn(conn)
         except psycopg2.Error as error:
             logger.exception(error)
-        self.load()
+        # self.load()
 
     def get_conn_from_pg_pool(self):
         conn = self.postgres_pool.getconn()
