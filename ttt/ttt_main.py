@@ -123,7 +123,7 @@ class MainProcessPoolRunner:
                 with Pool(self.process_pool_size) as pool:
                     for run_n in range(self.iterations):
                         res = []
-                        self.pool_main_run_train_cvsc() # For debug purposes
+                        # self.pool_main_run_train_cvsc() # For debug purposes
                         for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
