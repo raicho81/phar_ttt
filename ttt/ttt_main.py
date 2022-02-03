@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+from concurrent.futures import thread
+from gc import callbacks
 import json
 import os
-from threading import Thread
+from threading import Thread, Semaphore
 from multiprocessing import Pool, Manager
 
 import logging
@@ -79,7 +81,8 @@ class MainProcessPoolRunner:
         self.n_iter_info_skip = n_iter_info_skip
         self.conn_pool_factor = conn_pool_factor
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
-
+        self.sema = Semaphore(self.process_pool_size)
+        
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
@@ -123,6 +126,7 @@ class MainProcessPoolRunner:
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
                             r.wait()
+                            
             if settings.REDIS_MASTER:
                 #
                 # r: older code, which was used to iterate over the hash set of states / moves now replaced by the 
@@ -136,19 +140,17 @@ class MainProcessPoolRunner:
                 #     next_slice = None
                 with Pool(self.process_pool_size) as pool:
                     while True: # or STOP event is_set blah blah blah for now run infinitely
-                        res = []
-                        for pn in range(self.process_pool_size):
-                            thrs_data = []
-                            for n_thr in range(self.concurrency):
-                                next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
-                                if next_states_to_update is None:
-                                    break
-                                thrs_data.append(next_states_to_update)
-                            if thrs_data != []:
-                                # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
-                                res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
-                        for r in res:
-                            r.wait()
+                        # for pn in range(self.process_pool_size):
+                        thrs_data = []
+                        for n_thr in range(self.concurrency):
+                            next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
+                            if next_states_to_update is None:
+                                break
+                            thrs_data.append(next_states_to_update)
+                        if thrs_data != []:
+                            self.sema.acquire()
+                            # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
+                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=lambda x: self.sema.release())
                 # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
                 # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
