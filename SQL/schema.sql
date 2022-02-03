@@ -127,8 +127,13 @@ ALTER TABLE public."States" OWNER TO postgres;
 --
 
 CREATE FUNCTION public.get_state_id(_desk_id integer, _state bigint) RETURNS integer
-    LANGUAGE sql STABLE COST 5 PARALLEL SAFE
-    RETURN (SELECT "States".id FROM public."States" WHERE (("States".desk_id = get_state_id._desk_id) AND ("States".state = get_state_id._state)));
+	LANGUAGE plpgsql
+	STABLE COST 5 PARALLEL SAFE
+AS $$
+BEGIN
+	RETURN (SELECT "States".id FROM public."States" WHERE (("States".desk_id = get_state_id._desk_id) AND ("States".state = get_state_id._state)));
+END;
+$$
 
 
 ALTER FUNCTION public.get_state_id(_desk_id integer, _state bigint) OWNER TO postgres;
