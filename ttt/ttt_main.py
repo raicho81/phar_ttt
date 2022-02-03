@@ -125,7 +125,7 @@ class MainProcessPoolRunner:
                         for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
-                           r.wait(timeout)
+                           r.wait()
                         
             if settings.REDIS_MASTER:
                 #
