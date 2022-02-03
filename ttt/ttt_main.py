@@ -5,6 +5,7 @@ import json
 import os
 from threading import Thread, Semaphore
 from multiprocessing import Pool, Manager
+import functools
 
 import logging
 from dynaconf import settings
@@ -81,7 +82,8 @@ class MainProcessPoolRunner:
         self.n_iter_info_skip = n_iter_info_skip
         self.conn_pool_factor = conn_pool_factor
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
-        self.update_to_db_sema = Semaphore(self.process_pool_size)
+        self.m = Manager()
+        self.update_to_db_sema = self.m.Semaphore(self.process_pool_size)
         
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
@@ -121,7 +123,7 @@ class MainProcessPoolRunner:
                 with Pool(self.process_pool_size) as pool:
                     for run_n in range(self.iterations):
                         res = []
-                        # self.pool_main_run_train_cvsc() # For debug purposes
+                        self.pool_main_run_train_cvsc() # For debug purposes
                         for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
@@ -150,7 +152,7 @@ class MainProcessPoolRunner:
                         if thrs_data != []:
                             self.update_to_db_sema.acquire()
                             # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
-                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=lambda res: self.update_to_db_sema.release())
+                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=functools.partial(lambda obj, res: obj.update_to_db_sema.release(), self))
                 # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
                 # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
