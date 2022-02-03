@@ -120,19 +120,13 @@ class MainProcessPoolRunner:
                 training_data_shared_redis.clear()
             if not settings.REDIS_MASTER:
                 with Pool(self.process_pool_size) as pool:
-                    res = []
                     for run_n in range(self.iterations):
-                        for _ in range(self.process_pool_size - len(res)):
+                        res = []
+                        for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
-                        to_rem = None
                         for r in res:
-                            r.wait(timeout=1)
-                            if r.ready():
-                                to_rem = r
-                                break
-                        if to_rem is not None:
-                            res.remove(to_rem)
-                            
+                           r.wait(timeout)
+                        
             if settings.REDIS_MASTER:
                 #
                 # r: older code, which was used to iterate over the hash set of states / moves now replaced by the 
@@ -145,9 +139,9 @@ class MainProcessPoolRunner:
                 # except StopIteration:
                 #     next_slice = None
                 with Pool(self.process_pool_size) as pool:
-                    res = []
                     while True: # or STOP event is_set blah blah blah for now run infinitely
                         # for pn in range(self.process_pool_size):
+                        res = []
                         for _ in range(self.process_pool_size - len(res)):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
@@ -157,14 +151,8 @@ class MainProcessPoolRunner:
                                 thrs_data.append(next_states_to_update)
                             if thrs_data != []:
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
-                        to_rem = None
                         for r in res:
-                            r.wait(timeout=1)
-                            if r.ready():
-                                to_rem = r
-                                break
-                        if to_rem is not None:
-                            res.remove(to_rem)
+                            r.wait()
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
