@@ -7,12 +7,13 @@
 * I've implemented some Redis front-end to cache data before ingesting it in Postgres to reduce the DB quieries. Probably still buggy but already working :)
 * I've optimised some DB stuff with Stored Procedures and Functions in SQL and pl/pgSQL
 * install with:
+* * bash$ pyton3 -m venv venv
+* * bash$ source venv/bin/activate
   * bash$ python3 -m pip install dynaconf
   * bash$ python3 -m pip install msgpack
-  * bash$ python3 -m pip install psycopg2
+  * bash$ python3 -m pip install psycopg2 (python3 -m pip install psycopg2-binary if you don't wan't to enter all the hustle ...)
   * bash$ python3 -m pip install redis
-  * bash$ python3 -m pip install pottery,
-     or other suitable way for your distro.
+  * bash$ python3 -m pip install pottery
   * bash$ python3 -m pip freeze > requirements.txt to freeze rquirements
 * Run it from the project directory with:
     * bash$ python3 ttt/ttt_main.py
