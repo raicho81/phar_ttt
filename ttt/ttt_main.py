@@ -100,10 +100,11 @@ class MainProcessPoolRunner:
         return True
 
     def get_next_states_to_update_from_redis_chan(self, training_data_shared_redis):
+        logger.info("get_next_states_to_update_from_redis_chan")
         next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
         if next_states_to_update is None:
             return None
-        while next_states_to_update['type'] != 'message' and next_states_to_update['type'] != 'pmessage':
+        while next_states_to_update['type'] != 'message':
             next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
             if next_states_to_update is None:
                 return None
