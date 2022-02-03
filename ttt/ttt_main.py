@@ -142,7 +142,7 @@ class MainProcessPoolRunner:
                     while True: # or STOP event is_set blah blah blah for now run infinitely
                         # for pn in range(self.process_pool_size):
                         res = []
-                        for _ in range(self.process_pool_size - len(res)):
+                        for _ in range(self.process_pool_size):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
                                 next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
