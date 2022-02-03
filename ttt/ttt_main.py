@@ -3,6 +3,7 @@ from concurrent.futures import thread
 from gc import callbacks
 import json
 import os
+from socket import timeout
 from threading import Thread, Semaphore
 from multiprocessing import Pool, Manager
 import functools
@@ -82,8 +83,6 @@ class MainProcessPoolRunner:
         self.n_iter_info_skip = n_iter_info_skip
         self.conn_pool_factor = conn_pool_factor
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
-        self.m = Manager()
-        self.update_to_db_sema = self.m.Semaphore(self.process_pool_size)
         
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
@@ -121,13 +120,18 @@ class MainProcessPoolRunner:
                 training_data_shared_redis.clear()
             if not settings.REDIS_MASTER:
                 with Pool(self.process_pool_size) as pool:
+                    res = []
                     for run_n in range(self.iterations):
-                        res = []
-                        # self.pool_main_run_train_cvsc() # For debug purposes
-                        for _ in range(self.process_pool_size):
+                        for _ in range(self.process_pool_size - len(res)):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
+                        to_rem = None
                         for r in res:
-                            r.wait()
+                            r.wait(timeout=1)
+                            if r.ready():
+                                to_rem = r
+                                break
+                        if to_rem is not None:
+                            res.remove(to_rem)
                             
             if settings.REDIS_MASTER:
                 #
@@ -141,6 +145,7 @@ class MainProcessPoolRunner:
                 # except StopIteration:
                 #     next_slice = None
                 with Pool(self.process_pool_size) as pool:
+                    res = []
                     while True: # or STOP event is_set blah blah blah for now run infinitely
                         # for pn in range(self.process_pool_size):
                         thrs_data = []
@@ -150,9 +155,16 @@ class MainProcessPoolRunner:
                                 break
                             thrs_data.append(next_states_to_update)
                         if thrs_data != []:
-                            self.update_to_db_sema.acquire()
-                            # self.pool_update_redis_to_db_run_threaded(thrs_data) # For debug purposes
-                            pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,), callback=functools.partial(lambda obj, res: obj.update_to_db_sema.release(), self))
+                            res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
+                        to_rem = None
+                        for r in res:
+                            r.wait(timeout=1)
+                            if r.ready():
+                                to_rem = r
+                                break
+                        if to_rem is not None:
+                            res.remove(to_rem)
+                            
                 # training_data_shared_postgres.inc_total_games_finished(self.training_data_shared_redis.total_games_finished())
                 # self.training_data_shared_redis.inc_total_games_finished(-self.training_data_shared_redis.total_games_finished())
         else:
