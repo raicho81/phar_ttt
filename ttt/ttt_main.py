@@ -138,23 +138,21 @@ class MainProcessPoolRunner:
                 #     next_slice = next(scan_gen)
                 # except StopIteration:
                 #     next_slice = None
+                with Pool(self.process_pool_size) as pool:
                     while True: # or STOP event is_set blah blah blah for now run infinitely
-                        with Pool(self.process_pool_size) as pool:
                         # for pn in range(self.process_pool_size):
-                            res = []
-                            for _ in range(self.process_pool_size):
-                                thrs_data = []
-                                for n_thr in range(self.concurrency):
-                                    next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
-                                    if next_states_to_update is None:
-                                        break
-                                    thrs_data.append(next_states_to_update)
-                                if thrs_data != []:
-                                    res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
-                            pool.close()
-                            pool.join()
-                        # for r in res:
-                        #     r.wait()
+                        res = []
+                        for _ in range(self.process_pool_size):
+                            thrs_data = []
+                            for n_thr in range(self.concurrency):
+                                next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
+                                if next_states_to_update is None:
+                                    break
+                                thrs_data.append(next_states_to_update)
+                            if thrs_data != []:
+                                res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
+                        for r in res:
+                            r.wait()
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
