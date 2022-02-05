@@ -31,21 +31,19 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_updates_stream = "{}:stream".format(self.redis_states_hset_key)
         self.redis_states_updates_stream_group = redis_stream_group
         self.redis_stream_consumer_name = redis_stream_consumer_name
-        try:
-            self.__r = redis.Redis(host=host,
-                                    port=port,
-                                    password=password,
-                                    decode_responses=True)
-            self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
-            self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
-            if settings.REDIS_MASTER:
-                self.init_redis_stream_consumer_group()
-        except redis.RedisError as re:
-            logger.exception(re)
+        self.__r = redis.Redis(host=host,
+                                port=port,
+                                password=password,
+                                decode_responses=True)
+        self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
+        self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
+        if settings.REDIS_MASTER:
+            self.init_redis_stream_consumer_group()
         self.load()
 
     def init_redis_stream_consumer_group(self):
         try:
+            print(self.redis_states_updates_stream)
             groups = self.__r.xinfo_groups(self.redis_states_updates_stream)
             for gr in groups:
                 if gr["name"] == self.redis_states_updates_stream_group:
@@ -117,6 +115,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         raise NotImplementedError()
 
     def load(self):
+        logger.info("000 Redis connector loaded 000")
         try:
             with self.__r.lock(self.redis_desks_hset_key + ":__lock__:{}".format(self.desk_size), timeout=5):
                 games_finished = self.redis_desks_dict.get(self.desk_size, None)
