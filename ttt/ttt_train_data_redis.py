@@ -47,7 +47,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def claim_pending_stream_messages(self, count):
         try:
-            self.__r.xautoclaim(self.redis_states_updates_stream, self.redis_states_updates_stream_group, self.redis_stream_consumer_name, 15*60*1000, 0, count)
+            claimed = self.__r.xautoclaim(self.redis_states_updates_stream, self.redis_states_updates_stream_group, self.redis_stream_consumer_name, 15*60*1000, 0, count, True)
+            if claimed != []:
+                logger.info("Claimed {} ID's to consumer: {}".format(claimed, self.redis_stream_consumer_name))
         except RedisError as e:
             logger.exception(e)
 
