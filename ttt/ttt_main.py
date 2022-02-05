@@ -20,6 +20,8 @@ import ttt_data_encoder
 import ttt_dependency_injection
 
 
+settings.load_file(path="settings.json")
+
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
