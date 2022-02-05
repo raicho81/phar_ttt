@@ -56,10 +56,10 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def ack_stream_messages(self, msg_ids):
         try:
-            self.__r.xack(self.redis_states_updates_stream, self.redis_states_updates_stream_group, *msg_ids)
+            self.__r.xack(self.redis_states_updates_stream, self.redis_states_updates_stream_group, *[str(msg_id) for msg_id in msg_ids])
         except RedisError as e:
             logger.exception(e)
-            logger.info("stream, group, ID : {} {} {}".format(self.redis_states_updates_stream, self.redis_states_updates_stream_group, str(msg_ids)))
+            logger.info("stream, group, ID : {} {} {}".format(self.redis_states_updates_stream, self.redis_states_updates_stream_group, msg_ids))
 
     def publish_states_to_stream(self, states):
         if settings.REDIS_MASTER:
