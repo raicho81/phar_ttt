@@ -4,7 +4,6 @@ import ttt_data_encoder
 
 
 class TTTTrainDataBase:
-    # @ttt_dependency_injection.DependencyInjection.inject
     def __init__(self, filename=None, * , data_encoder=ttt_data_encoder.TTTDataEncoderMsgpack()):
         self.filename = filename
         self.enc = data_encoder

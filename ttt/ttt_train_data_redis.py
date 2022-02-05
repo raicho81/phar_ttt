@@ -6,7 +6,7 @@ import sys
 import redis
 from pottery import RedisDict
 
-from dynaconf import settings
+from ttt_main import settings
 
 from ttt_train_data_base import TTTTrainDataBase
 
@@ -163,6 +163,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 all_moves_to_update_decoded = self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states])
                 all_moves_to_update_decoded = [json.loads(moves) for moves in all_moves_to_update_decoded]
                 for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
+                    if moves_to_update_decoded is None: # Error occured skip update for this moves as for some reason data in Redis is missing for them
+                        moves_to_update_decoded = other_moves
+                        continue
                     for i, this_move in enumerate(moves_to_update_decoded):
                         this_move[1] += other_moves[i][1]
                         this_move[2] += other_moves[i][2]
@@ -179,6 +182,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(re)
         except json.decoder.JSONDecodeError as jde:
             logger.exception(jde)
+            logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
+            logger.info("other_moves_list: {}".format(other_moves_list))
         except Exception as e:
             logger.exception(e)
 

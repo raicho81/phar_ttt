@@ -8,7 +8,7 @@ import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
 
-from dynaconf import settings
+from ttt_main import settings
 
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis

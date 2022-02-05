@@ -4,7 +4,7 @@ import itertools
 import os
 import logging
 
-from dynaconf import settings
+from ttt_main import settings
 
 import ttt_train_data
 import ttt_desk
