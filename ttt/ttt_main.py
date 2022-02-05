@@ -129,21 +129,10 @@ class MainProcessPoolRunner:
                            r.wait()
                         
             if settings.REDIS_MASTER:
-                #
-                # r: older code, which was used to iterate over the hash set of states / moves now replaced by the 
-                # zset from which data is extracted and then ingested in the DB through the Redis states updates channel
-                # from the slaves to the master
-                #
-                # scan_gen = training_data_shared_redis.hscan_states(count=settings.REDIS_REDIS_HSCAN_SLICE_SIZE)
-                # try:
-                #     next_slice = next(scan_gen)
-                # except StopIteration:
-                #     next_slice = None
                 with Pool(self.process_pool_size) as pool:
-                    while True: # or STOP event is_set blah blah blah for now run infinitely
-                        # for pn in range(self.process_pool_size):
-                        res = []
-                        for _ in range(self.process_pool_size):
+                    res = []
+                    while True:
+                        for _ in range(self.process_pool_size - len(res)):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
                                 next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
@@ -154,6 +143,8 @@ class MainProcessPoolRunner:
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
                         for r in res:
                             r.wait()
+                            res.remove(r)
+                            break
         else:
             if self.game_type is ttt_game_type.TTTGameTypeCVsC:
                 ttm = TTTMain(training_data_shared_postgres, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
@@ -166,8 +157,6 @@ class MainProcessPoolRunner:
 
 
 if __name__ == "__main__":
-    # init_dep_injection()
-    # multiprocessing.set_start_method('spawn')
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
     mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
                                  game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,
