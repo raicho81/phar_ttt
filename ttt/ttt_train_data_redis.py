@@ -45,6 +45,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             self.init_redis_stream_consumer_group()
         self.load()
 
+    def claim_pending_stream_messages(self, count):
+        try:
+            self.__r.xautoclaim(self.redis_states_updates_stream, self.redis_states_updates_stream_group, self.redis_stream_consumer_name, 15*60*1000, 0, count)
+        except RedisError as e:
+            logger.exception(e)
+
     def init_redis_stream_consumer_group(self):
         try:
             groups = self.__r.xinfo_groups(self.redis_states_updates_stream)
