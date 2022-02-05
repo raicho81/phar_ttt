@@ -1,6 +1,5 @@
 import functools
 
-import ttt_dependency_injection
 import ttt_data_encoder
 
 

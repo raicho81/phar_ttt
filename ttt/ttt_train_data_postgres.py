@@ -1,13 +1,13 @@
 import logging
-import os
-import functools
+import os, sys
 from threading import Semaphore
-import json
+
 
 import psycopg2 as psycopg2
 import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
+
 from dynaconf import settings
 
 from ttt_train_data_base import TTTTrainDataBase

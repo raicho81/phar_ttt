@@ -13,7 +13,6 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
-import ttt_dependency_injection
 
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),

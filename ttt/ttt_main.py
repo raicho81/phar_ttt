@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-from concurrent.futures import thread
-from gc import callbacks
 import json
 import os
-from socket import timeout
 from threading import Thread, Semaphore
 from multiprocessing import Pool, Manager
-import functools
-
+import sys
 import logging
+
 from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
+
 
 import ttt_play
 import ttt_game_type
@@ -19,8 +19,6 @@ import ttt_train_data_postgres
 import ttt_data_encoder
 import ttt_dependency_injection
 
-
-settings.load_file(path="settings.json")
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',

@@ -2,9 +2,10 @@ import logging
 import os
 import json
 import math
-
+import sys
 import redis
 from pottery import RedisDict
+
 from dynaconf import settings
 
 from ttt_train_data_base import TTTTrainDataBase

@@ -1,5 +1,4 @@
 import pickle
-import os
 import logging
 
 from ttt_train_data_base import TTTTrainDataBase
