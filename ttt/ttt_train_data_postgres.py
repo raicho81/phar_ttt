@@ -26,6 +26,7 @@ class ReallyThreadedPGConnectionPool(psycopg2.pool.ThreadedConnectionPool):
     def __init__(self, minconn, maxconn, *args, **kwargs):
         self._semaphore = Semaphore(maxconn)
         super().__init__(minconn, maxconn, *args, **kwargs)
+        logger.info("222 ReallyThreadedPGConnectionPool Loaded args: {} kwargs: {} 222".format(args, kwargs))
 
     def getconn(self, *args, **kwargs):
         self._semaphore.acquire()
@@ -82,6 +83,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 self.postgres_pool.putconn(conn)
         except psycopg2.Error as error:
             logger.exception(error)
+        logger.info("111 Postgres Connector Loaded !!!")
         # self.load()
 
     def get_conn_from_pg_pool(self):
