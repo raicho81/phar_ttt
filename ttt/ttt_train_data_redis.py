@@ -7,7 +7,9 @@ import redis
 from pottery import RedisDict
 from redis import RedisError
 
-from ttt_main import settings
+from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
 
 from ttt_train_data_base import TTTTrainDataBase
 
@@ -191,12 +193,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             all_moves_to_update_decoded = []
             for state in states:
                 all_moves_to_update_decoded = self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states])
-                for moves in all_moves_to_update_decoded:
+                for i in range(len(all_moves_to_update_decoded)):
                     try:
-                        moves = json.loads(moves)
+                        all_moves_to_update_decoded[i] = json.loads(all_moves_to_update_decoded[i])
                     except json.decoder.JSONDecodeError as jde:
                         logger.exception(jde)
-                        logger.info("moves: {}".format(moves))
+                        logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
                         logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
                         logger.info("other_moves_list: {}".format(other_moves_list))
                 for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):

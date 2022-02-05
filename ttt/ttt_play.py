@@ -4,7 +4,9 @@ import itertools
 import os
 import logging
 
-from ttt_main import settings
+from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
 
 import ttt_train_data
 import ttt_desk
