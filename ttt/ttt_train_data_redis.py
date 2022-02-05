@@ -186,7 +186,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             all_moves_to_update_decoded = []
             for state in states:
                 all_moves_to_update_decoded = self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states])
-                all_moves_to_update_decoded = [json.loads(moves) for moves in all_moves_to_update_decoded]
+                for moves in all_moves_to_update_decoded:
+                    try:
+                        moves = json.loads(moves)
+                    except json.decoder.JSONDecodeError as jde:
+                        logger.exception(jde)
+                        logger.info("moves: {}".format(moves))
+                        logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
+                        logger.info("other_moves_list: {}".format(other_moves_list))
                 for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
                     if moves_to_update_decoded is None: # Error occured skip update for this moves as for some reason data in Redis is missing for them
                         moves_to_update_decoded = other_moves
@@ -205,10 +212,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
         except redis.RedisError as re:
             logger.exception(re)
-        except json.decoder.JSONDecodeError as jde:
-            logger.exception(jde)
-            logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
-            logger.info("other_moves_list: {}".format(other_moves_list))
         except Exception as e:
             logger.exception(e)
 
