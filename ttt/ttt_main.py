@@ -102,7 +102,6 @@ class MainProcessPoolRunner:
         return True
 
     def get_next_states_to_update_from_redis_stream(self, training_data_shared_redis, timeout=5):
-        logger.info("get_next_states_to_update_from_redis_stream")
         next_states_to_update = training_data_shared_redis.get_states_to_update_from_stream(timeout=timeout)
         if next_states_to_update == []:
             return None
