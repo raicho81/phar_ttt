@@ -8,7 +8,9 @@ import psycopg2.pool
 import psycopg2.extras
 import psycopg2.extensions
 
-from ttt_main import settings
+from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
 
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis

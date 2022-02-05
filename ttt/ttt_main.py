@@ -7,6 +7,8 @@ import sys
 import logging
 
 from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
 
 import ttt_play
 import ttt_game_type
@@ -122,6 +124,7 @@ class MainProcessPoolRunner:
                 with Pool(self.process_pool_size) as pool:
                     for run_n in range(self.iterations):
                         res = []
+                        # self.pool_main_run_train_cvsc()
                         for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
@@ -157,9 +160,6 @@ class MainProcessPoolRunner:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        settings.load_file(path=sys.argv[1])
-    
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
     mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
                                  game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,
