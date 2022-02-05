@@ -85,11 +85,14 @@ class MainProcessPoolRunner:
         self.tp_conn_count = self.concurrency // self.conn_pool_factor or 1
         
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
+        logger.info("pool_update_redis_to_db_run_threaded -> process started")
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+        logger.info("pool_update_redis_to_db_run_threaded -> starting {} thread(s)".format(len(thrs_data)))
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
+        logger.info("pool_update_redis_to_db_run_threaded -> process ended")
         return True
 
     def pool_main_run_train_cvsc(self):
