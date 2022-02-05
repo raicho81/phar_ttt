@@ -43,11 +43,13 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def init_redis_stream_consumer_group(self):
         try:
-            print(self.redis_states_updates_stream)
             groups = self.__r.xinfo_groups(self.redis_states_updates_stream)
             for gr in groups:
                 if gr["name"] == self.redis_states_updates_stream_group:
                     return
+        except RedisError as e:
+            logger.exception(e)
+        try:
             self.__r.xgroup_create(self.redis_states_updates_stream, self.redis_states_updates_stream_group, "0", True)
         except RedisError as e:
             logger.exception(e)
@@ -68,6 +70,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
 
     def get_states_to_update_from_stream(self, timeout=0):
+        stream_data = []
         if not settings.REDIS_MASTER:
             raise RuntimeError("Only master can read data from the Redis states updates stream!")
         try:
