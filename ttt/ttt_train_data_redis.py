@@ -5,6 +5,7 @@ import math
 import sys
 import redis
 from pottery import RedisDict
+from redis import RedisError
 
 from ttt_main import settings
 
@@ -20,14 +21,16 @@ logger = logging.getLogger(__name__)
 
 
 class TTTTrainDataRedis(TTTTrainDataBase):
-    def __init__(self, desk_size, host, port, password, redis_desks_hset_key, redis_states_hset_key_prefix):
+    def __init__(self, desk_size, host, port, password, redis_desks_hset_key, redis_states_hset_key_prefix, redis_stream_group, redis_stream_consumer_name):
         super().__init__()
         self.redis_desks_hset_key = redis_desks_hset_key
         self.redis_states_hset_key_prefix = redis_states_hset_key_prefix
         self.desk_size = desk_size
         self.redis_states_hset_key = "{}:size:{}".format(redis_states_hset_key_prefix, self.desk_size)
         self.redis_states_updates_zset_key = "{}:states_updates_zset".format(self.redis_states_hset_key)
-        self.redis_states_updates_channel = "{}:states_updates_channel".format(self.redis_states_hset_key)
+        self.redis_states_updates_stream = "{}:stream".format(self.redis_states_hset_key)
+        self.redis_states_updates_stream_group = redis_stream_group
+        self.redis_stream_consumer_name = redis_stream_consumer_name
         try:
             self.__r = redis.Redis(host=host,
                                     port=port,
@@ -36,21 +39,44 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
             self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
             if settings.REDIS_MASTER:
-                self.pubsub = self.__r.pubsub()
-                self.pubsub.subscribe(self.redis_states_updates_channel)
+                self.init_redis_stream_consumer_group()
         except redis.RedisError as re:
             logger.exception(re)
         self.load()
 
-    def pubsub_publish_states(self, states):
-        if settings.REDIS_MASTER:
-            raise RuntimeError("Only slaves can publish to Redis!")
-        self.__r.publish(self.redis_states_updates_channel, states)
+    def init_redis_stream_consumer_group(self):
+        try:
+            groups = self.__r.xinfo_groups(self.redis_states_updates_stream)
+            for gr in groups:
+                if gr["name"] == self.redis_states_updates_stream_group:
+                    return
+            self.__r.xgroup_create(self.redis_states_updates_stream, self.redis_states_updates_stream_group, "0", True)
+        except RedisError as e:
+            logger.exception(e)
 
-    def pubsub_get_states_to_update(self, timeout=0):
+    def ack_stream_messages(self, msg_ids):
+        try:
+            self.__r.xack(self.redis_states_updates_stream, self.redis_states_updates_stream_group, *msg_ids)
+        except RedisError as e:
+            logger.exception(e)
+            logger.info("stream, group, ID : {} {} {}".format(self.redis_states_updates_stream, self.redis_states_updates_stream_group, str(msg_ids)))
+
+    def publish_states_to_stream(self, states):
+        if settings.REDIS_MASTER:
+            raise RuntimeError("Only slaves can publish to Redis stream!")
+        try:
+            self.__r.xadd(self.redis_states_updates_stream, {"states_to_update": str(states)}, "*")
+        except RedisError as e:
+            logger.exception(e)
+
+    def get_states_to_update_from_stream(self, timeout=0):
         if not settings.REDIS_MASTER:
-            raise RuntimeError("Only master can read data from the Redis states updates channel!")
-        return self.pubsub.get_message(timeout=timeout)
+            raise RuntimeError("Only master can read data from the Redis states updates stream!")
+        try:
+            stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: ">"}, 1, timeout*1000)
+        except RedisError as e:
+            logger.exception(e)
+        return stream_data
 
     def hscan_states(self, count):
         try:
@@ -234,4 +260,4 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
             states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
             states_to_update_to_db = [int(state) for (state , _) in states_to_update_to_db]
-            self.pubsub_publish_states(str(states_to_update_to_db))
+            self.publish_states_to_stream(str(states_to_update_to_db))

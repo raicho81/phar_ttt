@@ -276,30 +276,32 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
 
-    def update_from_redis(self, d):
-        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
-                                                                    settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
-        s = len(d)
-        logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
-        vis = s // 10
-        if vis == 0 :
-            vis = 2
-        count = 0
-        states_batch = []
-        other_moves_batch = []
-        for state in d:
-            other_moves_ = training_data_shared_redis.get_train_state(state, True)
-            if other_moves_ is not None:
-                states_batch.append(state)
-                other_moves_batch.append(other_moves_)
-            if len(states_batch) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE:
+    def update_from_redis(self, msg_data):
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
+                                                                            settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
+        for msg_id, states in msg_data:
+            s = len(states)
+            logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
+            vis = s // 10
+            if vis == 0 :
+                vis = 2
+            count = 0
+            states_batch = []
+            other_moves_batch = []
+            for state in states:
+                other_moves_ = training_data_shared_redis.get_train_state(state, True)
+                if other_moves_ is not None:
+                    states_batch.append(state)
+                    other_moves_batch.append(other_moves_)
+                if len(states_batch) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE:
+                    self.add_train_states_batch(states_batch, other_moves_batch)
+                    count += len(states_batch)
+                    states_batch = []
+                    other_moves_batch = []
+                    if count % vis == 0:
+                        logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+            if len(states_batch) >= 0:
                 self.add_train_states_batch(states_batch, other_moves_batch)
-                count += len(states_batch)
-                states_batch = []
-                other_moves_batch = []
-                if count % vis == 0:
-                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-        if len(states_batch) >= 0:
-            self.add_train_states_batch(states_batch, other_moves_batch)
-        training_data_shared_redis.remove_states_from_cache(d)
-        logger.info("Updating Intermediate Redis data to DB Done.")
+            training_data_shared_redis.remove_states_from_cache(states)
+            training_data_shared_redis.ack_stream_messages([msg_id])
+            logger.info("Updating Intermediate Redis data to DB Done.")

@@ -7,9 +7,6 @@ import sys
 import logging
 
 from dynaconf import settings
-if len(sys.argv) > 1:
-    settings.load_file(path=sys.argv[1])
-
 
 import ttt_play
 import ttt_game_type
@@ -89,33 +86,32 @@ class MainProcessPoolRunner:
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
         logger.info("pool_update_redis_to_db_run_threaded -> starting {} thread(s)".format(len(thrs_data)))
-        threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(d,)) for d in thrs_data]
+        threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(msg_data.items(),)) for msg_data in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
         logger.info("pool_update_redis_to_db_run_threaded -> process ended")
         return True
 
     def pool_main_run_train_cvsc(self):
-        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS,
-                                                                        settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
+                                                                            settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
         m = TTTMain(training_data_shared_redis, self.inner_iterations, self.n_iter_info_skip, self.game_type, self.train, self.board_size, self.concurrency)
         m.run()
         return True
 
-    def get_next_states_to_update_from_redis_chan(self, training_data_shared_redis):
-        logger.info("get_next_states_to_update_from_redis_chan")
-        next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
-        if next_states_to_update is None:
+    def get_next_states_to_update_from_redis_stream(self, training_data_shared_redis, timeout=5):
+        logger.info("get_next_states_to_update_from_redis_stream")
+        next_states_to_update = training_data_shared_redis.get_states_to_update_from_stream(timeout=timeout)
+        if next_states_to_update == []:
             return None
-        while next_states_to_update['type'] != 'message':
-            next_states_to_update = training_data_shared_redis.pubsub_get_states_to_update(timeout=5)
-            if next_states_to_update is None:
-                return None
-            break
-        return json.loads(next_states_to_update['data'])
+        ret = {}
+        for msg_id, message in next_states_to_update[0][1]:
+            ret[msg_id] = json.loads(message["states_to_update"])
+        return ret
 
     def run(self):
-        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY, settings.REDIS_STATES_HSET_KEY_PREFIX)
+        training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
+                                                                            settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
         postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
 
@@ -138,11 +134,12 @@ class MainProcessPoolRunner:
                         for _ in range(self.process_pool_size - len(res)):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
-                                next_states_to_update = self.get_next_states_to_update_from_redis_chan(training_data_shared_redis)
+                                next_states_to_update = self.get_next_states_to_update_from_redis_stream(training_data_shared_redis)
                                 if next_states_to_update is None:
                                     break
                                 thrs_data.append(next_states_to_update)
                             if thrs_data != []:
+                                # self.pool_update_redis_to_db_run_threaded(thrs_data,)
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
                         for r in res:
                             r.wait()
@@ -160,6 +157,9 @@ class MainProcessPoolRunner:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        settings.load_file(path=sys.argv[1])
+    
     game_type = ttt_game_type.game_type_factory(settings.GAME_TYPE)
     mppr = MainProcessPoolRunner(settings.PROCESS_POOL_SIZE, settings.ITERATIONS, settings.INNER_ITERATIONS, settings.TRAIN_ITERATIONS_INFO_SKIP,
                                  game_type, settings.TRAIN, settings.BOARD_SIZE, settings.THREADS_COUNT, settings.POSTGRES_DBNAME,
