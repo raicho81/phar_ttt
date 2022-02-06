@@ -103,7 +103,7 @@ class MainProcessPoolRunner:
 
     def get_next_states_to_update_from_redis_stream(self, training_data_shared_redis, timeout):
         next_states_to_update = training_data_shared_redis.get_states_to_update_from_stream(timeout=timeout)
-        if next_states_to_update == []:
+        if next_states_to_update == [] or next_states_to_update[0][1] == []:
             return None
         ret = {}
         for msg_id, message in next_states_to_update[0][1]:
@@ -133,7 +133,7 @@ class MainProcessPoolRunner:
                 with Pool(self.process_pool_size) as pool:
                     res = []
                     while True:
-                        training_data_shared_redis.claim_pending_stream_messages(self.process_pool_size * self.concurrency)
+                        # training_data_shared_redis.claim_pending_stream_messages(self.process_pool_size * self.concurrency)
                         for _ in range(self.process_pool_size - len(res)):
                             thrs_data = []
                             for n_thr in range(self.concurrency):

@@ -43,6 +43,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
         if settings.REDIS_MASTER:
             self.init_redis_stream_consumer_group()
+            self.lastid = "0-0"
+            self.check_backlog = True
         self.load()
 
     def claim_pending_stream_messages(self, count):
@@ -86,9 +88,16 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         if not settings.REDIS_MASTER:
             raise RuntimeError("Only master can read data from the Redis states updates stream!")
         try:
-            stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: "0"}, 1, timeout*1000)
-            if stream_data[0][1] == []:
-                stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: ">"}, 1, timeout*1000)
+            if self.check_backlog:
+                id = self.lastid
+            else:
+                id = '>'
+            stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: id}, 1, timeout*1000)
+            if stream_data == [] or stream_data[0][1] == []:
+                self.check_backlog = False
+            else:
+                (msg_id, msg) = stream_data[0][1][0]
+                self.lastid = msg_id
         except RedisError as e:
             logger.exception(e)
         return stream_data
