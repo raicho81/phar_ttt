@@ -81,7 +81,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         except RedisError as e:
             logger.exception(e)
 
-    def get_states_to_update_from_stream(self, timeout=0):
+    def get_states_to_update_from_stream(self, timeout):
         stream_data = []
         if not settings.REDIS_MASTER:
             raise RuntimeError("Only master can read data from the Redis states updates stream!")

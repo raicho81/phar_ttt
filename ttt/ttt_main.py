@@ -101,7 +101,7 @@ class MainProcessPoolRunner:
         m.run()
         return True
 
-    def get_next_states_to_update_from_redis_stream(self, training_data_shared_redis, timeout=5):
+    def get_next_states_to_update_from_redis_stream(self, training_data_shared_redis, timeout):
         next_states_to_update = training_data_shared_redis.get_states_to_update_from_stream(timeout=timeout)
         if next_states_to_update == []:
             return None
@@ -137,7 +137,7 @@ class MainProcessPoolRunner:
                         for _ in range(self.process_pool_size - len(res)):
                             thrs_data = []
                             for n_thr in range(self.concurrency):
-                                next_states_to_update = self.get_next_states_to_update_from_redis_stream(training_data_shared_redis)
+                                next_states_to_update = self.get_next_states_to_update_from_redis_stream(training_data_shared_redis, timeout=5)
                                 if next_states_to_update is None:
                                     break
                                 thrs_data.append(next_states_to_update)
