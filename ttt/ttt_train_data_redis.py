@@ -52,6 +52,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             claimed = self.__r.xautoclaim(self.redis_states_updates_stream, self.redis_states_updates_stream_group, self.redis_stream_consumer_name, 60*60*1000, 0, count, True)
             if claimed != []:
                 logger.info("Claimed {} ID's to consumer: {}, stream: {}".format(claimed, self.redis_stream_consumer_name, self.redis_states_updates_stream))
+                self.check_backlog = True
+                self.lastid = "0-0"
         except RedisError as e:
             logger.exception(e)
 
@@ -285,7 +287,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to Redis complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to Redis Done.")
         self.inc_total_games_finished(other.total_games_finished)
-        while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
+        while self.__r.zcount(self.redis_states_updates_zset_key, 1, math.inf) > 0:
             states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
             states_to_update_to_db = [int(state) for (state , _) in states_to_update_to_db]
             self.publish_states_to_stream(str(states_to_update_to_db))
