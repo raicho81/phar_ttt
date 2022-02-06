@@ -82,12 +82,12 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             logger.exception(e)
 
     def get_states_to_update_from_stream(self, timeout):
-        stream_data = []
+        stream_data = None
         if not settings.REDIS_MASTER:
             raise RuntimeError("Only master can read data from the Redis states updates stream!")
         try:
             stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: "0"}, 1, timeout*1000)
-            if stream_data == []:
+            if stream_data[0][1] == []:
                 stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: ">"}, 1, timeout*1000)
         except RedisError as e:
             logger.exception(e)
