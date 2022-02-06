@@ -1,6 +1,6 @@
 {
     "default": {
-        "game_type": "HVsC",
+        "game_type": "CVsC",
         "train": true,
         "inner_iterations": 2000,
         "iterations": 3000,
