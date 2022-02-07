@@ -3,8 +3,11 @@ import sys
 import itertools
 import os
 import logging
+
 from dynaconf import settings
-import numpy
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
+
 import ttt_train_data
 import ttt_desk
 import ttt_player
@@ -12,23 +15,23 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
-import ttt_dependency_injection
 
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
+                    
 logger = logging.getLogger(__name__)
 
 
 class TTTPlay():
-    @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, *, train_data=ttt_dependency_injection.Dependency(ttt_train_data.TTTTrainDataBase)):
+    # @ttt_dependency_injection.DependencyInjection.inject
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000):
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
         self.n_iter_info_skip = n_iter_info_skip
-        self.train_data = train_data
+        self.train_data = ttt_train_data.TTTTrainData()
         self.training_data_shared = training_data_shared
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
@@ -60,7 +63,7 @@ class TTTPlay():
         if len(possible_moves_indices) == 1:
             return possible_moves_indices[0]
         else:
-            return possible_moves_indices[numpy.random.randint(0, len(possible_moves_indices))]
+            return possible_moves_indices[random.randrange(0, len(possible_moves_indices))]
 
     def choose_next_best_move_idx(self):
         state = self.desk.get_state()
@@ -180,7 +183,7 @@ class TTTPlay():
     def run(self):
         logger.info("TTTPlay started")
         logger.info("TTTPlay re-seed the RNG")
-        numpy.random.seed()
+        random.seed()
         self.train_data.clear()
         logger.info("Training Data Cleared!")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
@@ -194,7 +197,7 @@ class TTTPlay():
             self.play_game()
         if self.train:
             self.training_data_shared.update(self.train_data)
+            self.training_data_shared.load()
             logger.info("Total games played for training until now: {}".format(self.training_data_shared.total_games_finished()))
             logger.info("self.training_data.cache_info(): {}".format(self.train_data.cache_info))
-            logger.info("self.training_data_shared.has_state.cache_info(): {}".format(self.training_data_shared.cache_info()))
         return True

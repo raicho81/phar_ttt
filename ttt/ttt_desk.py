@@ -1,11 +1,7 @@
-import os
 import logging
 import ttt_game_state
 
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
-                    filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)20s() - %(message)s')
 logger = logging.getLogger(__name__)
 
 class TTTDesk:

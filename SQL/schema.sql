@@ -38,22 +38,40 @@ CREATE PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, I
     LANGUAGE plpgsql
     AS $$
 DECLARE 
-	state_insert_id integer;
-	state_moves_insert_id integer;
 BEGIN
-	INSERT INTO "States" (desk_id, state, moves)
-	VALUES(_desk_id, _state, _moves_encoded)
-	ON CONFLICT (desk_id, state) DO NOTHING
-	RETURNING id INTO state_insert_id;
-
-	IF state_insert_id IS NULL THEN
+	IF has_state(_desk_id, _state) THEN
 		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
+	ELSE
+		CALL insert_state_moves(_desk_id, _states[i], _moves_encoded);
 	END IF;
 END;
 $$;
 
 
 ALTER PROCEDURE public.add_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea) OWNER TO postgres;
+
+--
+-- Name: add_state_moves_batch(integer, bigint[], bytea[]); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.add_state_moves_batch(IN _desk_id integer, IN _states bigint[], IN _moves_encoded bytea[])
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	i integer;
+BEGIN
+	FOR i IN 1..cardinality(_states) LOOP
+		IF has_state(_desk_id, _states[i]) THEN
+			CALL update_state_moves_v2(_desk_id, _states[i], _moves_encoded[i]);
+		ELSE
+			CALL insert_state_moves(_desk_id, _states[i], _moves_encoded[i]);
+		END IF;
+	END LOOP;
+END;
+$$;
+
+
+ALTER PROCEDURE public.add_state_moves_batch(IN _desk_id integer, IN _states bigint[], IN _moves_encoded bytea[]) OWNER TO postgres;
 
 --
 -- Name: get_desk_state_moves(integer, bigint); Type: FUNCTION; Schema: public; Owner: postgres
@@ -109,8 +127,13 @@ ALTER TABLE public."States" OWNER TO postgres;
 --
 
 CREATE FUNCTION public.get_state_id(_desk_id integer, _state bigint) RETURNS integer
-    LANGUAGE sql STABLE COST 5 PARALLEL SAFE
-    RETURN (SELECT "States".id FROM public."States" WHERE (("States".desk_id = get_state_id._desk_id) AND ("States".state = get_state_id._state)));
+	LANGUAGE plpgsql
+	STABLE COST 5 PARALLEL SAFE
+AS $$
+BEGIN
+	RETURN (SELECT "States".id FROM public."States" WHERE (("States".desk_id = get_state_id._desk_id) AND ("States".state = get_state_id._state)));
+END;
+$$
 
 
 ALTER FUNCTION public.get_state_id(_desk_id integer, _state bigint) OWNER TO postgres;
@@ -123,17 +146,44 @@ CREATE FUNCTION public.has_state(_desk_id integer, _state bigint) RETURNS boolea
     LANGUAGE plpgsql STABLE COST 5 PARALLEL SAFE
     AS $$
 BEGIN
-	IF EXISTS (SELECT "States".id FROM "States" WHERE (("States".desk_id = has_state._desk_id) AND ("States".state = has_state._state))) THEN
+	IF EXISTS (
+				SELECT "States".id FROM "States" 
+			   	WHERE "States".desk_id = has_state._desk_id 
+			   	AND "States".state = has_state._state
+			  ) THEN
 		RETURN true;
 	ELSE
 		RETURN false;
 	END IF;
-
 END;
 $$;
 
 
 ALTER FUNCTION public.has_state(_desk_id integer, _state bigint) OWNER TO postgres;
+
+--
+-- Name: insert_state_moves(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.insert_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea)
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	insert_id integer;
+BEGIN
+	INSERT INTO "States" (desk_id, state, moves)
+	VALUES(_desk_id, _state, _moves_encoded)
+	ON CONFLICT (desk_id, state)
+	DO NOTHING
+	RETURNING id INTO insert_id;
+	IF insert_id IS null THEN
+		CALL update_state_moves_v2(_desk_id, _state, _moves_encoded);
+	END IF;
+END;
+$$;
+
+
+ALTER PROCEDURE public.insert_state_moves(IN _desk_id integer, IN _state bigint, IN _moves_encoded bytea) OWNER TO postgres;
 
 --
 -- Name: msgpack_decode(bytea); Type: FUNCTION; Schema: public; Owner: postgres
@@ -672,6 +722,22 @@ $$;
 ALTER FUNCTION public.msgpack_encode(_data jsonb) OWNER TO postgres;
 
 --
+-- Name: update_state_moves(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea)
+    LANGUAGE sql
+    AS $$
+	UPDATE "States" SET 
+		moves = _moves
+	WHERE desk_id = _desk_id
+AND state = _state
+$$;
+
+
+ALTER PROCEDURE public.update_state_moves(IN _desk_id integer, IN _state bigint, IN _moves bytea) OWNER TO postgres;
+
+--
 -- Name: update_state_moves_v2(integer, bigint, bytea); Type: PROCEDURE; Schema: public; Owner: postgres
 --
 
@@ -698,15 +764,15 @@ begin
 				FROM
 					(SELECT jsonb_array_elements(_current_moves_decoded)) _moves_rs,
 					(SELECT jsonb_array_elements(_new_moves_decoded)) _new_moves_rs
-				WHERE
-					_moves_rs.jsonb_array_elements::jsonb->0 = _new_moves_rs.jsonb_array_elements::jsonb->0
-				ORDER BY
+					WHERE
+						_moves_rs.jsonb_array_elements::jsonb->0 = _new_moves_rs.jsonb_array_elements::jsonb->0
+					ORDER BY
 					_moves_rs.jsonb_array_elements::jsonb->0
 				) _jsonb_build_array_rs
 			)
 		)
 		WHERE "States".desk_id = _desk_id and "States".state = _state;
-	COMMIT;
+--	COMMIT;
 end; 
 $$;
 
@@ -809,24 +875,10 @@ ALTER TABLE ONLY public."Desks"
 
 
 --
--- Name: States_desk_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "States_desk_id_idx" ON public."States" USING btree (desk_id);
-
-
---
 -- Name: States_desk_id_state_unique_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE UNIQUE INDEX "States_desk_id_state_unique_idx" ON public."States" USING btree (desk_id, state);
-
-
---
--- Name: States_state_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "States_state_idx" ON public."States" USING btree (state);
 
 
 --

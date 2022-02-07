@@ -26,11 +26,9 @@ services:
   redis:
     image: redis
     restart: always
-    command: redis-server --requirepass secret --appendonly yes
-    volumes:
-      - ttt-redis-data:/data
+    command: [sh, -c, "rm -f /data/dump.rdb && redis-server --save --requirepass secret''"]
     ports:
       - 6379:6379
+
 volumes:
-  ttt-redis-data:
   postgres-data:

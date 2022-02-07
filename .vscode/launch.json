@@ -5,10 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "python.defaultInterpreterPath": "./venv/bin/python",
             "name": "Python: Main Program",
             "type": "python",
             "request": "launch",
             "program": "ttt/ttt_main.py",
+            "args": ["settings_local.json"],
             "console": "integratedTerminal"
         }
     ]
