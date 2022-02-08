@@ -72,13 +72,14 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
                     if not created:
                         curr_moves_decoded = self.enc.decode(res.moves)
-                        for curr_move, move in zip(curr_moves_decoded, moves):
-                            if move[1] > 0 or move[2] > 0 or move[3] > 0:
-                                curr_move[1] += move[1]
-                                curr_move[2] += move[2]
-                                curr_move[3] += move[3]    
-                                res.moves = self.enc.encode(curr_moves_decoded)
-                                bulk_update.append(res)
+                        if curr_moves_decoded is not None:
+                            for curr_move, move in zip(curr_moves_decoded, moves):
+                                if move[1] > 0 or move[2] > 0 or move[3] > 0:
+                                    curr_move[1] += move[1]
+                                    curr_move[2] += move[2]
+                                    curr_move[3] += move[3]    
+                                    res.moves = self.enc.encode(curr_moves_decoded)
+                                    bulk_update.append(res)
                 models.States.objects.bulk_update(bulk_update, ['moves'], batch_size=settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE)
         except DatabaseError as error:
             logger.exception(error)
@@ -138,7 +139,5 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     states_moves_to_upd = []
                     if count > 0 and count % vis == 0:
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-            if len(states_moves_to_upd) > 0:
-                training_data_shared_redis.remove_states_from_cache([state for state, _ in states_moves_to_upd])
             training_data_shared_redis.ack_stream_messages([msg_id])
         logger.info("Updating Intermediate Redis data to DB Done.")

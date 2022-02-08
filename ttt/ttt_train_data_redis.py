@@ -118,13 +118,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def remove_states_from_cache(self, states):
         try:
             locks = []
-            for state in states:
-                lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
-                locks.append(self.__r.lock(lock_key, timeout=5))
-                locks[-1].acquire()
+            # for state in states:
+            #     lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
+            #     locks.append(self.__r.lock(lock_key, timeout=5))
+            #     locks[-1].acquire()
             self.__r.hdel(self.redis_states_hset_key, *states)
-            for lock in locks:
-                lock.release()
+            self.__r.zrem(self.redis_states_updates_zset_key, *states)
+            # for lock in locks:
+            #     lock.release()
         except redis.exceptions.LockNotOwnedError:
             pass
         except redis.RedisError as re:
@@ -272,8 +273,9 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 for move in json.loads(self.get_train_state(state, raw=True)):
                     moves_to_publish.append(move)
                 states_moves_to_publish.append([state, moves_to_publish])
-            self.publish_states_to_stream(str(states_moves_to_publish))
-            self.remove_states_from_cache(states_to_update_to_db)
+            states_moves_to_publish_str = str(states_moves_to_publish)
+            self.publish_states_to_stream(states_moves_to_publish_str)
+            self.remove_states_from_cache(states_moves_to_publish_str)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")
