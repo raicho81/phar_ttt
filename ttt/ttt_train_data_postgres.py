@@ -7,6 +7,9 @@ if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
 from django.db import DatabaseError, transaction
+from django.db import transaction, DatabaseError
+import django
+django.setup()
 
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis

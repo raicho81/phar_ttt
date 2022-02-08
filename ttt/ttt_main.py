@@ -15,10 +15,6 @@ sys.dont_write_bytecode = True
 # Django specific settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings_django')
 
-from django.db import transaction, DatabaseError
-import django
-django.setup()
-
 import ttt_play
 import ttt_game_type
 import ttt_train_data
