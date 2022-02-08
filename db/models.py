@@ -26,7 +26,7 @@ class Desks(models.Model):
         ]
 
     def __str__(self):
-        return self.name
+        return "Desks(size={}, total_games_played={})".format(self.size, self.total_games_played)
 
 
 class States(models.Model):
@@ -62,8 +62,8 @@ class Games(models.Model):
     game_uuid = models.UUIDField(null=False, db_column="game_uuid")
     player_id = models.ForeignKey(Players, on_delete=models.CASCADE, null=False, db_column="player_id")
     desk_size = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_size")
-    state = models.BigIntegerField(null=False)
-    desk = models.BinaryField(null=False)    
+    cur_state = models.BigIntegerField(null=False)
+    desk = models.BinaryField(null=False)
     
     class Meta:
         db_table = "Games"
