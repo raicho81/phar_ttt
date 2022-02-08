@@ -141,6 +141,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     states_moves_to_upd = []
                     if count > 0 and count % vis == 0:
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-                training_data_shared_redis.remove_states_from_cache([state])
+            training_data_shared_redis.remove_states_from_cache(states)
             training_data_shared_redis.ack_stream_messages([msg_id])
         logger.info("Updating Intermediate Redis data to DB Done.")
