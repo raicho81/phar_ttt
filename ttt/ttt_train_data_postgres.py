@@ -134,8 +134,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             count = 0
             for state in states:
                 try:
-                    moves = training_data_shared_redis.get_train_state(state, raw=True)
-                    states_moves_to_upd.append([state, json.loads(moves)])
+                    moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
+                    states_moves_to_upd.append([state, moves])
                 except TypeError as e:
                     logger.exception(e)
                 if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or state == states[-1]:

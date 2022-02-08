@@ -226,6 +226,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                         moves_to_update_decoded = other_moves
                         continue
                     for i, this_move in enumerate(moves_to_update_decoded):
+                        other_moves = self.binary_search(other_moves, 0, len(other_moves) - 1, this_move[0])
                         this_move[1] += other_moves[i][1]
                         this_move[2] += other_moves[i][2]
                         this_move[3] += other_moves[i][3]
