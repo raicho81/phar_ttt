@@ -27,7 +27,7 @@ class TTTTrainDataBase:
             else:
                 return self.binary_search(state_possible_moves, mid + 1, high, x)
         else:
-            raise ValueError("Move index not found!")
+            return None
 
     @functools.lru_cache(4096)
     def int_none_tuple_hash(self, t, hash_base=3):

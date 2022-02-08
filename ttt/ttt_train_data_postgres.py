@@ -81,7 +81,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                                         bulk_update.append(res)
                     except TypeError as e:
                         logger.exception(e)
-                models.States.objects.bulk_update(bulk_update, ['moves'], batch_size=settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE)
+                if bulk_update != []:
+                    models.States.objects.bulk_update(bulk_update, ['moves'], batch_size=settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE)
         except DatabaseError as error:
             logger.exception(error)
 
