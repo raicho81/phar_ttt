@@ -6,32 +6,23 @@ from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
-
-# Django specific settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings_django')
-
-from django.db import transaction, DatabaseError
-import django
-django.setup()
-
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
-
-from db import models
-
-
-# Django specific settings
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
+from django import db
+from django.db import transaction, DatabaseError
+from db import models
 
 class TTTTrainDataPostgres(TTTTrainDataBase):
     def __init__(self, desk_size):
         super().__init__()
         self.desk_size = desk_size
+        db.connections.close_all()
         res, created = models.Desks.objects.get_or_create(size=desk_size, defaults={"size": desk_size, "total_games_played": 0})
         self.desk_db_id = res.id
         logger.info("111 Postgres Connector Loaded !!!")

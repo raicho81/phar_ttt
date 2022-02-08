@@ -13,6 +13,12 @@ if len(sys.argv) > 1:
 # Turn off bytecode generation (Django)
 sys.dont_write_bytecode = True
 
+# Django specific settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings_django')
+
+import django
+django.setup()
+
 import ttt_play
 import ttt_game_type
 import ttt_train_data_redis
