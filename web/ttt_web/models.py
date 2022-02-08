@@ -1,3 +1,1 @@
-from ...db import models
-
-# Create your models here.
+../../db/models.py
