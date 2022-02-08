@@ -88,7 +88,8 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
-        raise NotImplementedError()
+        st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
+        return st.id, self.enc.decode(st.moves)
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
@@ -113,10 +114,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = 0
         for state in other.get_train_data():
             other_moves = other.get_train_state(state, True)
-            if self.has_state(state):
-                self.update_train_state_moves(state, other_moves)
-            else:
-                self.add_train_state(state, other_moves)
+            self.update_train_states_moves([[state, other_moves]])
             count += 1
             if count % vis == 0:
                 logger.info("Updating Intermediate data to DB is complete@{}%".format(int((count / s) * 100)))
@@ -148,6 +146,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
             training_data_shared_redis.remove_states_from_cache(states)
             training_data_shared_redis.ack_stream_messages([msg_id])
-            self.inc_total_games_finished(-self.total_games_finished())
-            self.inc_total_games_finished(training_data_shared_redis.total_games_finished())
+            try:
+                with transaction.atomic():           
+                    self.inc_total_games_finished(-self.total_games_finished())
+                    self.inc_total_games_finished(training_data_shared_redis.total_games_finished())
+            except DatabaseError as e:
+                logger.exception(e)
         logger.info("Updating Intermediate Redis data to DB Done.")
