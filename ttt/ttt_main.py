@@ -127,8 +127,10 @@ class MainProcessPoolRunner:
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
                            r.wait()
-                        pop_pub_threads = [Thread(target=training_data_shared_redis.pop_publish_states_to_update_from_zset) for tc in range(self.concurrency)]
+                        tc = self.concurrency * self.process_pool_size
+                        pop_pub_threads = [Thread(target=training_data_shared_redis.pop_publish_states_to_update_from_zset) for tc in range(tc)]
                         [t.start() for t in pop_pub_threads]
+                        logger.info("Publishing to Redis Stream. Started [{}] threads".format(tc))
                         [t.join() for t in pop_pub_threads]
             if settings.REDIS_MASTER:
                 with Pool(self.process_pool_size) as pool:

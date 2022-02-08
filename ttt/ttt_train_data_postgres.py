@@ -1,9 +1,6 @@
 from email.policy import default
 import logging
 import os, sys
-from threading import Semaphore
-from time import monotonic
-from venv import create
 
 from dynaconf import settings
 if len(sys.argv) > 1:
@@ -66,20 +63,23 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         except DatabaseError as e:
             logger.exception(e)
 
-    def update_train_state_moves(self, state, moves):
+    def update_train_states_moves(self, states_moves):
         try:
             with transaction.atomic():
                 desk = models.Desks.objects.get(id=self.desk_db_id)
-                res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
-                if not created:
-                    curr_moves_decoded = self.enc.decode(res.moves)
-                    for move in moves:
-                        curr_move = self.binary_search(curr_moves_decoded, 0, len(curr_moves_decoded) - 1, move[0])
-                        curr_move[1] += move[1]
-                        curr_move[2] += move[2]
-                        curr_move[3] += move[3]            
-                    res.moves = self.enc.encode(curr_moves_decoded)
-                    res.save()
+                bulk_update = []
+                for state, moves in states_moves:
+                    res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
+                    if not created:
+                        curr_moves_decoded = self.enc.decode(res.moves)
+                        for curr_move, move in zip(curr_moves_decoded, moves):
+                            if move[1] > 0 or move[2] > 0 or move[3] > 0:
+                                curr_move[1] += move[1]
+                                curr_move[2] += move[2]
+                                curr_move[3] += move[3]    
+                                res.moves = self.enc.encode(curr_moves_decoded)
+                                bulk_update.append(res)
+                models.States.objects.bulk_update(bulk_update, ['moves'], batch_size=settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE)
         except DatabaseError as error:
             logger.exception(error)
 
@@ -123,17 +123,22 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
         for msg_id, states_moves in msg_data:
+            states_moves_to_upd = []
             s = len(states_moves)
             vis = s // 10
             if vis == 0 :
                 vis = 2
             logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {}, stream msg ID: {})".format(s, msg_id))
             count = 0
-            for (state, moves) in states_moves:
-                self.update_train_state_moves(state, moves)
-                count += 1
-                if count % vis == 0:
-                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-                training_data_shared_redis.remove_states_from_cache([state])
+            for state, moves in states_moves:
+                states_moves_to_upd.append([state, moves])
+                if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or (state, moves) == states_moves[-1]:
+                    self.update_train_states_moves(states_moves_to_upd)
+                    count += len(states_moves_to_upd)
+                    states_moves_to_upd = []
+                    if count > 0 and count % vis == 0:
+                        logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+            if len(states_moves_to_upd) > 0:
+                training_data_shared_redis.remove_states_from_cache([state for state, _ in states_moves_to_upd])
             training_data_shared_redis.ack_stream_messages([msg_id])
         logger.info("Updating Intermediate Redis data to DB Done.")

@@ -270,11 +270,10 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             for state in states_to_update_to_db:
                 moves_to_publish = []
                 for move in json.loads(self.get_train_state(state, raw=True)):
-                    if move[1] != 0 or move[2] != 0 or move[3] !=0:
-                        moves_to_publish.append(move)
+                    moves_to_publish.append(move)
                 states_moves_to_publish.append([state, moves_to_publish])
             self.publish_states_to_stream(str(states_moves_to_publish))
-            # self.remove_states_from_cache(states_to_update_to_db)
+            self.remove_states_from_cache(states_to_update_to_db)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")
