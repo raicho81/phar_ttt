@@ -19,6 +19,7 @@ from django import db
 from django.db import transaction, DatabaseError
 from db import models
 
+
 class TTTTrainDataPostgres(TTTTrainDataBase):
     def __init__(self, desk_size):
         super().__init__()
