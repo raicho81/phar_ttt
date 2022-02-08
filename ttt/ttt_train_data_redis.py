@@ -17,7 +17,6 @@ from ttt_train_data_base import TTTTrainDataBase
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
-
 logging.getLogger("pottery").setLevel("WARN")
 logger = logging.getLogger(__name__)
 
@@ -123,7 +122,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=5))
                 locks[-1].acquire()
-            self.__r.zrem(self.redis_states_updates_zset_key, *states)
             self.__r.hdel(self.redis_states_hset_key, *states)
             for lock in locks:
                 lock.release()
@@ -233,7 +231,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             if all_moves_to_update_decoded != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for state, moves in zip(states, all_moves_to_update_decoded)})
                 for state in states:
-                    self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
+                    self.__r.zincrby(self.redis_states_updates_zset_key, str(2), state)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError as e:
@@ -245,8 +243,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def get_train_state(self, state, raw=False):
         try:
-            with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5):
-                return self.redis_states_dict.get(state if raw == True else self.int_none_tuple_hash(state), None)
+            l = self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5)
+            l.acquire()
+            st = self.__r.hget(self.redis_states_hset_key, state if raw == True else str(self.int_none_tuple_hash(state)))
+            l.release()
+            return st
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -260,6 +261,20 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_desks_dict.clear()
         self.redis_states_dict.clear()
         self.__r.delete(self.redis_states_updates_zset_key)
+
+    def pop_publish_states_to_update_from_zset(self):
+        while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
+            states_moves_to_publish = []
+            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
+            states_to_update_to_db = [int(st) for (st, count) in states_to_update_to_db]
+            for state in states_to_update_to_db:
+                moves_to_publish = []
+                for move in json.loads(self.get_train_state(state, raw=True)):
+                    if move[1] != 0 or move[2] != 0 or move[3] !=0:
+                        moves_to_publish.append(move)
+                states_moves_to_publish.append([state, moves_to_publish])
+            self.publish_states_to_stream(str(states_moves_to_publish))
+            # self.remove_states_from_cache(states_to_update_to_db)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")
@@ -287,7 +302,3 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to Redis complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to Redis Done.")
         self.inc_total_games_finished(other.total_games_finished)
-        while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
-            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
-            states_to_update_to_db = [int(state) for (state , _) in states_to_update_to_db]
-            self.publish_states_to_stream(str(states_to_update_to_db))

@@ -1,14 +1,23 @@
 #!/usr/bin/python3
 import json
 import os
-from threading import Thread, Semaphore
+from threading import Thread
 from multiprocessing import Pool, Manager
-import sys
+import os, sys
 import logging
 
 from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
+
+# Turn off bytecode generation (Django)
+sys.dont_write_bytecode = True
+# Django specific settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings_django')
+
+from django.db import transaction, DatabaseError
+import django
+django.setup()
 
 import ttt_play
 import ttt_game_type
@@ -22,16 +31,7 @@ import ttt_dependency_injection
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
-
 logger = logging.getLogger(__name__)
-
-def init_dep_injection():
-    # ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)
-    if settings.ENCODE_TRAIN_DATA:
-        ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderMsgpack)
-    else:
-        ttt_dependency_injection.DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
-    ttt_dependency_injection.DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={})
 
 
 class TTTMain():
@@ -85,8 +85,7 @@ class MainProcessPoolRunner:
         
     def pool_update_redis_to_db_run_threaded(self, thrs_data):
         logger.info("pool_update_redis_to_db_run_threaded -> process started")
-        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size)
         logger.info("pool_update_redis_to_db_run_threaded -> starting {} thread(s)".format(len(thrs_data)))
         threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(msg_data.items(),)) for msg_data in thrs_data]
         [t.start() for t in threads]
@@ -114,8 +113,7 @@ class MainProcessPoolRunner:
     def run(self):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.board_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
-        postgres_conn_pool_threaded = ttt_train_data_postgres.ReallyThreadedPGConnectionPool(1, self.tp_conn_count , f"dbname={self.dbname} user={self.user} password={self.password} host={self.host} port={self.port}")
-        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size, postgres_conn_pool_threaded)
+        training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size)
 
         if self.game_type is ttt_game_type.TTTGameTypeCVsC and self.train:
             if settings.REDIS_MASTER and settings.REDIS_CLEAR_DATA_ON_START:
@@ -129,7 +127,9 @@ class MainProcessPoolRunner:
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
                            r.wait()
-                        
+                        pop_pub_threads = [Thread(target=training_data_shared_redis.pop_publish_states_to_update_from_zset) for tc in range(self.concurrency)]
+                        [t.start() for t in pop_pub_threads]
+                        [t.join() for t in pop_pub_threads]
             if settings.REDIS_MASTER:
                 with Pool(self.process_pool_size) as pool:
                     res = []

@@ -20,7 +20,6 @@ import ttt_game_type
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
-                    
 logger = logging.getLogger(__name__)
 
 

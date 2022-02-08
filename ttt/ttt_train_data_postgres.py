@@ -1,251 +1,90 @@
+from email.policy import default
 import logging
 import os, sys
 from threading import Semaphore
-
-
-import psycopg2 as psycopg2
-import psycopg2.pool
-import psycopg2.extras
-import psycopg2.extensions
+from time import monotonic
+from venv import create
 
 from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
+from django.db import DatabaseError, transaction
+
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
+
+from db import models
+
+
+# Django specific settings
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
-
 logger = logging.getLogger(__name__)
 
 
-class ReallyThreadedPGConnectionPool(psycopg2.pool.ThreadedConnectionPool):
-    def __init__(self, minconn, maxconn, *args, **kwargs):
-        self._semaphore = Semaphore(maxconn)
-        super().__init__(minconn, maxconn, *args, **kwargs)
-        logger.info("222 ReallyThreadedPGConnectionPool Loaded args: {} kwargs: {} 222".format(args, kwargs))
-
-    def getconn(self, *args, **kwargs):
-        self._semaphore.acquire()
-        return super().getconn(*args, **kwargs)
-
-    def putconn(self, *args, **kwargs):
-        super().putconn(*args, **kwargs)
-        self._semaphore.release()
-
-
 class TTTTrainDataPostgres(TTTTrainDataBase):
-    def __init__(self, desk_size, postgres_pool):
+    def __init__(self, desk_size):
         super().__init__()
         self.desk_size = desk_size
-        self.postgres_pool = postgres_pool
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT id
-                                        FROM "Desks"
-                                        WHERE size = %s
-                                    """,
-                                    (desk_size, )
-                    )
-                    rec = c.fetchone()
-                    if rec is None:
-                        c.execute(
-                                    """
-                                        INSERT INTO
-                                            "Desks" (size)
-                                        VALUES (%s)
-                                        ON CONFLICT(size) DO NOTHING
-                                        RETURNING id
-                                    """,
-                                    (desk_size, )
-                        )
-                        rec = c.fetchone()
-                    self.desk_db_id = rec["id"]
-                    if self.desk_db_id is None:
-                        c.execute(
-                                        """
-                                            SELECT id
-                                            FROM "Desks"
-                                            WHERE size = %s
-                                        """,
-                                        (desk_size, )
-                        )
-                        rec = c.fetchone()
-                        self.desk_db_id = rec["id"]
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
+        res, created = models.Desks.objects.get_or_create(size=desk_size, defaults={"size": desk_size, "total_games_played": 0})
+        self.desk_db_id = res.id
         logger.info("111 Postgres Connector Loaded !!!")
         # self.load()
-
-    def get_conn_from_pg_pool(self):
-        conn = self.postgres_pool.getconn()
-        conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
-        conn.cursor_factory = psycopg2.extras.DictCursor
-        return conn
 
     @property
     def desk_id(self):
         return self.desk_db_id
 
     def total_games_finished(self):
-        try:
-            try:
-                conn = self.get_conn_from_pg_pool()
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT total_games_played
-                                        FROM "Desks"
-                                        WHERE id=%s
-                                    """,
-                                    (self.desk_id, )
-                )
-                    row = c.fetchone()
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
-        return row["total_games_played"]
+        row = models.Desks.objects.get(id=self.desk_db_id)
+        return row.total_games_played
 
     def save(self):
         print("TTTTrainDataPostgres:save")
 
     def load(self):
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        SELECT total_games_played
-                                        FROM "Desks"
-                                        WHERE id=%s
-                                    """,
-                                    (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total games palyed for training".format(res["total_games_played"]))
-                    c.execute(
-                                        """
-                                            SELECT count(*) FROM "States"
-                                            WHERE desk_id=%s
-                                        """,
-                                        (self.desk_id, )
-                    )
-                    res = c.fetchone()
-                    logger.info("DB contains Data for: {} total states".format(res[0]))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
+        res = models.Desks.objects.get(id=self.desk_db_id)      
+        logger.info("DB contains Data for: {} total games palyed for training".format(res.total_games_played))
+        count = models.States.objects.filter(desk_id=self.desk_db_id).count()
+        logger.info("DB contains Data for: {} total states".format(count))
 
     def has_state(self, state):
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.callproc("has_state", (self.desk_id, state))
-                    res = c.fetchone()
-                    return res[0]
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
-
-    def add_train_state(self, states, possible_moves):
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute("CALL insert_state_moves(%s, %s, %s)", (self.desk_id, states, psycopg2.Binary(self.enc.encode(possible_moves))))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
-
-    def add_train_states_batch(self, states, possible_moves_list):
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    pms_binary = [psycopg2.Binary(self.enc.encode(pms)) for pms in possible_moves_list]
-                    c.execute("CALL add_state_moves_batch(%s, %s, %s)", (self.desk_id, states, pms_binary))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
+        return models.States.objects.filter(state=state).exists()
 
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         raise NotImplementedError()
 
     def inc_total_games_finished(self, count):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.execute(
-                                    """
-                                        UPDATE "Desks"
-                                        SET
-                                            total_games_played = total_games_played + %s
-                                        WHERE id = %s
-                                    """,
-                                    (count, self.desk_id)
-                    )
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
-
+            with transaction.atomic():
+                row = models.Desks.objects.get(id=self.desk_db_id)
+                row.total_games_finished += count
+                row.save()
+        except DatabaseError as e:
+            logger.exception(e)
 
     def update_train_state_moves(self, state, moves):
         try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    #
-                    # r: older code in, which the calculations were done in Python
-                    # currently te accumulation of the statistics is done directly in the DB thus saving some DB calls/transactions
-                    #
-                    # c.callproc("get_desk_state_moves", (self.desk_id, state))
-                    # res = c.fetchone()
-                    # curr_moves_decoded = self.enc.decode(res['moves'])
-                    # for i, curr_move in enumerate(curr_moves_decoded):
-                    #     curr_move[1] += moves[i][1]
-                    #     curr_move[2] += moves[i][2]
-                    #     curr_move[3] += moves[i][3]
-                    c.execute("CALL update_state_moves_v2(%s, %s, %s)", (self.desk_id, state, psycopg2.Binary(self.enc.encode(moves))))
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
+            with transaction.atomic():
+                desk = models.Desks.objects.get(id=self.desk_db_id)
+                res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
+                if not created:
+                    curr_moves_decoded = self.enc.decode(res.moves)
+                    for move in moves:
+                        curr_move = self.binary_search(curr_moves_decoded, 0, len(curr_moves_decoded) - 1, move[0])
+                        curr_move[1] += move[1]
+                        curr_move[2] += move[2]
+                        curr_move[3] += move[3]            
+                    res.moves = self.enc.encode(curr_moves_decoded)
+                    res.save()
+        except DatabaseError as error:
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
-        try:
-            conn = self.get_conn_from_pg_pool()
-            try:
-                with conn.cursor() as c:
-                    c.callproc("get_desk_state_moves", (self.desk_id, state if raw == True else self.int_none_tuple_hash(state)))
-                    rec = c.fetchone()
-                    if rec is not None:
-                        state_insert_id, moves_decoded = rec["state_insert_id"], self.enc.decode(rec["moves"])
-                        return state_insert_id, moves_decoded
-                    return None, None
-            finally:
-                self.postgres_pool.putconn(conn)
-        except psycopg2.Error as error:
-            logger.exception(error)
-        except Exception as error:
-            logger.exception(error)
+        raise NotImplementedError()
 
     def update_train_state(self, state, move):
         raise NotImplementedError()
@@ -283,29 +122,18 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
-        for msg_id, states in msg_data:
-            s = len(states)
-            logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
+        for msg_id, states_moves in msg_data:
+            s = len(states_moves)
             vis = s // 10
             if vis == 0 :
                 vis = 2
+            logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {}, stream msg ID: {})".format(s, msg_id))
             count = 0
-            states_batch = []
-            other_moves_batch = []
-            for state in states:
-                other_moves_ = training_data_shared_redis.get_train_state(state, True)
-                if other_moves_ is not None:
-                    states_batch.append(state)
-                    other_moves_batch.append(other_moves_)
-                if len(states_batch) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE:
-                    self.add_train_states_batch(states_batch, other_moves_batch)
-                    count += len(states_batch)
-                    states_batch = []
-                    other_moves_batch = []
-                    if count % vis == 0:
-                        logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-            if len(states_batch) >= 0:
-                self.add_train_states_batch(states_batch, other_moves_batch)
-            training_data_shared_redis.remove_states_from_cache(states)
+            for (state, moves) in states_moves:
+                self.update_train_state_moves(state, moves)
+                count += 1
+                if count % vis == 0:
+                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+                training_data_shared_redis.remove_states_from_cache([state])
             training_data_shared_redis.ack_stream_messages([msg_id])
-            logger.info("Updating Intermediate Redis data to DB Done.")
+        logger.info("Updating Intermediate Redis data to DB Done.")

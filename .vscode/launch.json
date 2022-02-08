@@ -10,7 +10,7 @@
             "type": "python",
             "request": "launch",
             "program": "ttt/ttt_main.py",
-            "args": ["settings_local.json"],
+            "args": ["settings_local_slave.json"],
             "console": "integratedTerminal"
         }
     ]

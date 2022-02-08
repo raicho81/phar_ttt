@@ -1,5 +1,21 @@
 import collections
 import functools
+import sys
+
+import ttt_data_encoder
+import ttt_train_data
+
+from dynaconf import settings
+if len(sys.argv) > 1:
+    settings.load_file(path=sys.argv[1])
+
+def init_dep_injection():
+    # ttt_dependency_injection.DependencyInjection.add_dependency(TTTManager, singleton=True)
+    if settings.ENCODE_TRAIN_DATA:
+        DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderMsgpack)
+    else:
+        DependencyInjection.add_dependency(ttt_data_encoder.TTTDataEncoderNone)
+    DependencyInjection.add_dependency(ttt_train_data.TTTTrainData, default_args=(), default_kwargs={})
 
 
 class Dependency:
