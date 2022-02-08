@@ -6,7 +6,6 @@ from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
-from django.db import DatabaseError, transaction
 from django.db import transaction, DatabaseError
 import django
 django.setup()
