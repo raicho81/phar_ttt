@@ -131,7 +131,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             count = 0
             for state in states:
                 try:
-                    moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
+                    moves = training_data_shared_redis.get_train_state(state, raw=True)
                     states_moves_to_upd.append([state, moves])
                 except TypeError as e:
                     logger.exception(e)
