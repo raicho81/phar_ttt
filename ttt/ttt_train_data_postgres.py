@@ -6,6 +6,10 @@ from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
+
+# Django specific settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings_django')
+
 from django.db import transaction, DatabaseError
 import django
 django.setup()
