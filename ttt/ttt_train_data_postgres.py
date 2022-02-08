@@ -69,7 +69,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 for state, moves in states_moves:
                     res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
                     if not created:
-                        curr_moves_decoded = self.enc.decode(res.moves)
+                        curr_moves_decoded = json.loads(res.moves)
                         if curr_moves_decoded is not None:
                             for curr_move, move in zip(curr_moves_decoded, moves):
                                 if move[1] > 0 or move[2] > 0 or move[3] > 0:
