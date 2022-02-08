@@ -57,7 +57,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         try:
             with transaction.atomic():
                 row = models.Desks.objects.get(id=self.desk_db_id)
-                row.total_games_finished += count
+                row.total_games_played += count
                 row.save()
         except DatabaseError as e:
             logger.exception(e)
