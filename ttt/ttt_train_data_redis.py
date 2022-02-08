@@ -246,7 +246,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         try:
             l = self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5)
             l.acquire()
-            st = self.__r.hget(self.redis_states_hset_key, state if raw == True else str(self.int_none_tuple_hash(state)))
+            st = self.__r.hget(self.redis_states_hset_key, str(state) if raw == True else str(self.int_none_tuple_hash(state)))
             l.release()
             return st
         except redis.RedisError as re:
