@@ -14,7 +14,7 @@ logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.g
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
 
-from django import db
+# from django import db
 from django.db import transaction, DatabaseError
 from db import models
 
@@ -22,7 +22,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def __init__(self, desk_size):
         super().__init__()
         self.desk_size = desk_size
-        db.connections.close_all()
+        # db.connections.close_all()
         res, created = models.Desks.objects.get_or_create(size=desk_size, defaults={"size": desk_size, "total_games_played": 0})
         self.desk_db_id = res.id
         logger.info("111 Postgres Connector Loaded !!!")
