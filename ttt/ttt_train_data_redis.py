@@ -221,10 +221,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                         logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
                         logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
                         logger.info("other_moves_list: {}".format(other_moves_list))
-                for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
-                    if moves_to_update_decoded == 'None': # Error occured skip update for this moves as for some reason data in Redis is missing for them
-                        moves_to_update_decoded = other_moves
-                        continue
+                for moves_to_update_decoded, other_moves in zip(filter(lambda m: m != 'None', all_moves_to_update_decoded), other_moves_list):
                     for i, this_move in enumerate(moves_to_update_decoded):
                         other_move = self.binary_search(other_moves, 0, len(other_moves) - 1, this_move[0])
                         if other_move[1] > 0 or other_move[2] > 0 or other_move[3] > 0:
