@@ -71,7 +71,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     if not created:
                         curr_moves_decoded = self.enc.decode(res.moves)
                         if curr_moves_decoded is not None:
-                            for curr_move, move in zip(curr_moves_decoded, moves):
+                            for curr_move, move in zip(curr_moves_decoded, json.loads(moves)):
                                 if move[1] > 0 or move[2] > 0 or move[3] > 0:
                                     curr_move[1] += move[1]
                                     curr_move[2] += move[2]
