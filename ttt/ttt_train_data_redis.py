@@ -226,10 +226,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                         moves_to_update_decoded = other_moves
                         continue
                     for i, this_move in enumerate(moves_to_update_decoded):
-                        other_moves = self.binary_search(other_moves, 0, len(other_moves) - 1, this_move[0])
-                        this_move[1] += other_moves[i][1]
-                        this_move[2] += other_moves[i][2]
-                        this_move[3] += other_moves[i][3]
+                        other_move = self.binary_search(other_moves, 0, len(other_moves) - 1, this_move[0])
+                        if other_move[1] > 0 or other_move[2] > 0 or other_move[3] > 0:
+                            this_move[1] += other_move[1]
+                            this_move[2] += other_move[2]
+                            this_move[3] += other_move[3]
             if all_moves_to_update_decoded != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for state, moves in zip(states, all_moves_to_update_decoded)})
                 for state in states:
