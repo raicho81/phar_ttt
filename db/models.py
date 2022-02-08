@@ -1,3 +1,4 @@
+from asyncio import constants
 import logging 
 import os
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
@@ -27,6 +28,7 @@ class Desks(models.Model):
     def __str__(self):
         return self.name
 
+
 class States(models.Model):
     desk_id = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_id")
     state = models.BigIntegerField(null=False)
@@ -40,3 +42,31 @@ class States(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Players(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    wins = models.IntegerField(null=False, default=0)
+    draws = models.IntegerField(null=False, default=0)
+    looses = models.IntegerField(null=False, default=0)
+    player_uuid = models.UUIDField(null=False, db_column="player_uuid")
+    
+    class Meta:
+        db_table = "Players"
+        constraints = [
+            models.UniqueConstraint(fields=['name'], name='unique_players_name')
+        ]
+
+
+class Games(models.Model):
+    game_uuid = models.UUIDField(null=False, db_column="game_uuid")
+    player_id = models.ForeignKey(Players, on_delete=models.CASCADE, null=False, db_column="player_id")
+    desk_size = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_size")
+    state = models.BigIntegerField(null=False)
+    desk = models.BinaryField(null=False)    
+    
+    class Meta:
+        db_table = "Games"
+        constraints = [
+            models.UniqueConstraint(fields=['game_uuid'], name='unique_games_uuid')
+        ]
