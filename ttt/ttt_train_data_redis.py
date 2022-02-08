@@ -265,17 +265,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def pop_publish_states_to_update_from_zset(self):
         while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
-            states_moves_to_publish = []
             states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
             states_to_update_to_db = [int(st) for (st, count) in states_to_update_to_db]
-            for state in states_to_update_to_db:
-                moves_to_publish = []
-                for move in json.loads(self.get_train_state(state, raw=True)):
-                    moves_to_publish.append(move)
-                states_moves_to_publish.append([state, moves_to_publish])
-            states_moves_to_publish_str = str(states_moves_to_publish)
+            states_moves_to_publish_str = str(states_to_update_to_db)
             self.publish_states_to_stream(states_moves_to_publish_str)
-            self.remove_states_from_cache(states_moves_to_publish_str)
+            # self.remove_states_from_cache(states_moves_to_publish_str)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")

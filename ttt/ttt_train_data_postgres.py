@@ -1,6 +1,7 @@
 from email.policy import default
 import logging
 import os, sys
+import json
 
 from dynaconf import settings
 if len(sys.argv) > 1:
@@ -120,21 +121,23 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
-        for msg_id, states_moves in msg_data:
+        for msg_id, states in msg_data:
             states_moves_to_upd = []
-            s = len(states_moves)
+            s = len(states)
             vis = s // 10
             if vis == 0 :
                 vis = 2
             logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {}, stream msg ID: {})".format(s, msg_id))
             count = 0
-            for state, moves in states_moves:
+            for state in states:
+                moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
                 states_moves_to_upd.append([state, moves])
-                if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or (state, moves) == states_moves[-1]:
+                if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or state == states[-1]:
                     self.update_train_states_moves(states_moves_to_upd)
                     count += len(states_moves_to_upd)
                     states_moves_to_upd = []
                     if count > 0 and count % vis == 0:
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+            training_data_shared_redis.remove_states_from_cache(states)
             training_data_shared_redis.ack_stream_messages([msg_id])
         logger.info("Updating Intermediate Redis data to DB Done.")
