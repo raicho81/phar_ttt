@@ -118,14 +118,14 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def remove_states_from_cache(self, states):
         try:
             locks = []
-            # for state in states:
-            #     lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
-            #     locks.append(self.__r.lock(lock_key, timeout=5))
-            #     locks[-1].acquire()
+            for state in states:
+                lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
+                locks.append(self.__r.lock(lock_key, timeout=5))
+                locks[-1].acquire()
             self.__r.hdel(self.redis_states_hset_key, *states)
             self.__r.zrem(self.redis_states_updates_zset_key, *states)
-            # for lock in locks:
-            #     lock.release()
+            for lock in locks:
+                lock.release()
         except redis.exceptions.LockNotOwnedError:
             pass
         except redis.RedisError as re:
@@ -265,7 +265,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
 
     def pop_publish_states_to_update_from_zset(self):
         while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
-            states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
+            with self.__r.lock(self.redis_desks_hset_key + ":zset.zpopmax.__lock__:{}".format(self.desk_size), timeout=5):
+                states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
             states_to_update_to_db = [int(st) for (st, count) in states_to_update_to_db]
             states_moves_to_publish_str = str(states_to_update_to_db)
             self.publish_states_to_stream(states_moves_to_publish_str)

@@ -130,14 +130,17 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {}, stream msg ID: {})".format(s, msg_id))
             count = 0
             for state in states:
-                moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
-                states_moves_to_upd.append([state, moves])
+                try:
+                    moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
+                    states_moves_to_upd.append([state, moves])
+                except TypeError as e:
+                    logger.exception(e)
                 if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or state == states[-1]:
                     self.update_train_states_moves(states_moves_to_upd)
                     count += len(states_moves_to_upd)
                     states_moves_to_upd = []
                     if count > 0 and count % vis == 0:
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-            training_data_shared_redis.remove_states_from_cache(states)
+                training_data_shared_redis.remove_states_from_cache([state])
             training_data_shared_redis.ack_stream_messages([msg_id])
         logger.info("Updating Intermediate Redis data to DB Done.")
