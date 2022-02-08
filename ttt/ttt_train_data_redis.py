@@ -122,8 +122,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=5))
                 locks[-1].acquire()
-            self.__r.hdel(self.redis_states_hset_key, *states)
-            self.__r.zrem(self.redis_states_updates_zset_key, *states)
+            self.__r.hdel(self.redis_states_hset_key, str(states))
+            self.__r.zrem(self.redis_states_updates_zset_key, str(states))
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError:
