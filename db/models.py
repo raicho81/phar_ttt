@@ -1,12 +1,14 @@
 from asyncio import constants
 import logging 
 import os
+import json
+import sys
+
+
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
                     format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
 logger = logging.getLogger(__name__)
-
-import sys
 
 try:
     from django.db import models
@@ -41,7 +43,7 @@ class States(models.Model):
         ]
     
     def __str__(self):
-        return self.name
+        return "States(desk_id={}, state={}, moves={}".format(self.desk_id, self.state, json.loads(self.moves))
 
 
 class Players(models.Model):
