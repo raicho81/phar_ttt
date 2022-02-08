@@ -2,7 +2,7 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 500,
+        "inner_iterations": 100,
         "iterations": 3000,
         "process_pool_size": 4,
         "threads_count": 8,
@@ -25,7 +25,7 @@
         "redis_consumer_name": "ttt_states_updates_stream_consumer_2",
         "redis_update_skip": 2000,
         "redis_keys_to_update_at_once": 5,
-        "redis_zset_extract_size_from_slave": 500,
+        "redis_zset_extract_size_from_slave": 200,
         "redis_master": false, 
         "redis_clear_data_on_start": false
     }
