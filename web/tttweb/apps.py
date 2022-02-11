@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TttWebConfig(AppConfig):
+class TttwebConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ttt_web'
+    name = 'tttweb'

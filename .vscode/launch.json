@@ -5,20 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        },
-        {
             "python.defaultInterpreterPath": "./venv/bin/python",
             "name": "Python: Main Program",
             "type": "python",
             "request": "launch",
             "program": "ttt/ttt_main.py",
             "args": [
-                "settings_local.json"
+                "settings_local_slave.json"
             ],
             "console": "integratedTerminal"
         }
