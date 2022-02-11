@@ -1,9 +1,3 @@
-import requests
-
-
-
-from django.http import JsonResponse
-
 
 class TTTGameState:
     GAME_STATE_WIN = 0
