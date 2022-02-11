@@ -50,7 +50,6 @@ class Players(models.Model):
     wins = models.IntegerField(null=False, default=0)
     draws = models.IntegerField(null=False, default=0)
     looses = models.IntegerField(null=False, default=0)
-    player_uuid = models.UUIDField(null=False, db_column="player_uuid")
     
     class Meta:
         db_table = "Players"
@@ -63,7 +62,7 @@ class Games(models.Model):
     game_uuid = models.UUIDField(null=False, db_column="game_uuid")
     player_id = models.ForeignKey(Players, on_delete=models.CASCADE, null=False, db_column="player_id")
     desk_size = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_size")
-    cur_state = models.BigIntegerField(null=False)
+    game_state = models.IntegerField(null=False)
     desk = models.BinaryField(null=False)
     
     class Meta:
