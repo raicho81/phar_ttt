@@ -22,6 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_9cxvxbr-#l4y!+gbq+w&z8c-fgbr&b@24wh@9v)e=@y=cpksp'
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tttweb',
     'corsheaders',
+    'db'
 ]
 
 MIDDLEWARE = [

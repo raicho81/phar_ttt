@@ -1,1 +1,1 @@
-../../db/models.py
+from db.models import *

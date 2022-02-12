@@ -1,11 +1,12 @@
 from django.http import JsonResponse
 
+import sys
+sys.path.append("../") # Adds higher directory to python modules path.
+sys.path.append("../ttt") # Adds higher directory to python modules path.
+
 from .models import Desks, States, Players, Games
 
-import sys
-sys.path.append("..") # Adds higher directory to python modules path.
-sys.path.append("../ttt") # Adds higher directory to python modules path.
-from ttt import ttt_play
+from ttt import ttt_play, ttt_train_data_postgres
 
 
 def load_desks(request):
