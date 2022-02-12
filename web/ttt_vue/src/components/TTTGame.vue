@@ -30,7 +30,7 @@ export default {
         },
         async startNewGame() {
             const res = await fetch(
-                `http://127.0.0.1:8000/tttweb/start_game/?${this.player_name}&${this.selected}`
+                `http://127.0.0.1:8000/tttweb/start_game/?player_name=${this.player_name}&desk_size=${this.selected}`
             )
             this.game_data = await res.json()
         },
@@ -57,6 +57,6 @@ export default {
     </span>
     <span v-else>
         <p>Game started.</p>
-        <TTTDesk :desk="desk"/>
+        <TTTDesk :desk="game_data.desk"/>
     </span>
 </template>

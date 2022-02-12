@@ -162,7 +162,33 @@ class TTTPlay():
         self.desk.clear()
         self.init_players()
 
-    def play_game(self):
+    def get_desk_state(self):
+        return self.desk.get_state()
+
+    def get_players(self):
+        return (player for player in self.players)
+    
+    def start_game(self):
+        if self.game_type is not ttt_game_type.TTTGameTypeHVsC:
+            raise ValueError("Game type must be: {}".format(ttt_game_type.TTTGameTypeHVsC.get_string()))
+        self.init_game()
+        if self.players[0].get_type() is ttt_player_type.TTTPlayerTypeComputer:
+            self.do_computer_move()
+
+    def make_move_stochastic(self, move_idx):
+        self.do_human_move(move_idx)
+        game_state, win_player = self.desk.eval_game_state()
+        if game_state is ttt_game_state.TTTGameStateWin or game_state is ttt_game_state.TTTGameStateDraw:
+            if self.train:
+                self.update_stats(game_state, win_player)
+            return
+        self.do_computer_move()
+        if game_state is ttt_game_state.TTTGameStateWin or game_state is ttt_game_state.TTTGameStateDraw:
+            if self.train:
+                self.update_stats(game_state, win_player)
+        
+    
+    def play_game_cli(self):
         self.init_game()
         if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
             print("Starting new game {}".format(self.game_type.get_string()))
@@ -194,12 +220,12 @@ class TTTPlay():
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
             n_iterations = 0
             while n_iterations < self.train_iterations:
-                self.play_game()
+                self.play_game_cli()
                 n_iterations += 1
                 self.train and n_iterations % self.n_iter_info_skip == 0 and (logger.info("Training iteration {} finished. More {} left".format(n_iterations, self.train_iterations - n_iterations)))
             logger.info("Done {} with {} iterations.".format("training" if self.train else "playing", self.train_iterations))
         if self.game_type is ttt_game_type.TTTGameTypeHVsC:
-            self.play_game()
+            self.play_game_cli()
         if self.train:
             self.training_data_shared.update(self.train_data)
             self.training_data_shared.load()

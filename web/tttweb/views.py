@@ -1,4 +1,4 @@
-from wsgiref.util import request_uri
+import uuid
 from django.http import JsonResponse
 
 import sys
@@ -17,15 +17,13 @@ def load_desks(request):
 
 
 def start_game(request):
-    # request_uri[]
     p = ttt_play.TTTPlay(4, ttt_train_data_postgres.TTTTrainDataPostgres(4), ttt_game_type.TTTGameTypeHVsC)
     # logger.info(request)
     gd = {'game_data': {}}
     gd['game_data']['ttt_play_msg'] = '1212'
     gd['game_data']['ttt_player'] = "Player 1 (x)"
-    gd['game_data']['game_data.game_uuid'] = "weqw4234234"
-    gd['game_data']['game_data.desk_size'] = 4
-    gd['game_data']['game_data.desk'] =  ""
+    gd['game_data']['game_data.game_uuid'] = uuid.uuid4()
+    gd['game_data']['game_data.desk'] = p.desk.desk
     gd['game_data']['game_data.game_state'] = 1
     print(gd)
     return JsonResponse(gd)

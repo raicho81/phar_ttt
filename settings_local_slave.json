@@ -10,7 +10,7 @@
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_connection_pooling_factor": 1,
-        "postgres_dbname": "postgres",
+        "postgres_dbname": "test1",
         "postgres_port": 5432,
         "postgres_host": "192.168.1.31",
         "postgres_pass": "secret",
