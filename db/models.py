@@ -1,18 +1,11 @@
-import logging
-import os
 import json
 import sys
 
 
-logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
-                    filemode = 'a+',
-                    format='[%(asctime)s] pid: %(process)d - tid: %(thread)d - %(levelname)s - %(filename)s:%(lineno)s - %(funcName)s() - %(message)s')
-logger = logging.getLogger(__name__)
-
 try:
     from django.db import models
 except Exception:
-    logger.exception('Exception: Django Not Found, please install it with "pip install django".')
+    print('Exception: Django Not Found, please install it with "pip install django".')
     sys.exit()
 
 

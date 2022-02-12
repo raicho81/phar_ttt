@@ -101,7 +101,12 @@ class TTTPlay():
             self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx))
         self.save_move(next_move_idx)
 
-    def do_human_move(self):
+    def do_human_move(self, next_move_idx):
+        state = self.desk.get_state()
+        self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx - 1))
+        self.save_move(next_move_idx - 1)
+        
+    def do_human_move_cli(self):
         while True:
             text = input("Human ({} - {}) enter your choice [1... {}] it must be a valid move. 'q' to quit now. Enter your choice > ".format(
                 self.next_player.get_string(), self.next_player.get_mark().get_string(), self.desk.size ** 2))
@@ -119,9 +124,7 @@ class TTTPlay():
             if (next_move_idx - 1) not in possible_moves_indices:
                 print("Invalid move (square is already taken?): {}".format(next_move_idx))
                 continue
-            state = self.desk.get_state()
-            self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx - 1))
-            self.save_move(next_move_idx - 1)
+            self.do_human_move(next_move_idx)
             return
 
     def update_stats(self, game_state, win_player=None):
@@ -152,10 +155,15 @@ class TTTPlay():
             move = self.train_data.find_train_state_possible_move_by_idx(state, move_idx)
             move[3] += 1
             self.train_data.update_train_state(state, move)
-
-    def play_game(self):
+    
+    def init_game(self):
+        # logger.info("TTTPlay re-seed the RNG")
+        random.seed()
         self.desk.clear()
         self.init_players()
+
+    def play_game(self):
+        self.init_game()
         if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
             print("Starting new game {}".format(self.game_type.get_string()))
             self.desk.print_desk()
@@ -163,7 +171,7 @@ class TTTPlay():
             if self.next_player.get_type() is ttt_player_type.TTTPlayerTypeComputer:
                 self.do_computer_move()
             else:
-                self.do_human_move()
+                self.do_human_move_cli()
             if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:
                 print("{} - {} moves".format(self.next_player.get_string(), self.next_player.get_type().get_string()))
                 self.desk.print_desk()
@@ -181,8 +189,6 @@ class TTTPlay():
 
     def run(self):
         logger.info("TTTPlay started")
-        logger.info("TTTPlay re-seed the RNG")
-        random.seed()
         self.train_data.clear()
         logger.info("Training Data Cleared!")
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:

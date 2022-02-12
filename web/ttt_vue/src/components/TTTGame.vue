@@ -6,35 +6,54 @@
 export default {
     data() {
         return {
+            selected: -1,
+            desks: {'desk_sizes': []},
+            player_name: 'Input Your Name Here',
             game_data: {
-                player_name: 'Input Your Name Here',
-                game_started: false,
                 ttt_play_msg: null,
                 ttt_player: null,
                 game_uuid: null,
-                desk_size: 4,
+                desk_size: null,
                 desk: null,
                 game_state: null
             }
         }
     },
     methods: {
+        async loadDeskSizes() {
+            const res = await fetch(
+                `http://127.0.0.1:8000/tttweb/load_desks/`
+            )
+            this.desks = await res.json()
+            this.selected = this.desks.desk_sizes.length > 0 ?
+                this.desks.desk_sizes[0] : -1
+        },
         async startNewGame() {
             const res = await fetch(
-                `:8080/start/${this.player_name}/${this.game_data.desk_size}`
+                `http://127.0.0.1:8000/tttweb/start_game/?${this.player_name}&${this.selected}`
             )
-            game_data = await res.json()
+            this.game_data = await res.json()
         },
         async makeMove() {
 
         }
-    }
+    },
+    mounted() {
+        this.loadDeskSizes()
+    }    
 }
 </script>
 
 <template>
     <span v-if="!game_data.game_started">
-        <p>Player Name <input v-model="game_data.player_name" type="text"/> <button @click="startNewGame">Start New Game</button></p>
+        <p>Player Name <input v-model="player_name" type="text"/>
+        Desk Size
+        <select v-model="selected">
+            <option v-for="ds in desks.desk_sizes" v-bind:value="ds">
+                {{ ds }}
+            </option>
+        </select>
+        <button @click="startNewGame">Start New Game</button></p>
     </span>
     <span v-else>
         <p>Game started.</p>
