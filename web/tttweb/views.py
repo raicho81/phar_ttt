@@ -1,3 +1,4 @@
+from wsgiref.util import request_uri
 from django.http import JsonResponse
 
 import sys
@@ -6,7 +7,7 @@ sys.path.append("../ttt") # Adds higher directory to python modules path.
 
 from .models import Desks, States, Players, Games
 
-from ttt import ttt_play, ttt_train_data_postgres
+from ttt import ttt_play, ttt_train_data_postgres, ttt_game_type
 
 
 def load_desks(request):
@@ -16,7 +17,8 @@ def load_desks(request):
 
 
 def start_game(request):
-    # p = ttt_play.TTTPlay(4, ttt_train_data_postgres.TTTTrainDataPostgres(4))
+    # request_uri[]
+    p = ttt_play.TTTPlay(4, ttt_train_data_postgres.TTTTrainDataPostgres(4), ttt_game_type.TTTGameTypeHVsC)
     # logger.info(request)
     gd = {'game_data': {}}
     gd['game_data']['ttt_play_msg'] = '1212'
