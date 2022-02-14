@@ -1,10 +1,6 @@
 import uuid
 from django.http import JsonResponse
 
-import sys
-sys.path.append("../") # Adds higher directory to python modules path.
-sys.path.append("../ttt") # Adds higher directory to python modules path.
-
 from .models import Desks, States, Players, Games
 
 from ttt import ttt_play, ttt_train_data_postgres, ttt_game_type
