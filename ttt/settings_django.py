@@ -26,4 +26,4 @@ DATABASES = {
     }
 }
 
-INSTALLED_APPS = ('web.db',)
+INSTALLED_APPS = ('db',)
