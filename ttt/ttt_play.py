@@ -105,6 +105,9 @@ class TTTPlay():
         state = self.desk.get_state()
         self.next_player.add_path_node(ttt_player.TTTPlayerPathNode(state, next_move_idx - 1))
         self.save_move(next_move_idx - 1)
+    
+    def load_game(self, game_uuid):
+        pass
         
     def do_human_move_cli(self):
         while True:

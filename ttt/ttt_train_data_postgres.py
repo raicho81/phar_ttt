@@ -120,7 +120,14 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                 logger.info("Updating Intermediate data to DB is complete@{}%".format(int((count / s) * 100)))
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
-
+ 
+    def load_game(self, game_uuid):
+        game = models.Games.objects.get(uuid=game_uuid)
+        return self.enc.decode(game.desk)
+    
+    def save_game(self, desk, game_uuid):
+        models.Games.objects.update_or_create(self.desk_size, self.desk)
+    
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
