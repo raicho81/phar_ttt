@@ -57,7 +57,9 @@ class Games(models.Model):
     desk_size = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_size")
     game_state = models.IntegerField(null=False)
     desk = models.BinaryField(null=False)
-    
+    player_code = models.IntegerField(null=False)
+    player_mark = models.CharField(null=False, max_length=2)
+
     class Meta:
         db_table = "Games"
         constraints = [
