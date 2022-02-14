@@ -1,8 +1,12 @@
 import uuid
+import sys
+
 from django.http import JsonResponse
 
 from .models import Desks, States, Players, Games
 
+sys.path.append("../../")
+sys.path.append("../../ttt")
 from ttt import ttt_play, ttt_train_data_postgres, ttt_game_type
 
 

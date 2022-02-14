@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 from django import db
 from django.db import transaction, DatabaseError
-from web.db import models
+from db import models
 
 
 class TTTTrainDataPostgres(TTTTrainDataBase):
