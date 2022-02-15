@@ -61,6 +61,7 @@ class TTTPlay():
         else:
             self.desk = ttt_desk.TTTDesk(size=desk_size)
             self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
+            self.player_code
 
     def init_player_types(self):
         if self.game_type is ttt_game_type.TTTGameTypeCVsC:
@@ -192,17 +193,28 @@ class TTTPlay():
     def get_players(self):
         return (player for player in self.players)
     
-    def start_game(self, player_id):
+    def get_next_player(self):
+        return self.next_player
+
+    def get_player_mark(self):
+        return self.player_mark
+
+    def get_player_code(self):
+        return self.player_code
+
+    def start_game(self):
         if self.game_type is not ttt_game_type.TTTGameTypeHVsC:
             raise ValueError("Game type must be: {}".format(ttt_game_type.TTTGameTypeHVsC.get_string()))
         self.init_game()
         self.next_player = self.players[0]
         self.player_mark = self.player_marks[0].get_string()
+        self.player_code = self.players[0].get_code()        
         if self.players[0].get_type() is ttt_player_type.TTTPlayerTypeComputer:
-            self.do_computer_move()
             self.player_mark = self.player_marks[1].get_string()
+            self.player_code = self.players[1].get_code()
+            self.do_computer_move()
             self.next_player = self.players[1]
-        self.training_data_shared.save_game(self.desk.get_state(), self.game_uuid, ttt_game_state.TTTGameStateUnfinished, self.player_id, self.player_code,
+        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, ttt_game_state.TTTGameStateUnfinished, self.player_id, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return ttt_game_state.TTTGameStateUnfinished.get_code()
 
@@ -227,7 +239,7 @@ class TTTPlay():
                 self.next_player = self.players[1]
             else:
                 self.next_player = self.players[0]
-        self.training_data_shared.save_game(self.desk.get_state(), self.game_uuid, game_state, self.player_id, self.player_code,
+        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, game_state, self.player_id, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return game_state, win_player
         
