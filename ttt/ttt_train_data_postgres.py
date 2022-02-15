@@ -7,6 +7,8 @@ from dynaconf import settings
 if len(sys.argv) > 1:
     settings.load_file(path=sys.argv[1])
 
+import django.utils.timezone
+
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
 
@@ -123,10 +125,11 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
  
     def load_game(self, game_uuid):
         game = models.Games.objects.get(uuid=game_uuid)
-        return self.enc.decode(game.desk)
+        return game.player_code, game.player_mark, self.enc.decode(game.desk), game.player_id, game.game_state
     
-    def save_game(self, desk, game_uuid):
-        models.Games.objects.update_or_create(self.desk_size, self.desk)
+    def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, player_name):
+        models.Games.objects.update_or_create(player_name=player_name, game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
+                                              player_id=player_id, player_code=player_code, player_mark=player_mark, modified=django.utils.timezone.now)
     
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,

@@ -5,9 +5,9 @@ import ttt_game_state
 logger = logging.getLogger(__name__)
 
 class TTTDesk:
-    def __init__(self, size):
+    def __init__(self, size, desk=None):
         self.size = size
-        self.desk = None
+        self.desk = desk
         self.clear()
 
     def clear(self):

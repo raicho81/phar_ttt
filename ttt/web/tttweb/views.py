@@ -18,7 +18,8 @@ def load_desks(request):
 
 def start_game(request):
     p = ttt_play.TTTPlay(4, ttt_train_data_postgres.TTTTrainDataPostgres(4), ttt_game_type.TTTGameTypeHVsC)
-    # logger.info(request)
+    p.start_game()
+    params = request.GET
     gd = {'game_data': {}}
     gd['game_data']['ttt_play_msg'] = '1212'
     gd['game_data']['ttt_player'] = "Player 1 (x)"

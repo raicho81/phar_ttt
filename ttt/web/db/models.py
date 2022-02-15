@@ -1,12 +1,9 @@
 import json
+from sqlite3 import Date
 import sys
 
-
-try:
-    from django.db import models
-except Exception:
-    print('Exception: Django Not Found, please install it with "pip install django".')
-    sys.exit()
+from django.db import models
+import django.utils.timezone
 
 
 class Desks(models.Model):
@@ -59,7 +56,8 @@ class Games(models.Model):
     desk = models.BinaryField(null=False)
     player_code = models.IntegerField(null=False)
     player_mark = models.CharField(null=False, max_length=2)
-
+    modified = models.DateTimeField(null=False, default=django.utils.timezone.now)
+    
     class Meta:
         db_table = "Games"
         constraints = [
