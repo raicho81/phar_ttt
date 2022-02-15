@@ -36,7 +36,10 @@ class TTTPlayer:
 
     def get_path(self):
         return self.path
-
+    
+    def set_path(self, path):
+        self.path = path
+    
     def clear_path(self):
         self.path = []
 

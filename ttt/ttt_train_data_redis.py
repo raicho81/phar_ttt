@@ -37,7 +37,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.__r = redis.Redis(host=host,
                                 port=port,
                                 password=password,
-                                decode_responses=True)
+                                decode_responses=True,
+                                health_check_interval=5)
         self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
         self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
         if settings.REDIS_MASTER:

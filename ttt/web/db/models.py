@@ -57,6 +57,9 @@ class Games(models.Model):
     player_code = models.IntegerField(null=False)
     player_mark = models.CharField(null=False, max_length=2)
     modified = models.DateTimeField(null=False, default=django.utils.timezone.now)
+    next_player_code = models.IntegerField(null=False, default=1)
+    player1_path = models.BinaryField(null=False, default=None)
+    player2_path = models.BinaryField(null=False, default=None)
     
     class Meta:
         db_table = "Games"

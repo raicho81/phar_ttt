@@ -1,6 +1,6 @@
-from email.policy import default
 import logging
-import os, sys
+import os
+import sys
 import json
 
 from dynaconf import settings
@@ -11,6 +11,7 @@ import django.utils.timezone
 
 from ttt_train_data_base import TTTTrainDataBase
 import ttt_train_data_redis
+
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
                     filemode = 'a+',
@@ -29,7 +30,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         db.connections.close_all()
         res, created = models.Desks.objects.get_or_create(size=desk_size, defaults={"size": desk_size, "total_games_played": 0})
         self.desk_db_id = res.id
-        logger.info("111 Postgres Connector Loaded !!!")
+        logger.info("PGC Postgres Connector Loaded PGC")
         # self.load()
 
     @property
@@ -123,13 +124,13 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
  
-    def load_game(self, game_uuid):
-        game = models.Games.objects.get(uuid=game_uuid)
-        return game.player_code, game.player_mark, self.enc.decode(game.desk), game.player_id, game.game_state
+    def load_game(self, game_uuid, player_id):
+        return models.Games.objects.get(uuid=game_uuid,player_id=player_id)
     
-    def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, player_name):
-        models.Games.objects.update_or_create(player_name=player_name, game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
-                                              player_id=player_id, player_code=player_code, player_mark=player_mark, modified=django.utils.timezone.now)
+    def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, next_player, player1_path, player2_path):
+        models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
+                                              player_id=player_id, player_code=player_code, next_player=next_player, player_mark=player_mark, modified=django.utils.timezone.now,
+                                              player1_path=player1_path, player2_path=player2_path)
     
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
