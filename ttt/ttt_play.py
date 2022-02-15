@@ -25,13 +25,16 @@ logger = logging.getLogger(__name__)
 
 class TTTPlay():
     # @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000):
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, game_uuid=None):
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
         self.n_iter_info_skip = n_iter_info_skip
         self.train_data = ttt_train_data.TTTTrainData()
         self.training_data_shared = training_data_shared
+        if game_uuid is not None:
+            self.game_uuid = game_uuid
+            self.training_data_shared.load_game(game_uuid)
         self.desk = ttt_desk.TTTDesk(size=desk_size)
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
@@ -171,12 +174,13 @@ class TTTPlay():
     def get_players(self):
         return (player for player in self.players)
     
-    def start_game(self):
+    def start_game(self, player_name, ):
         if self.game_type is not ttt_game_type.TTTGameTypeHVsC:
             raise ValueError("Game type must be: {}".format(ttt_game_type.TTTGameTypeHVsC.get_string()))
         self.init_game()
         if self.players[0].get_type() is ttt_player_type.TTTPlayerTypeComputer:
             self.do_computer_move()
+            self.training_data_shared.save_game()
 
     def make_move_stochastic(self, move_idx):
         self.do_human_move(move_idx)
