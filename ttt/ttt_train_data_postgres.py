@@ -68,10 +68,11 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_train_states_moves(self, states_moves):
         try:
             with transaction.atomic():
+                desk = models.Desks.objects.get(id=self.desk_db_id)
                 bulk_update = []
                 for state, moves in states_moves:
                     try:
-                        res, created = models.States.objects.get_or_create(desk_id=self.desk_db_id, state=state, defaults={"moves": self.enc.encode(moves)})
+                        res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
                         if not created:
                             curr_moves_decoded = self.enc.decode(res.moves)
                             if curr_moves_decoded is not None:
