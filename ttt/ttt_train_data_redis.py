@@ -2,6 +2,7 @@ import logging
 import os
 import json
 import math
+from socket import timeout
 import sys
 import redis
 from pottery import RedisDict
@@ -116,15 +117,15 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         except redis.RedisError as re:
             logger.exception(re)
 
-    def remove_states_from_cache(self, states):
+    def remove_states_from_cache(self, states, remove_from_zset=True):
         try:
             locks = []
             for state in states:
                 lock_key = self.redis_states_hset_key + ":__lock__:{}".format(state)
                 locks.append(self.__r.lock(lock_key, timeout=5))
                 locks[-1].acquire()
-            self.__r.hdel(self.redis_states_hset_key, str(states))
-            self.__r.zrem(self.redis_states_updates_zset_key, str(states))
+            self.__r.hdel(self.redis_states_hset_key, *states)
+            remove_from_zset and self.__r.zrem(self.redis_states_updates_zset_key, *states)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError:
@@ -240,7 +241,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             if all_moves_to_update_decoded != []:
                 self.__r.hmset(self.redis_states_hset_key, {str(state): str(moves) for state, moves in zip(states, all_moves_to_update_decoded)})
                 for state in states:
-                    self.__r.zincrby(self.redis_states_updates_zset_key, str(2), state)
+                    self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
             for lock in locks:
                 lock.release()
         except redis.exceptions.LockNotOwnedError as e:
@@ -271,8 +272,23 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_dict.clear()
         self.__r.delete(self.redis_states_updates_zset_key)
 
+    def pop_clean_states_from_zset(self, zc):
+        try:
+            lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
+            lock.acquire()
+            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 90 // 100):
+                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
+                lock.release()
+                states_to_remove = [int(st) for (st, count) in states_to_remove]
+                self.remove_states_from_cache(states_to_remove, False)
+                lock.acquire()
+            lock.release()
+        except redis.exceptions.LockNotOwnedError as e:
+            logger.exception(e)
+            
     def pop_publish_states_to_update_from_zset(self):
-            lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpopmax.__lock__:{}".format(self.desk_size), timeout=5)
+        try:
+            lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
             lock.acquire()
             while self.__r.zcount(self.redis_states_updates_zset_key, 2, math.inf) > 0:
                 states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
@@ -282,6 +298,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 self.publish_states_to_stream(states_moves_to_publish_str)
                 lock.acquire()
             lock.release()
+        except redis.exceptions.LockNotOwnedError as e:
+            logger.exception(e)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")

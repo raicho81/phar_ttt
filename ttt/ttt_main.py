@@ -128,6 +128,10 @@ class MainProcessPoolRunner:
                         [t.start() for t in pop_pub_threads]
                         logger.info("Publishing to Redis Stream. Started [{}] threads".format(tc))
                         [t.join() for t in pop_pub_threads]
+                        # logger.info("pop_clean_states_from_zset.")
+                        # zclean_thread = Thread(target=training_data_shared_redis.pop_clean_states_from_zset)
+                        # zclean_thread.start()
+                        # zclean_thread.join()
             if settings.REDIS_MASTER:
                 with Pool(self.process_pool_size) as pool:
                     res = []
