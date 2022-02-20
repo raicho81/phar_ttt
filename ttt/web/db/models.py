@@ -51,7 +51,6 @@ class Players(models.Model):
 class Games(models.Model):
     game_uuid = models.UUIDField(null=False, db_column="game_uuid")
     player_id = models.ForeignKey(Players, on_delete=models.CASCADE, null=False, db_column="player_id")
-    desk_size = models.ForeignKey(Desks, on_delete=models.CASCADE, null=False, db_column="desk_size")
     game_state = models.IntegerField(null=False)
     desk = models.BinaryField(null=False)
     player_code = models.IntegerField(null=False)

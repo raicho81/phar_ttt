@@ -68,11 +68,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_train_states_moves(self, states_moves):
         try:
             with transaction.atomic():
-                desk = models.Desks.objects.get(id=self.desk_db_id)
                 bulk_update = []
                 for state, moves in states_moves:
                     try:
-                        res, created = models.States.objects.get_or_create(desk_id=desk, state=state, defaults={"moves": self.enc.encode(moves)})
+                        res, created = models.States.objects.get_or_create(desk_id=self.desk_db_id, state=state, defaults={"moves": self.enc.encode(moves)})
                         if not created:
                             curr_moves_decoded = self.enc.decode(res.moves)
                             if curr_moves_decoded is not None:
@@ -125,12 +124,13 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         self.inc_total_games_finished(other.total_games_finished)
  
     def load_game(self, game_uuid, player_id):
-        return models.Games.objects.get(uuid=game_uuid,player_id=player_id)
+        qs = models.Games.objects.filter(game_uuid=game_uuid, player_id=player_id)
+        return qs[0] if len(qs) > 0 else None
     
     def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, next_player, player1_path, player2_path):
         models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
-                                              player_id=player_id, player_code=player_code, next_player=next_player, player_mark=player_mark, modified=django.utils.timezone.now,
-                                              player1_path=player1_path, player2_path=player2_path)
+                                              player_id=player_id, player_code=player_code, next_player_code=next_player, player_mark=player_mark, modified=django.utils.timezone.now(),
+                                              player1_path=self.enc.encode(player1_path), player2_path=self.enc.encode(player2_path))
     
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
