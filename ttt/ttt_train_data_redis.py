@@ -272,12 +272,13 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         self.redis_states_dict.clear()
         self.__r.delete(self.redis_states_updates_zset_key)
 
-    def pop_clean_states_from_zset(self, zc):
+    def pop_clean_states_from_zset(self):
         try:
             lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
             lock.acquire()
-            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 90 // 100):
-                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
+            zc = self.__r.zcount(self.redis_states_updates_zset_key, 1, 1)
+            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 75 // 100):
+                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE * 10)
                 lock.release()
                 states_to_remove = [int(st) for (st, count) in states_to_remove]
                 self.remove_states_from_cache(states_to_remove, False)
