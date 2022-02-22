@@ -277,8 +277,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
             lock.acquire()
             zc = self.__r.zcount(self.redis_states_updates_zset_key, 1, 1)
-            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 75 // 100):
-                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE * 10)
+            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * settings.REDIS_PRECENT_TO_RETAIN_FROM_CACHE // 100):
+                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
                 lock.release()
                 states_to_remove = [int(st) for (st, count) in states_to_remove]
                 self.remove_states_from_cache(states_to_remove, False)

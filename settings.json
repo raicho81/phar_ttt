@@ -24,7 +24,7 @@
         "redis_consumer_group_name": "ttt_states_updates_stream_group_1",
         "redis_consumer_name": "ttt_states_updates_stream_consumer_2",        
         "redis_update_skip": 5000,
-        "redis_keys_to_update_at_once": 5,
+        "redis_keys_to_update_at_once": 1,
         "redis_zset_extract_size_from_slave": 500,
         "redis_master": true,
         "redis_clear_data_on_start": false

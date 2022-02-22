@@ -128,7 +128,7 @@ class MainProcessPoolRunner:
                         [t.start() for t in pop_pub_threads]
                         logger.info("Publishing to Redis Stream. Started [{}] threads".format(tc))
                         [t.join() for t in pop_pub_threads]
-                        zclean_threads = [Thread(target=training_data_shared_redis.pop_clean_states_from_zset) for tc in range(tc)]
+                        zclean_threads = [Thread(target=training_data_shared_redis.pop_clean_states_from_zset) for _ in range(tc)]
                         [t.start() for t in zclean_threads]
                         logger.info("pop_clean_states_from_zset. Started [{}] threads".format(tc))
                         [t.join() for t in zclean_threads]
