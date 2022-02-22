@@ -158,7 +158,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def has_state(self, state):
         try:
             with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5):
-                return state in self.redis_states_dict
+                return self.__r.hexists(self.redis_desks_hset_key, state)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -173,7 +173,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 locks.append(self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5))
                 locks[-1].acquire()
             for i, state in enumerate(states):
-                if state not in self.redis_states_dict:
+                if not self.__r.hexists(self.redis_desks_hset_key, state):
                     states_to_add.append(state)
                     moves_to_add.append(possible_moves[i])
                 else:
@@ -277,8 +277,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
             lock.acquire()
             zc = self.__r.zcount(self.redis_states_updates_zset_key, 1, 1)
-            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 75 // 100):
-                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE * 10)
+            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 80 // 100):
+                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
                 lock.release()
                 states_to_remove = [int(st) for (st, count) in states_to_remove]
                 self.remove_states_from_cache(states_to_remove, False)
