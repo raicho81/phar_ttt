@@ -158,7 +158,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
     def has_state(self, state):
         try:
             with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5):
-                return state in self.redis_states_dict
+                return self.__r.hexists(self.redis_desks_hset_key, state)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -173,7 +173,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 locks.append(self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5))
                 locks[-1].acquire()
             for i, state in enumerate(states):
-                if state not in self.redis_states_dict:
+                if not self.__r.hexists(self.redis_desks_hset_key, state):
                     states_to_add.append(state)
                     moves_to_add.append(possible_moves[i])
                 else:

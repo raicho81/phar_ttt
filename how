@@ -1,0 +1,2676 @@
+[33mcommit bbaae2ca36459392f22d636a437db502f652f4fb[m[33m ([m[1;36mHEAD -> [m[1;32mdjango_orm[m[33m)[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 22 14:40:06 2022 +0200
+
+    update
+
+[33mcommit d59bb82813c0e938a9f4bcb5b6f9bb1f602e2b81[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 20 08:02:52 2022 +0200
+
+    fix
+
+[33mcommit eeaf581c90b157dfa474ea3631444e9fe7d563ba[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 20 03:05:11 2022 +0200
+
+    fix
+
+[33mcommit 74a0c81baadb7ca30199ea067494eb965c4b5524[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 20 02:25:37 2022 +0200
+
+    fix
+
+[33mcommit b896d6c8acce0ca28762fe6cdd3c7e80dc91fe12[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 07:33:16 2022 +0200
+
+    fix
+
+[33mcommit 9152a3d937e3ccad2f46cdaa08db6f982db49319[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 07:15:14 2022 +0200
+
+    fixes
+
+[33mcommit 8ecf8415bf1f4dcd037d02ab2bf691762f3999f5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 02:37:10 2022 +0200
+
+    fixes
+
+[33mcommit 328bd17b0096b94ccfb8f6295a736d71b2137e06[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 02:37:00 2022 +0200
+
+    fixes
+
+[33mcommit c1fc72c33da88298cac1edcb59a8673401abcc98[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 00:51:22 2022 +0200
+
+    fix migrations
+
+[33mcommit 24b7c7b9e146133a578e0a11742c4716bf9323dc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 00:35:13 2022 +0200
+
+    fix links etc
+
+[33mcommit 2c258ecafabb1c6fbdc5e92a58bc2bbbd78383b3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 00:30:19 2022 +0200
+
+    fix migrations
+
+[33mcommit e35381fe4e6d7301a38f34027c1cf7926b8e73d5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 00:24:46 2022 +0200
+
+    fix migrations
+
+[33mcommit d3a55c2676bb1ba471c78e6bcdfea5b13b79fac6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 15 00:23:13 2022 +0200
+
+    Fix
+
+[33mcommit a74b9800bfc4bcb9d8d200657318e8316696796b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Feb 14 22:17:19 2022 +0200
+
+    refactor firectory structure
+
+[33mcommit 02f70778f9293489a33a51ced5755032ffd60a9e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Feb 14 21:44:45 2022 +0200
+
+    fix
+
+[33mcommit 98abbdc8d759bcee3744058b7f72efebceed2a2b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 13 00:53:49 2022 +0200
+
+    Migrate DB
+
+[33mcommit 13799512b705dacc979cee0c2b280447f21f0d32[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 07:03:38 2022 +0200
+
+    remove unused stuff
+
+[33mcommit d1dfe9f8e1a05440af2d69e4832f27ab6e52a1d5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 07:03:07 2022 +0200
+
+    fix
+
+[33mcommit 1ffd6e4029e0f3c72c9382015645aeea05eb1f54[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 06:32:19 2022 +0200
+
+    some reforms
+
+[33mcommit 660eddc419923ede8f7679702af9e1a1b6d418a4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 05:24:47 2022 +0200
+
+    Change some Django and Vue stuff
+
+[33mcommit 07c5e8f7cece87038a9d3d85d88b9d2782ba87b4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 00:42:49 2022 +0200
+
+    Change Django models.py
+
+[33mcommit 3dd5ea7f3c5ffa60736a24daf62484d46fc3a460[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 12 00:37:36 2022 +0200
+
+    add Vue.js skeleton and tttweb Django App
+
+[33mcommit 639c04b88f98f5cfbe6347bfd94dd86dc1c6ed61[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Feb 11 22:55:02 2022 +0200
+
+    fix
+
+[33mcommit f76ec41a51b5a1790e6669f26742ccaa215565f5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 05:11:39 2022 +0200
+
+    stuff
+
+[33mcommit df83efc1a23926f52c610c733435524dddf21ca4[m
+Merge: 1d5b75b a96e81f
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 00:33:53 2022 +0200
+
+    Merge branch 'django_orm' of github.com:raicho81/phar_ttt into django_orm
+
+[33mcommit 1d5b75b7177cb01a9e85f7fca3209644dadb8970[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 00:33:38 2022 +0200
+
+    Merge
+
+[33mcommit a96e81f1bb0254d874c8b86ccd8adac2b27c5e7f[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 00:26:13 2022 +0200
+
+    Update models.py
+    
+    Fix
+
+[33mcommit aaa4071a5e030a18193c24a36df76391ab274748[m
+Merge: 96eaf7a c4afecb
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 00:24:58 2022 +0200
+
+    :Merge branch 'django_orm' of github.com:raicho81/phar_ttt into django_orm
+
+[33mcommit 96eaf7afd7bbec483d92bca020352a0b53d01bf0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Feb 9 00:23:08 2022 +0200
+
+    stuff
+
+[33mcommit c4afecb39ecad73d2f6606aab2958271cba7c08d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 22:52:30 2022 +0200
+
+    fix links shits etc :D
+
+[33mcommit 70c71361faad07c833f494a10a46de60450e4875[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 22:05:20 2022 +0200
+
+    fix imports
+
+[33mcommit eb2c3f3e96213ef3b0cd286d3ec52e55627d821e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 22:00:26 2022 +0200
+
+    fix
+
+[33mcommit fe18d1ddc34be2d77218b35501568f6e8ba869c2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 21:59:54 2022 +0200
+
+    some maintanenace tasks
+
+[33mcommit 20507406f9c69b4b7744a8895782e610519456ef[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:43:22 2022 +0200
+
+    Fix
+
+[33mcommit 53952a1a104e71f231bf71ff8a9406f4821d8b46[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:38:42 2022 +0200
+
+    Increase Postgres Maximum connected sessions to 500
+
+[33mcommit 8853a0c793d01a86514b115f0be99f295866e621[m
+Merge: 97b9928 aeb174a
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:36:55 2022 +0200
+
+    Merge branch 'django_orm' of github.com:raicho81/phar_ttt into django_orm
+
+[33mcommit 97b99282ccc75efbdd18716932b49df41782dc48[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:36:52 2022 +0200
+
+    fix
+
+[33mcommit aeb174ad3029824ea0ea18e56d552bcbcd5b6160[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:21:18 2022 +0200
+
+    Update README.md
+
+[33mcommit 729f3994d54f27c75b6d93d817263be48c377bd4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 20:01:46 2022 +0200
+
+    fix
+
+[33mcommit a06adee276a92e2f56e753a79914065a5959f921[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 19:00:33 2022 +0200
+
+    fix HVsC play
+
+[33mcommit b81b4a45afeb606ff76a7a04a673d3e7c74a62ef[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 18:05:20 2022 +0200
+
+    fixxxx
+
+[33mcommit 6b60b96c049e476af8558d1248688a8e0b612744[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 18:03:21 2022 +0200
+
+    fix paths modules and SHITZ
+
+[33mcommit 68994be444b9172c2645697af74029613df9d755[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 18:01:28 2022 +0200
+
+    fix
+
+[33mcommit c31f291e0748ff15f5d35656fb231323911b79e5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 17:47:52 2022 +0200
+
+    fix
+
+[33mcommit 0018755d68ae2dd17b694dcc2f1e1770fc87d79d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 17:13:56 2022 +0200
+
+    Preparing
+
+[33mcommit 98dc142adeeea92b3f37e3db216e65c72002554f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 17:11:22 2022 +0200
+
+    Preparing
+
+[33mcommit 4293c0627d25506e9d2e2786073148d2c65f0214[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 17:04:50 2022 +0200
+
+    Preaparing some stuff
+
+[33mcommit baa8e605f88bfeee49ea706460b8a92d84326b0e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 16:46:23 2022 +0200
+
+    refactor
+
+[33mcommit 06a3be90ab606f5823d93d88fc4da59f376e9c40[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 15:04:57 2022 +0200
+
+    fixeesssss :D
+
+[33mcommit a34bdae513fd01659e8dc62856e0281a6f9c9ad2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 13:40:57 2022 +0200
+
+    fix
+
+[33mcommit 6a0416dd47623556fcc3d3095912bb7c69929d3b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 13:28:57 2022 +0200
+
+    fix
+
+[33mcommit 32b3da638dc33fcaa55e125ec1bd3df53f7ee5f3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 13:18:49 2022 +0200
+
+    bugfix
+
+[33mcommit cbca6d9bc7eeb8fc17c2028ed7c5b3cd688dae28[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 12:55:25 2022 +0200
+
+    fix
+
+[33mcommit 5d93732c52f498b965650eee18e47a0b5fa75e41[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 12:48:56 2022 +0200
+
+    fix
+
+[33mcommit 1e8e4dee656687b1b33be404a1c9b8ba6b7364cf[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 12:28:30 2022 +0200
+
+    fix json SHITS
+
+[33mcommit e99fe3157385dc2458c2af756671e48b765254b5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 12:11:11 2022 +0200
+
+    fix
+
+[33mcommit 7dddd681444467392f876ae87e5354b274a2eed8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 12:08:42 2022 +0200
+
+    fix
+
+[33mcommit 196c741042b26675199b8a002f5d509f5026c047[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:50:29 2022 +0200
+
+    fix
+
+[33mcommit 48e3238623f3484773bda00076c2e3988aa3e19d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:42:36 2022 +0200
+
+    fix
+
+[33mcommit eab29e91dfc003f674f42820d2fd5df7213eae0e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:41:14 2022 +0200
+
+    fix
+
+[33mcommit ad11abbaf666e54420ba4362dcaf25eb450a9743[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:40:14 2022 +0200
+
+    fix
+
+[33mcommit bb76193b2644b4dac8c2e3ba4f43128446864948[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:38:45 2022 +0200
+
+    fix
+
+[33mcommit 3dfd0b41afa0ab67c25e0568567a8227eb93be9c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:34:54 2022 +0200
+
+    fix
+
+[33mcommit cc5089970c702fff078d8302d0c7093ac095fac9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:30:56 2022 +0200
+
+    fix
+
+[33mcommit e877dc202d529dc5547140557e7f6330633cb6d3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:28:43 2022 +0200
+
+    fix
+
+[33mcommit 79d177f7e8b67d10f41cd8722d4b6ad312fb7dc4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:26:59 2022 +0200
+
+    fix
+
+[33mcommit d92a721e089aa334de47aeafd126c26c3f6e343a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:24:17 2022 +0200
+
+    fix
+
+[33mcommit c6c24aae86f98e5c993ff604eb4bb9e3db67be5e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:22:28 2022 +0200
+
+    fix
+
+[33mcommit 1297bbb35752e12ba1c999f06e1d779a91ab7c2f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:20:58 2022 +0200
+
+    fix
+
+[33mcommit 137f89552fde2b9ac56fdf408769dd10fa678a95[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 11:11:44 2022 +0200
+
+    fix
+
+[33mcommit 69e661e5fdaf46d72de776e0336e69aaa8db4579[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 10:42:05 2022 +0200
+
+    fix
+
+[33mcommit c1e9e44141982855187893aabd7622d4a6c010d2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 10:36:44 2022 +0200
+
+    fix
+
+[33mcommit 3d68f6eb2dda64b805aede0bff4015b5b0534b89[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 09:22:11 2022 +0200
+
+    fix
+
+[33mcommit 632d763e758ac403c547decd433d58ea9fcdfcbc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 09:21:24 2022 +0200
+
+    fix
+
+[33mcommit 58fd2355d5cd796bc137f585e0d037d8d8647b66[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 09:16:12 2022 +0200
+
+    fix
+
+[33mcommit 198904647e512649025a7fc6fd7ceefe930e15b9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 08:40:32 2022 +0200
+
+    fix
+
+[33mcommit e99932703c5a8716964f2937b422737356e06390[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 08:29:06 2022 +0200
+
+    fix
+
+[33mcommit cded1021785fd4a4a43a1f814c89d841486e9405[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 08:28:54 2022 +0200
+
+    fix
+
+[33mcommit 4f135fd9b1a492caf4243991b427a3967b162cea[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 07:36:53 2022 +0200
+
+    fix
+
+[33mcommit ca8a3635aedfca315fe8f3693533998c55a9de56[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 06:41:42 2022 +0200
+
+    fix
+
+[33mcommit 694284c276a32b45811596aea441c3821812a961[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Feb 8 04:31:58 2022 +0200
+
+    Use django ORM
+
+[33mcommit 8bb44fccc5cbf4c080033fdeebe83ee37bd8ca08[m[33m ([m[1;31morigin/redis_use_states_updates_zset[m[33m)[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Feb 7 21:34:58 2022 +0200
+
+    Fix
+
+[33mcommit 47f581029bf6905512eca224a3a4bf8ac104e4e6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 15:29:22 2022 +0200
+
+    f
+
+[33mcommit f8f0a2ba11749b8541512c6ecc1e28f5848df636[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 15:22:04 2022 +0200
+
+    fix
+
+[33mcommit e0b27d19d4e67568385f41b3681f838b1c5f7ae9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 15:21:47 2022 +0200
+
+    fix
+
+[33mcommit 10617b843404220084d3f56d8a087b64ff35e0f6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 15:20:57 2022 +0200
+
+    fix
+
+[33mcommit 0c6bd9b60d992471409c731313bff8443059ac8f[m
+Merge: b7a75d1 5db7e53
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 04:34:40 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit b7a75d190256aec6ca0dafcb88046e7ce8c70825[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 04:34:37 2022 +0200
+
+    fix stream backlog scanning
+
+[33mcommit 5db7e533da3eaa674ea6c24d8527c8d528ffaf77[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:34:07 2022 +0200
+
+    Fix
+
+[33mcommit 45fdb509b674cf50d455d9dcf3bd4cd295cd9d9e[m
+Merge: e713a38 1bede5d
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:33:17 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit e713a3849cf5a8eb816958ddcf753b5c3db2433c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:32:02 2022 +0200
+
+    fix
+
+[33mcommit 1bede5dd94a7fe4f4ce556efa9516c7e68afc7f8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:30:39 2022 +0200
+
+    fix
+
+[33mcommit 5bbad2fc53fa59de18bab24ef28dd608d38eaa5a[m
+Merge: ccbbe94 b34de9c
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:13:14 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit ccbbe944c4b60109978034554906e9a42fd744c4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 02:13:12 2022 +0200
+
+    fix
+
+[33mcommit b34de9c7074170acfb93d2c3b402cd415994b585[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:50:44 2022 +0200
+
+    fix
+
+[33mcommit ec688f3a69adcbc751d584234a3401ad654fd25a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:39:04 2022 +0200
+
+    fix
+
+[33mcommit 2b942418f530b5f037107a56821c579821d7c51e[m
+Merge: 3c74873 3137d18
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:34:33 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 3c74873ba29318c4f3fdf71cdfa2d6f0284a1057[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:34:28 2022 +0200
+
+    fix
+
+[33mcommit 3137d18295837a8b4cd5af9da79b336b701d2312[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:29:12 2022 +0200
+
+    fix claiming of pending messages with scanning of the history of pending
+
+[33mcommit 3f60ce4fa48907a5f87f2141f009544512adb088[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:15:12 2022 +0200
+
+    fix
+
+[33mcommit 01c971a0e95b4a517aa9f21161e1ddec699f54f3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 01:13:12 2022 +0200
+
+    fix
+
+[33mcommit ca4b57a72d9f8a9e914ccb134af9dc2a08c73230[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 00:59:56 2022 +0200
+
+    fix
+
+[33mcommit a673078983547569e1647e3a87bd6b8438fcd79f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 00:36:45 2022 +0200
+
+    autoclaim pending messages from redis stream
+
+[33mcommit c42738aa73c40031458c8af60dd8da4d30d7c0b8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 00:23:30 2022 +0200
+
+    Remove log
+
+[33mcommit 276452cebbe5a32934289959cd74fd74e35d4107[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Feb 6 00:12:58 2022 +0200
+
+    fix
+
+[33mcommit 3bbf190549e265e5c3247055a43e8fb9efc79d65[m
+Merge: 7d66300 bc59237
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 23:52:55 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 7d66300857ba82c5061c0671b245d49c381111d1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 23:52:38 2022 +0200
+
+    Log redis host and port when starting connector
+
+[33mcommit bc59237a3878fdb26833d1ba2df96d4b99390ba1[m
+Merge: c27c39d 3a9fbcb
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 23:51:37 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit c27c39dc3e143ed2777231e7a6c8ccfd27e9258e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 23:51:34 2022 +0200
+
+    Fix setting loading on windows
+
+[33mcommit 3a9fbcbcef5582c8231be71b054cac3f84605e06[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 23:39:50 2022 +0200
+
+    Fix
+    git commit -m Fix
+
+[33mcommit 0a39be71101001cdf46a24f6c1a925545d28f856[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 22:59:34 2022 +0200
+
+    fix
+
+[33mcommit 2726ecb0a17672b344673a769492b4ea1d474699[m
+Merge: 1a2ccc8 52110e4
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 22:42:31 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 1a2ccc8a6d1393a5ab00233fc80f5997881a34a3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 22:42:28 2022 +0200
+
+    fix
+
+[33mcommit 52110e4d10d630087fc09b21910a9adec0ffcf78[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 22:30:30 2022 +0200
+
+    Fix
+
+[33mcommit 699b198dfa01abe286818c91f51cf10f65aa1fba[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 21:54:58 2022 +0200
+
+    Use Redis stream not channel to post updates to master(s)
+
+[33mcommit f59267a37fec6c1a6b399c03570fab38af059beb[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 18:45:50 2022 +0200
+
+    fix
+
+[33mcommit 6ec0928ea8054547c4ede9b2a3f8ce296aeb36e6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 17:21:17 2022 +0200
+
+    fix
+
+[33mcommit ed1045f59ebfddaa6826aa5cac88e93714aa13e5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 17:07:51 2022 +0200
+
+    fix
+
+[33mcommit 5e357e806eb5427058481666926e7d324a5739f8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 17:05:49 2022 +0200
+
+    aStuff
+
+[33mcommit 9f6e24636a5e5c2e4a259211f4b0d46e76256b1c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 16:35:20 2022 +0200
+
+    fix logging
+
+[33mcommit fa63259f06edca67b8cd6f289dc986d3f77f6eed[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Feb 5 16:19:55 2022 +0200
+
+    fix
+
+[33mcommit 83e46addd3ef5e9119c8edfd12da648241126c48[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Feb 4 01:03:05 2022 +0200
+
+    fix
+
+[33mcommit b1ead6969de3ed3851b295bfebd66f194b92f1e1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 21:23:07 2022 +0200
+
+    fx
+
+[33mcommit 89281d93293d7b28e725248d3c43cd79ac584152[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 21:22:19 2022 +0200
+
+    fix
+
+[33mcommit 747e6b6dcee291e06e2be6e640e0b2615cf2ef73[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 16:06:19 2022 +0200
+
+    fix
+
+[33mcommit a4ae94233e7b0f696995b179f62dee090ed434ca[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 16:02:00 2022 +0200
+
+    fix
+
+[33mcommit 500ce3f7d1a852ffda47dcff1d3452f3e0262280[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 16:00:30 2022 +0200
+
+    fix
+
+[33mcommit f45443d562d574d7fe56e2f7d4a4bfc17675121e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 14:58:09 2022 +0200
+
+    Fix
+
+[33mcommit d5fc3efbf431c32b0abff97eb1af03eb063ac91d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 13:51:43 2022 +0200
+
+    fix
+
+[33mcommit 8c65a58b9c449496cbbdad0db780cf175315ac5b[m
+Merge: 328f135 285bf48
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 10:18:02 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 328f135b38f6b5778a278d571033d5400abf7b98[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 10:17:59 2022 +0200
+
+    fix
+
+[33mcommit 285bf48d80ebc0421bf4ef8f505d60a7d56c3426[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 06:41:05 2022 +0200
+
+    Remove load() from Postgres Connector
+
+[33mcommit a2434ed80fbc3983fab4c441cb39d0e0726f1320[m
+Merge: bd244e8 92405d0
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 06:33:36 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 92405d0c7a34a4e9585f58e27e6bb759986f77a0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 05:28:46 2022 +0200
+
+    fix
+
+[33mcommit bd244e8bcef60d10fa944492a24db8efb85f630b[m
+Merge: 8d32da8 dfdb0db
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 05:27:52 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit dfdb0dbcf9388d16f214337b19ebc72174f7c642[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 05:27:24 2022 +0200
+
+    fix
+
+[33mcommit 8d32da86f7b7ae1da2b036eded6467d2a11210d8[m
+Merge: 685a3fa 455ce12
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:39:33 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 455ce12141a17468d498101aea20790279399400[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:39:14 2022 +0200
+
+    fix
+
+[33mcommit 685a3fa84b5e1de9168108329df5b092d3c3cbef[m
+Merge: 05361f1 798ad4f
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:35:35 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 798ad4f427cf7f897f3029e9d7ad7e4a47f057ef[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:35:02 2022 +0200
+
+    Fix Semaphore issues with serialization between processes
+
+[33mcommit 05361f1c48a0e7e07bb452c513ea7b6ae6f9c7d7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:08:51 2022 +0200
+
+    Merge
+
+[33mcommit 6c239b69a54b475ff12aa70b890dbbb1da2f6ce9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:06:59 2022 +0200
+
+    fix
+
+[33mcommit b0f5b4cdd89a5a28a11738a400ec404b77f77084[m
+Merge: bd104c4 8d46b9f
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:05:35 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit bd104c460455f45da6b6fb5ea8716609b28c455b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Feb 3 04:05:32 2022 +0200
+
+    fix
+
+[33mcommit 8d46b9f761ec8823f6d3f46f6d94f04879071a7e[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 22:37:00 2022 +0200
+
+    Update README.md
+
+[33mcommit 16967ec00711a8525148b719f478710c5ffb0a36[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 22:36:12 2022 +0200
+
+    Update README.md
+
+[33mcommit 54f634213ebf20d190f91c1acd1cf1b3701001f3[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 22:32:57 2022 +0200
+
+    Update README.md
+
+[33mcommit 385d2db7567a82dfdccb98a54bb2a1757cef66b5[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 22:32:31 2022 +0200
+
+    Update README.md
+
+[33mcommit dcac8faaf6edd11692c4b666767d55d392ec9028[m
+Merge: 3aee18c efb50eb
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:59:02 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of github.com:raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 3aee18c0b5891915a91a98030faccd5e5af17387[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:58:04 2022 +0200
+
+    Handle json.decoder.JSONDecodeError
+
+[33mcommit efb50eb88ef3444eef57edaff34c50f5288f69d6[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:48:32 2022 +0200
+
+    Update README.md
+
+[33mcommit 33f24f94feee54004c59006a7a5437c3f590b5df[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:47:01 2022 +0200
+
+    Update README.md
+
+[33mcommit 64d4ec0b4cf0f179fbaeafbe6cd610ec39ac3667[m
+Merge: 5f5cec9 e5f36f6
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:33:42 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 5f5cec94346d42db931e1c0de4ed29af2049ea7d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:33:06 2022 +0200
+
+    Update DB schema
+
+[33mcommit e5f36f683e09c8317de7e797aa8fc610c7e25b78[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 20:25:28 2022 +0200
+
+    fff
+
+[33mcommit 25593854b32c48d1d575a23a4ab20489980d8ead[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 19:49:37 2022 +0200
+
+    Merge settings
+
+[33mcommit 01752e9140d32a76e2c59928ad9c7ec2155d50e3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 18:57:52 2022 +0200
+
+    Some tuning
+
+[33mcommit 0ce5743ce35d82cf6d1ae8fb8ca125ae421e41d5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 16:36:39 2022 +0200
+
+    Fall back to Batch Updates to DB From Redis
+
+[33mcommit dc471a5650f53540978bfc49123397d4b520cbce[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 15:22:34 2022 +0200
+
+    Fix
+
+[33mcommit 9b528c63393a64af6c0ee9afb8b1472645d2f5d6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 14:36:35 2022 +0200
+
+    Optimise process creation - send less data to the created processes - just the states and let them pull the move from Redis
+
+[33mcommit ba453b135f5ba956b94756c3f166f19dea99345a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 13:43:14 2022 +0200
+
+    Fix missing states keys when trying to update to DB
+
+[33mcommit 16fcf41a36ee5b03db13d5b8a9da9c3a782b1110[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 13:22:40 2022 +0200
+
+    Fix locks and remove from Redis hset  and
+
+[33mcommit d79249c240bd2468492a7257fe548535bb609df2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 11:46:16 2022 +0200
+
+    fix
+
+[33mcommit 0d68efaab88e138f9c7e4ee806c56b2175fb4770[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 05:56:19 2022 +0200
+
+    Fix training process pool
+
+[33mcommit b5c0f77dedb42c474137167435e2b097181a272e[m
+Merge: dc3ecb8 39955a8
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 05:51:43 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit dc3ecb88016cf2ce9398f164cdbc9ba5dcc8c212[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 05:50:57 2022 +0200
+
+    Fix multiprocessing update to DB pool
+
+[33mcommit 39955a81c2b86b8c1c89a82e48dd8f91bff704b2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 31 01:35:49 2022 +0200
+
+    Fix playing Human Vs. Computer etc.
+
+[33mcommit 4dce2bf505cd9eec25865d79352485baf43fd1e5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 16:55:53 2022 +0200
+
+    Fix
+
+[33mcommit 44d65bfd8cd86ce8fc9e64c0bd9494dae8c4815d[m
+Merge: 0185271 65807f7
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 16:46:30 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 65807f766e77c53da3dd1d7cf1016092d8f0e183[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 14:58:54 2022 +0200
+
+    Stuff
+
+[33mcommit 10eb9cf16c65ff9d5ae0b14210549a266383a06c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 12:17:27 2022 +0200
+
+    Hide lock not owned error in log
+
+[33mcommit 1e060ced53a4959bbe5826f6238fdae88667a583[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 12:15:59 2022 +0200
+
+    Fall back to insert_state_moves PROCEDURE instead of add_state_moves_batch
+
+[33mcommit 542f725151a8173ccd1ca0a565a4b3483a435660[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 11:00:49 2022 +0200
+
+    fix
+
+[33mcommit 0185271555ed5ec94d1696c2817024c94f991d81[m
+Merge: de60ed6 b9aa943
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 06:10:20 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit de60ed60da20b746df00fece72b5b40b9839da52[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 06:10:09 2022 +0200
+
+    Updated the DB schema
+
+[33mcommit b9aa943606d24ab7a8ff20a337943e3ae54209e1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 05:21:27 2022 +0200
+
+    fix
+
+[33mcommit a3884014fc06179fd9c90f0cbc2d06ff6b96d2cd[m
+Merge: 86fdb00 9fa9536
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 05:09:52 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 9fa953686d268b48f756d02a37c49017648008de[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 05:07:51 2022 +0200
+
+    FIXXXX
+
+[33mcommit 86fdb00aeb98e73d5873f2a562c9fde6e8c5de4f[m
+Merge: 30550f2 6bff859
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 04:56:25 2022 +0200
+
+    Merge branch 'redis_use_states_updates_zset' of https://github.com/raicho81/phar_ttt into redis_use_states_updates_zset
+
+[33mcommit 30550f2e40fb70953dbabf8934ffb4bd7e00bdd2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 04:55:56 2022 +0200
+
+    FIX
+
+[33mcommit 6bff85968cc165212782ac7a6e102a28384dcf3d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 04:53:38 2022 +0200
+
+    Fall back to procedure for adding states
+
+[33mcommit 8cd3b6fad3dcaffc8fcf3cbeecd45304a02b1ee8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 03:55:46 2022 +0200
+
+    Fix
+
+[33mcommit de08144ab6c698b39c99313894f8248f021d59cc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 02:12:41 2022 +0200
+
+    cosmetics
+
+[33mcommit 7ed90d47964b3f45b18ef4e41bdcee587a6b7001[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 01:51:25 2022 +0200
+
+    Fix settings.json
+
+[33mcommit 8acbb7621fa4c3b75dc4bcbba69c9a38cee1867d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 01:40:21 2022 +0200
+
+    Coments cosmetics
+
+[33mcommit 7fd3932f93f73030054d3da27322d51f95a4fc5d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 01:13:08 2022 +0200
+
+    Changed settings.json
+
+[33mcommit 11671e5e510a1b4672051deb340a1e1f20875ee8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 01:02:32 2022 +0200
+
+    More new stuff
+
+[33mcommit 0dd07a025f8400e9b89d69d8186294b566d087b0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 00:48:50 2022 +0200
+
+    Fix
+
+[33mcommit 1a50e45a5401ec0469efe8c935c2f6ba5a01245b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 28 00:35:25 2022 +0200
+
+    Removed DI because it is not working on Windos . Duh ...
+
+[33mcommit 09d6646827b2fc19f0cb9c6bcc1f880068bf284a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 23:38:50 2022 +0200
+
+    Fix
+
+[33mcommit 2e5458380841091df5e1822bcd599b08f28c7593[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 23:08:11 2022 +0200
+
+    stuff
+
+[33mcommit 56f6b162219ecae167dd50e070e4629bf284b6ec[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 22:58:01 2022 +0200
+
+    Update README.md
+
+[33mcommit e22aa91bd0668b755ea2084aff21210763e399ea[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 22:45:29 2022 +0200
+
+    Final fixes of the master/slave developement
+
+[33mcommit 3b01613a47cede51fddd60486b63c0d95da32268[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 15:59:06 2022 +0200
+
+    Updated reqiurements.txt
+
+[33mcommit e7c595e0586e50f6d7bbeb916824ee8965e686bb[m[33m ([m[1;31morigin/redis_write_back_cache[m[33m)[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 11:53:47 2022 +0200
+
+    Tried to make Memory -> Redis updates faster by adding/updating several keys at once
+
+[33mcommit 562657e65d9462c78f1183cafa318168be7f3407[m
+Merge: 47fd869 27be0df
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 07:22:11 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of github.com:raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 47fd869c84560c21fa97229bf58431b0867f826a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 07:21:16 2022 +0200
+
+    Improved the speed when saving data to Redis etc.
+
+[33mcommit 27be0df62fc802d831a7dfb3d229aa4a905f2c0f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 06:41:38 2022 +0200
+
+    Updated DB Schema
+
+[33mcommit 81953a8a8426a394e44537a1ff6d69f851587c62[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 27 06:35:47 2022 +0200
+
+    Refactoring. Tried to optimise the DB update speed.
+
+[33mcommit a67ac79e4a3f0858f802e6ef5c38012e551ecfd1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 26 04:48:40 2022 +0200
+
+    Rvert back to timed locks in Redis
+
+[33mcommit 33a341088faf4b97c4e414a1a2d5847d235d6b80[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 26 03:27:20 2022 +0200
+
+    fix
+
+[33mcommit e63c18d68144f788a1921a28379c8975a6ed674b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 26 03:04:40 2022 +0200
+
+    Don't expire Redis locks
+
+[33mcommit da108b50ad860a75f1f578f0bd72fdc4c50ce2da[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 16:51:44 2022 +0200
+
+    Cleanup
+
+[33mcommit 7c97c925775fc1babfc1ec4e4834d75737d1b47f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 16:46:16 2022 +0200
+
+    Cleanup
+
+[33mcommit 6e8afebc1b7a999c9e432d9c1c090b0f5db40098[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 16:42:44 2022 +0200
+
+    Fix
+
+[33mcommit aeb4326288f094403841c7d980a5987f197082bc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 16:41:53 2022 +0200
+
+    Update
+
+[33mcommit 3b7a7120f4d41e8ef371be4b95dac6cbfdea763c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 13:52:10 2022 +0200
+
+    fix
+
+[33mcommit e8f9b73bec6138908741d3b5b31e707ee38f92b8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 13:51:28 2022 +0200
+
+    fix hscan_states generator
+
+[33mcommit 505c504eb7bebe3dc6f79309ff8a63e5c2fa8e4a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 11:35:29 2022 +0200
+
+    Stuff
+
+[33mcommit d8355bd298aafb786224a5b342d8da5b17ac8b12[m
+Merge: 6b1f665 056cb3a
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 11:29:37 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of github.com:raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 6b1f6650c988cc940a266d9cbdafbdad57988470[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 11:19:55 2022 +0200
+
+    Fix
+
+[33mcommit 57d15f31e9ca43bf7e2bd9c32a68292af83dffc0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 11:19:39 2022 +0200
+
+    Use more granular locking in Redis
+
+[33mcommit 056cb3afc218e1372cbcce38232532805e1f0978[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 25 07:29:47 2022 +0200
+
+    Use Redis Redlock for synchronization
+
+[33mcommit 5350a5469cd66f9a8478ee717269bc99979e10d2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 24 23:35:21 2022 +0200
+
+    fix
+
+[33mcommit 1c073eb8fc7657cdc9bf16ab24e5bfe72c12eab2[m
+Merge: 8df7298 d762144
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 24 22:15:04 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of github.com:raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 8df72982a9fa41da834657095d3d7ddb65ee46ae[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 24 22:15:01 2022 +0200
+
+    Fixes
+
+[33mcommit d7621449897ec357d397e11660b740f174c091df[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 13:37:17 2022 +0200
+
+    Update README.md
+
+[33mcommit 7bafabc9158de6fae64705a7ac32a6c7c3454629[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 13:10:06 2022 +0200
+
+    Fix
+
+[33mcommit d1f34e388daefa5a477b7932bb20577d2687ad01[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 13:07:00 2022 +0200
+
+    Fix games number in DB
+
+[33mcommit c451bf64c9d184e4ad0e5adeea77caea3e202985[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 12:54:58 2022 +0200
+
+    Update to DB and remove data from Redis incrementally
+
+[33mcommit 28ffa188d6f4338ba1ed2cf5eeea41a09e61c9e8[m
+Merge: 93c7977 6ef6f59
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 10:47:34 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of github.com:raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 93c79779a6de921f13fc63ee67379bf5b1ab801a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 10:47:31 2022 +0200
+
+    Refactor
+
+[33mcommit 6ef6f599c497f1d77977164c1c4bb71390e6b000[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 09:03:17 2022 +0200
+
+    Update README.md
+
+[33mcommit e60528dda1a4fa7f3e5b914cedb0e97a662e786d[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 09:00:32 2022 +0200
+
+    Update README.md
+
+[33mcommit b45cbb1db5bcf0008a1a055ce713c03f9b621b01[m
+Merge: 11296a2 a423af9
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 08:26:52 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of https://github.com/raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 11296a2076b3018a336845262ca80be14251150b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 08:26:45 2022 +0200
+
+    Updated schema SQL
+
+[33mcommit a423af99c1b7892a3c9e928739d042966d7949ad[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 08:17:50 2022 +0200
+
+    Fix
+
+[33mcommit 5f45eb72c05234f1f5f0982ddec9971af703e528[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 07:19:13 2022 +0200
+
+    Finalizing
+
+[33mcommit afd06b16adbb7f7e11a39c5609207c1efd1cf7b6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 02:30:32 2022 +0200
+
+    Cleanup
+
+[33mcommit e8ab3d5a67c6e8811fb134595e6aed39f6e00e1b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 02:17:55 2022 +0200
+
+    Finalizing ...
+
+[33mcommit 82b1a1ecdb602f1b3396de6f8d15b2539019e88c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:48:04 2022 +0200
+
+    xxx
+
+[33mcommit cb35dc759135372f19e027c83938b73dad2ca3cf[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:47:16 2022 +0200
+
+    may be ...
+
+[33mcommit d7ed7cdc798e480d7d9d3fed881bbc19bad53191[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:46:49 2022 +0200
+
+    not yet ...
+
+[33mcommit 2ccfc44b556a94b3bd873dd254288279dd20cce5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:46:00 2022 +0200
+
+    Not yet ...
+
+[33mcommit 0feeeabc2c150b87c38b9a91683247e4572a125c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:34:22 2022 +0200
+
+    Not ready yet ...
+
+[33mcommit c1ba877546112c0134f3afa6ba0b91b9fcd690c7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 22 01:33:23 2022 +0200
+
+    Downloading the Redis data in the DB
+
+[33mcommit 5825a1a82529e5dc9e5a08004b408a3aa2e47aeb[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 21:23:56 2022 +0200
+
+    Cleanup
+
+[33mcommit 3025a07113e4457356b2164649875384089263d0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 21:13:01 2022 +0200
+
+    Refactoring
+
+[33mcommit 19cc0f6695a7275429e3401983e5004be0669638[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 20:39:43 2022 +0200
+
+    Removde redis volume from docker compose yml
+
+[33mcommit 8e951bf9fad36739525f60a02762e09d03bc2cba[m
+Merge: 0d416a6 e74d2ef
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 20:38:09 2022 +0200
+
+    Merge branch 'redis_write_back_cache' of https://github.com/raicho81/phar_ttt into redis_write_back_cache
+
+[33mcommit 0d416a631df6d4f07ee3b128203e479db57ab77f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 20:36:46 2022 +0200
+
+    Merge docker-compose.yml for memory only Redis
+
+[33mcommit e74d2ef079cf526078109b31927883597a4dbeb2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 20:23:18 2022 +0200
+
+    Fix
+
+[33mcommit c7eb02dbf93946bf248f8a9143e22afc13c0bef1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 20:21:27 2022 +0200
+
+    Some refactoring
+
+[33mcommit 66950a89b9204fe8ae3f83a4b5bc758647dd3214[m
+Merge: 734ed42 c4e00a7
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 07:56:53 2022 +0200
+
+    Merge branch 'main' into redis_write_back_cache
+
+[33mcommit c4e00a7b1010f66d61d32b4f523f88a438b6b8ff[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 2eb662a 3e92409
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 07:55:45 2022 +0200
+
+    Merge branch 'main' of github.com:raicho81/phar_ttt into main
+
+[33mcommit 2eb662a7aa23b1a1307521ea5c8ed3326648a4e7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 07:55:22 2022 +0200
+
+    Set desk size to 4 in settings.json
+
+[33mcommit 3e92409e940c96c0253545060187a8359704f9f2[m
+Merge: 99329b9 e7e44f8
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 07:33:33 2022 +0200
+
+    Merge branch 'main' of https://github.com/raicho81/phar_ttt
+
+[33mcommit 99329b9a3fc2af466a66a9a2abff51c115c70e6c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 07:30:10 2022 +0200
+
+    Started to rebuild the DB for 3X3 board first
+
+[33mcommit e7e44f8d5490e04184ed1bd01723ff86490e8367[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 06:46:53 2022 +0200
+
+    Fix
+
+[33mcommit 03f5ba76760a420f064dd7b154a01478ed94d2f7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 06:02:18 2022 +0200
+
+    Fix
+
+[33mcommit 1ab7c9cd0e0892069805d2d430da816c00c58728[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 05:46:40 2022 +0200
+
+    Fix
+
+[33mcommit 6eec96cff5f207b032b53e0348f503d648e11a32[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 04:45:51 2022 +0200
+
+    Made some DB optimisation but DB needs rebuild
+
+[33mcommit 734ed427038d1869cd05b40a7eca6efc8168039f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 03:21:29 2022 +0200
+
+    Started adding redis shared data class
+
+[33mcommit 48d1f85dddaac6f55aee86f3e9c3cab78ada3996[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 02:26:17 2022 +0200
+
+    Update README.md
+
+[33mcommit df94581c1f5d2c8329876e49c93b37e57b49d806[m
+Merge: 803646f 99ecd3c
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 02:24:43 2022 +0200
+
+    Merge branch 'multiprocessing_multithreading_and_pooling' into main
+
+[33mcommit 99ecd3c6c78c9a12e65eba62e8c96de6c2137d17[m[33m ([m[1;31morigin/multiprocessing_multithreading_and_pooling[m[33m)[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 01:19:31 2022 +0200
+
+    Fix
+
+[33mcommit e2982a24ac637c3baeeaa53e69244cf0de660fe7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 00:16:02 2022 +0200
+
+    Fix
+
+[33mcommit 803646f42056d6a2d4943fa8ef31d1ddd9442d1b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 21 00:10:25 2022 +0200
+
+    Fix inodes limit problem with Postgres and Docker container volumes
+
+[33mcommit 90096b10ff172d63d7695a50b7465bb02ad0f6fd[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 10:16:34 2022 +0200
+
+    Fix
+
+[33mcommit 4f63d0b9ffb76ea29d333d5780d11d78d8439285[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 09:06:24 2022 +0200
+
+    New default settings.json
+
+[33mcommit bb92c48b71609415480b5c4a110092cab770972f[m
+Merge: 3e53c1f bd71dff
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 07:22:03 2022 +0200
+
+    Merge branch 'multiprocessing_multithreading_and_pooling' of github.com:raicho81/phar_ttt into multiprocessing_multithreading_and_pooling
+
+[33mcommit 3e53c1f2db007fdb2b1c88b8a652b12537f1d951[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 07:15:20 2022 +0200
+
+    Fixes
+
+[33mcommit 05ea943e84aeb79436a863756721439d459df396[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 07:00:27 2022 +0200
+
+    Fix
+
+[33mcommit bd71dff0439a076cec019c5787856db1f883075d[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 06:53:43 2022 +0200
+
+    Update README.settings
+
+[33mcommit 89300f8e797ba2235c1861f14cfc467a5d4d8005[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 06:52:00 2022 +0200
+
+    Update README.md
+
+[33mcommit 47438876e78f3a6a1b15441a67dff5730e24df6c[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 06:45:43 2022 +0200
+
+    Update README.md
+
+[33mcommit 3c5ce03d8fffe41f21f5a116b9cce288bb194cd9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 18 06:43:46 2022 +0200
+
+    Some try to make it with multiprocessing and multithreading and Postgres connection pooling at the same time
+
+[33mcommit 7293da8c167768579e9d822127009d49e483450e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 14:37:23 2022 +0200
+
+    Rebulding the DB now with 4X4
+
+[33mcommit 7aaaf28b2daf8a8bc49eb912ad7c6537489ab07e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 13:42:53 2022 +0200
+
+    Fixed RNG seeding error and started to rebuild the DB with 3X3 board first ...
+
+[33mcommit 594c0610d2eb45f530f09293038c57dec8f52267[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 12:56:15 2022 +0200
+
+    DB schema updated
+
+[33mcommit b107c30713baeea2674c05c56981b729b0941952[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 12:55:15 2022 +0200
+
+    Fixed RNG problems. DB must be regenerated ....
+
+[33mcommit 3d7c0f265b571d54cf4117b9048a0cdb96f7ce4d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 05:05:39 2022 +0200
+
+    Update schema.pg_dump
+
+[33mcommit 43e81b99f729b535bb467bd858ea079c01567a69[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 16 05:03:10 2022 +0200
+
+    Added more data
+
+[33mcommit 83a9b2ab01ba2b705bed736d201203cd63be2747[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 15:01:52 2022 +0200
+
+    Added some data for 4X4
+
+[33mcommit 0d44524de9af5b44e239edbf940e8fa64034bd5a[m
+Merge: 6d1e46e f96241c
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 13:37:50 2022 +0200
+
+    Fix merge
+
+[33mcommit f96241c0d2b41a72b35409d68c521e423ccfb216[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 12:28:44 2022 +0200
+
+    Cache fix
+
+[33mcommit 06be31f2931550a4633f82f4c928cea7bf65356b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 10:42:05 2022 +0200
+
+    Fixes
+
+[33mcommit c96d86a371f94e76f76d1d99f51b1e16e578f1ed[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 10:09:17 2022 +0200
+
+    fix
+
+[33mcommit 7106062af6b4313fab15c80808f5cefe358e3a72[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 10:06:20 2022 +0200
+
+    fix
+
+[33mcommit c0b3393b8250dcab1cb45851506572896d872df5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 09:39:00 2022 +0200
+
+    Fix
+
+[33mcommit 10064e8f139faa3c002a7adce60a8825d482029b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 08:12:49 2022 +0200
+
+    Default settings.json change
+
+[33mcommit 802d57cf16f8cf53f3f08f16714b8c1ea329bcb6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 07:56:49 2022 +0200
+
+    DB schema update
+
+[33mcommit 7e89a014343878ef79c0c9ce99102f2d9e684d03[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 07:47:31 2022 +0200
+
+    Add has_state procedure call to get_state_id proc
+
+[33mcommit 115508d49e47795ec5508302804e690364e44198[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 06:12:43 2022 +0200
+
+    Fix
+
+[33mcommit 752c277fcb9b0f98a4a6d4c4437d47c064ad1b0b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 05:29:43 2022 +0200
+
+    Fix
+
+[33mcommit a53090853531cdc8640f5d4fc45a94610032c5be[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 05:12:54 2022 +0200
+
+    Fix exceptions logging
+
+[33mcommit 65106c037fd694b114962042b8c17734b86398f7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:55:08 2022 +0200
+
+    Add SQL functions
+
+[33mcommit 99625a38dc704e6bd87eb55d45e10ab20c05fc87[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:51:25 2022 +0200
+
+    Fixes
+
+[33mcommit 0d3c437c5c251dfdcebacffc11d1fefe4d55eeeb[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:47:31 2022 +0200
+
+    Add msgpack Postgres pl/pgSQL scripts
+
+[33mcommit 38c3c8b4dc90781c3eac1874799bfaf937af085f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:43:23 2022 +0200
+
+    Fix
+
+[33mcommit 5d2e1ecc66c9eac2505d069f8c9b75c5609c0970[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:26:08 2022 +0200
+
+    Add Postgres moves update proc.
+
+[33mcommit 7d14a927009f84c9fcdfd732257209d194aa85bf[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 04:25:34 2022 +0200
+
+    Fixes
+
+[33mcommit c7c35af1da0dd14b180b489a4a059855959e6666[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 01:57:44 2022 +0200
+
+    Addeed pl/pgSQL Procedure for updating state moves data in the DB
+
+[33mcommit c1c90f4ebffcd9c6f87152be9950b9bf1d6346fe[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Jan 12 01:56:38 2022 +0200
+
+    Added pl/pqSQL procedure for updating state moves in the DB
+
+[33mcommit 6d1e46e72513fb774908a06788da34d59df3b597[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 11 19:32:28 2022 +0200
+
+    Fix
+
+[33mcommit 87b015c41971fd84c5619554300a2d42f48d1be6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 12:07:11 2022 +0200
+
+    Better process default
+
+[33mcommit 637d48ff6ad5864d12046d2dd48332284c0463d4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 11:49:35 2022 +0200
+
+    Fix
+
+[33mcommit a6acb8c3c7c012b22bda5d0f04700fdeb73a4592[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 08:10:34 2022 +0200
+
+    Bugfix
+
+[33mcommit d1ad971df5c7afaab97a41bec75e7e1ad3166b8f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 07:47:02 2022 +0200
+
+    Added some new testing data dump including 3X3 and 4X4 desk
+
+[33mcommit 7d4188ae179ecf49046ea17540ce2f27abf6fbb9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 07:45:24 2022 +0200
+
+    Bugfix
+
+[33mcommit 1c9d2037ac4a51f97cebf724ab3afe43a425f356[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 10 04:04:16 2022 +0200
+
+    Fix
+
+[33mcommit b0c852f166ed02ee1e02099245a93e02a81615ad[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 21:43:01 2022 +0200
+
+    Added stored procs/funcs to hopefully speed up the DB operations
+
+[33mcommit cac0d84ec0a375f977f15df8aa5df993c66ad48d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 16:13:39 2022 +0200
+
+    Updated DB dump data with more training games (iterations)
+
+[33mcommit f666b52ffa8f129da4c1def32f692a5048720378[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 15:14:41 2022 +0200
+
+    Fix
+
+[33mcommit 67c069a74ade111aa9ae3fbe7b9e523591f03a35[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 11:33:49 2022 +0200
+
+    fix
+
+[33mcommit b0a726d207fda08ed6a9f23dccc76595e8e067c7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 11:16:44 2022 +0200
+
+    Cosmetics
+
+[33mcommit 19ccff2dfed1328675d9ab91c3f33d20f83571e0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 11:05:13 2022 +0200
+
+    Updated DB dump with more data
+
+[33mcommit 1c90229b4b39ef8ba8a0ed10a8d94158961603c0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 10:08:27 2022 +0200
+
+    Log message
+
+[33mcommit 4c7646a255584dcb5a6709f61863f7960034f1b5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 10:04:44 2022 +0200
+
+    Switch back to autocommit transaction isolation level as it seems it is working faster"
+
+[33mcommit 573bf5ee89123bf99aeea8b2a02d0523b27531e6[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:59:38 2022 +0200
+
+    Go back to autocommit=False
+
+[33mcommit d67d5213f361273c8f2cd639787c9d84d63f12d2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:35:26 2022 +0200
+
+    cleanup
+
+[33mcommit 12a4a5c3afadb895e5a7f52e5934f31b73bf29ca[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:32:33 2022 +0200
+
+    Update README.md
+
+[33mcommit 57140af50e1d269c40825456648bb7e82013ea01[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:31:10 2022 +0200
+
+    Added DB dump from pg_dump
+
+[33mcommit cf0eeef4b907c76d6134fc4616e70732e2b752a9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:30:25 2022 +0200
+
+    fix
+
+[33mcommit ec365cec0c23652b1a1866c315772db1c431dddb[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 08:01:20 2022 +0200
+
+    Updated postgres.sql containing DB structure creation SQL
+
+[33mcommit 9135f8ca4354e8b8a7ebf2ce5549227ceef34ef7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 07:15:59 2022 +0200
+
+    Fix
+
+[33mcommit 7e94a8dd1abb3ddf7cdb193922b29978009a1c8c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 05:57:31 2022 +0200
+
+    Fix multiprocessing Postgres cursor corruption issues
+
+[33mcommit 927b8b16914e6d4e8403c1e3cca8fc4603643085[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 02:59:38 2022 +0200
+
+    fix
+
+[33mcommit 82950bb2ee08c2de4cd2abc8d86988388b022d00[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 02:15:05 2022 +0200
+
+    Usem multiple IPCs
+
+[33mcommit f27acb1fac81f4e46109266cb3248d7e84ec6230[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 9 01:01:55 2022 +0200
+
+    Fix
+
+[33mcommit bcb97e96f3ad52fdc76e0869fd85276bb3fdc7e7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 8 23:45:21 2022 +0200
+
+    Implemented storing moves in DB encoded with msgpack. Autocommit transactions
+
+[33mcommit 042d6641897be275172b101af8b0bc8877fcc766[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 10:19:28 2022 +0200
+
+    DB Update
+
+[33mcommit 9a03338806834e6a9c94253675614edcf64bc0af[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 10:17:46 2022 +0200
+
+    DB is out of date
+
+[33mcommit 3adba710673ead2579d62ed6d58314393a5be862[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 10:08:30 2022 +0200
+
+    Postgres transactios fix
+
+[33mcommit 048cf0fe574acb4ce356a928e9927f94271f4100[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 03:53:12 2022 +0200
+
+    shit
+
+[33mcommit 825c5c7605bad5c8354a631c82afa16d1ca11e62[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 03:09:00 2022 +0200
+
+    fix
+
+[33mcommit d23b6df72f7b006fc2fd5223282043574d85419b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Jan 7 02:11:51 2022 +0200
+
+    Fixes Postgres tranactions and connections issues
+
+[33mcommit 6a370b0b8992b4510a8d21618ab11ae3c0429229[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 19:41:35 2022 +0200
+
+    Fixed Postgres transactions issue
+
+[33mcommit 6e266be309cc841dcb3e9d5378fd35f500ea4d81[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 17:22:44 2022 +0200
+
+    Fix
+
+[33mcommit eb8716bf6d0a41a53b591b67bb0049f2450327b0[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 17:01:14 2022 +0200
+
+    fix
+
+[33mcommit f9c3409787d0a34e0ef3ce7abf9386360ee0febc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 16:55:13 2022 +0200
+
+    Fixes
+
+[33mcommit d0d81e8d7ac5e5ae2474dc2a16cced6c9f4f5b0f[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 16:12:33 2022 +0200
+
+    Fix
+
+[33mcommit 6b7a95c201286b2d55df82811d0c136bfbf2dc9a[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 16:10:18 2022 +0200
+
+    Update README.md
+
+[33mcommit c32216f01c73d463a17060fc174cad1fb02170e4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 16:08:10 2022 +0200
+
+    Updated README.settings
+
+[33mcommit 8ee61b0dde7c2e13ce3e78d4f43c53ea162d61e1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 16:00:08 2022 +0200
+
+    I've added SQL db dump with DB structure and training data for 3X3 board
+
+[33mcommit a41ab7b17a56b1bf36adfda6c3790b3913bda729[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 15:59:15 2022 +0200
+
+    Added tracking of *.gz for large files (LFS)
+
+[33mcommit cd0d77535bed6f486fd5af309735d518cdc9878e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 15:55:21 2022 +0200
+
+    Some more improvements and fixes
+
+[33mcommit d9fbf44f289532935c14bd9c623f207edf338fff[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Jan 6 15:53:32 2022 +0200
+
+    Addeed docker-compose.yml for easier Postgres SQL server running with Docker
+
+[33mcommit 1cdc050b5cbec9295d7021cda613e7e691c76f77[m
+Merge: b9ce048 c585ce0
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 18:03:58 2022 +0200
+
+    Merge branch 'Postgres_Transactions' into main
+
+[33mcommit c585ce05a027ee50cc61ff84c9bb4802273d63f5[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 18:02:46 2022 +0200
+
+    Fix
+
+[33mcommit 0a2d606b0270ab45c7b63ce05878f5297926b586[m
+Merge: b7099af 879d078
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 14:59:02 2022 +0200
+
+    Merge branch 'Postgres_Transactions' of github.com:raicho81/phar_ttt into Postgres_Transactions
+
+[33mcommit b7099af25d74e6a94bfe0ed1b783c9e8eb8d1d0d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 14:58:39 2022 +0200
+
+    Bugfixes etc.
+
+[33mcommit 879d0788b639f875d0981652ecda3f821ef4defd[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 12:22:15 2022 +0200
+
+    Update README.md
+
+[33mcommit 8de4778818c7c91188b18d16bce482381f6fb0df[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 10:56:24 2022 +0200
+
+    Update README.md
+
+[33mcommit 7c5e0f2f591283d0bcd8fcf92b7ec454be61b0eb[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 10:54:11 2022 +0200
+
+    Update README.md
+
+[33mcommit 3da59495ee6c2f03eb18f790bb3097cdb071c4b5[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 10:53:34 2022 +0200
+
+    Update README.md
+
+[33mcommit 2a94c4d56735b1eb5812cab373e328dc05be1cb9[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 10:51:51 2022 +0200
+
+    Update README.md
+
+[33mcommit c0e284e443a4622604f1ba3f74db568207d52684[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 10:51:01 2022 +0200
+
+    Update README.md
+
+[33mcommit 8e25b05a946500c67d1958a46a9235616aeb1e8d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 09:44:13 2022 +0200
+
+    Postgres support fixes
+
+[33mcommit b9ce048496cbe68c6f2e284844c535ca3c3c76d9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 06:48:45 2022 +0200
+
+    Updated requirements
+
+[33mcommit 7cd021ed76131be5446181e82520a43217e15629[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Jan 4 06:43:59 2022 +0200
+
+    I am trying to make the multiprocessing with Postgres DB
+
+[33mcommit 57ef2a1414905d55c57ca48f8ad7a0ca68243f84[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Jan 3 06:49:36 2022 +0200
+
+    Use numpy.random.randint instead of random.choice to select random moves when training
+
+[33mcommit 1f86131e51c0b23cd944cfe2ca633761a1b4906a[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 22:36:09 2022 +0200
+
+    Updated training data fpr 3X3 desk and removed the data for 4X4 desk as it needs to be recomputed.
+
+[33mcommit 99b7363d3e67d38d6046637f7830bc452a34ef91[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 22:33:55 2022 +0200
+
+    Moved some stuff
+
+[33mcommit 2d14d074ff234dfe57abbbc43fb16289302c79ca[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 19:48:28 2022 +0200
+
+    Fixed some logic error. Requires recomputing of the data
+
+[33mcommit 63f174ef6e487438db46f5f5d3403549ae9a5684[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 17:02:06 2022 +0200
+
+    Update train data for 3X3 board
+
+[33mcommit 1f68c3384f5a6951e7067fc138212deec7562fd4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 16:21:28 2022 +0200
+
+    Stupid Error Fix
+
+[33mcommit d3b0cdb9c2ffca0cffe7001e277178f6d8bc3390[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 04:26:53 2022 +0200
+
+    Fix
+
+[33mcommit 9521ee5bcc2cd78afa6f13d814286d10bb8823e8[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Jan 2 01:06:27 2022 +0200
+
+    Update 4X4 training data
+
+[33mcommit 2f53a38205cb17dd2dc65216004bfb93f11cc1fa[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:53:34 2022 +0200
+
+    Update README.md
+
+[33mcommit 334718bd463a2429fe424fb1299a18a9d1735fc4[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:52:07 2022 +0200
+
+    Update README.md
+
+[33mcommit 53c153a295891ae5ad48dc1265d7d878734ad4fe[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:22:44 2022 +0200
+
+    Update README.md
+
+[33mcommit e9404ad51b166d74e6d965485740f09568a7c364[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:22:15 2022 +0200
+
+    Update README.md
+
+[33mcommit 92769be307e5d47c4bec76d87bd7ce61019c9019[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:20:32 2022 +0200
+
+    Update README.md
+
+[33mcommit 55edd60e7a01f8a5ddc15a8ccf1d400833d6b144[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:15:23 2022 +0200
+
+    Updated training data for 3X3 and 4X4 boards
+
+[33mcommit 37fa8b970a8b87e311876da88b5540e4c74413ba[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:14:20 2022 +0200
+
+    LFS support
+
+[33mcommit a5500c04549b9673a192e4bb318e08b6127e7902[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 23:05:16 2022 +0200
+
+    Reduce train state hash func LRU cache size
+
+[33mcommit abd73fc1f1ea6d772cf720fcd2bc7a486d67038e[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 21:20:07 2022 +0200
+
+    Fix
+
+[33mcommit d6d0e38dbdf9b7cfa557088a63703975efca0408[m
+Merge: 8990523 94165d5
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 20:08:21 2022 +0200
+
+    :Merge branch 'main' of github.com:raicho81/phar_ttt into main
+
+[33mcommit 899052331b6bc349a4b0092258190b675ee5ad6d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 20:08:08 2022 +0200
+
+    Updated training_data_3x3.dat
+
+[33mcommit 94165d5e9781f594cbf928d6366a15671bf0a025[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 20:06:59 2022 +0200
+
+    Update README.md
+
+[33mcommit 45c2164c60cc68e881311af6c430ef5651f3144d[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 19:57:30 2022 +0200
+
+    Update README.md
+
+[33mcommit bc21e208454e579d8c6a94402ebb12f96e4d08d4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 19:39:59 2022 +0200
+
+    Further fixes memory reduction and speed increase
+
+[33mcommit 27fd1b5897a6b1f583477d50926623ccdaf5baf2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Jan 1 18:05:23 2022 +0200
+
+    Error Fixes
+
+[33mcommit 9a1468a6c287185b8b2e77ad294fe5a598b55d81[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 30 04:50:17 2021 +0200
+
+    fixes and further memory reduction
+
+[33mcommit 4402db278e03bd39ad19c73dd99e758dca3806cc[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 30 02:49:37 2021 +0200
+
+    Fix
+
+[33mcommit 50ff526b2d95258f20fe9e4cd64fdc67feeedd46[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Dec 28 02:01:48 2021 +0200
+
+    Updated train data for 3X3 board
+
+[33mcommit fb7e842ac4ad8786515b12f64e42d7325d129abb[m
+Merge: 1e9805c c0546f7
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Dec 28 01:56:26 2021 +0200
+
+    Merge pull request #3 from raicho81/dep_injection_and_changed_state_logic
+    
+    fix
+
+[33mcommit c0546f74d87ff0b346a31ec89fc16d9b54ea53a7[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Dec 28 01:55:42 2021 +0200
+
+    fix
+
+[33mcommit 1e9805ca74dfa75fcb6a1deea42a7e8d5ce20aa4[m
+Merge: 71725a7 8ff9c53
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Dec 28 01:31:34 2021 +0200
+
+    Merge pull request #2 from raicho81/dep_injection_and_changed_state_logic
+    
+    Dep injection
+
+[33mcommit 8ff9c533fd93d1e3103afa29ae30d6e9e82eb58d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Dec 27 21:13:29 2021 +0200
+
+    Fix
+
+[33mcommit 6ed5d2c113206a16b986ec5e09945ad975df61a9[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Dec 27 20:20:18 2021 +0200
+
+    Fix
+
+[33mcommit 1e391a9138afe6c101eecb1aaf439e52a419f018[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Mon Dec 27 20:07:14 2021 +0200
+
+    Dep injection etc.
+
+[33mcommit 7d626fcc0a2838316c8a71f1080ff7d51e02bb79[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 23 14:25:35 2021 +0200
+
+    Fixed training. After all we need to cycle the two players and make difference between them otherwise the statistics becomes skewed and just of the players always wins. Nah.
+
+[33mcommit 7692d155bc5d9761c8551a27ca39f82fdd88cceb[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 23 12:25:12 2021 +0200
+
+    Changed state logic and propably this should the mem usage in half. Added simple Dependency Injection
+
+[33mcommit 71725a75afb1707faa76bd45bf0a464a5f88699b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 03:58:46 2021 +0200
+
+    Fix training Human Vs Computer
+
+[33mcommit 4dd452e6d1fce4e1c8505720374b9603cebfbee3[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 03:16:05 2021 +0200
+
+    changed settings
+
+[33mcommit a7c0357fae7e9444b2bbaceab9d12bb3bcf7325d[m
+Merge: 9bb9489 4dee9dc
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 03:13:47 2021 +0200
+
+    Merge branch 'main' of github.com:raicho81/phar_ttt into main
+
+[33mcommit 9bb9489a673040df05d7847c0e71ee1262a32a76[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 03:13:24 2021 +0200
+
+    train_data_3x3.dat added
+
+[33mcommit 4dee9dc82279687df02cee2d8245e831ff589aa3[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 02:15:14 2021 +0200
+
+    Update README.md
+
+[33mcommit 2949d2468ea66ecf750ce3a0f6682311ea648c5f[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sun Dec 19 02:13:59 2021 +0200
+
+    Update README.md
+
+[33mcommit 620adb42d5d660a543b8543716db3d12cdb2568e[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 23:32:37 2021 +0200
+
+    Update README.md
+
+[33mcommit 76ee2c49f9300cc879722ca59bce13636661ae1d[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 23:03:52 2021 +0200
+
+    Update README.md
+
+[33mcommit 010fbe7a2880666e27480ab612f26982c0bf91cf[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 22:56:12 2021 +0200
+
+    update requirements.txt (may include unused dependencies)
+
+[33mcommit 72a499188869e3e96d5bdfc98d27402e8abd8020[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 22:22:34 2021 +0200
+
+    Cleanup
+
+[33mcommit 69efd717e20a17c10d1396d8f8df8825de825c3b[m
+Merge: 0655ac6 9155123
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 22:10:12 2021 +0200
+
+    Merge branch 'refactor_encode' into main
+
+[33mcommit 9155123d0bb9fb9237907d7505eb714a4b5e4fde[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 22:09:14 2021 +0200
+
+    Cleanup
+
+[33mcommit 0655ac6a00f3c7f31beb702ac9f8bd9fe31a5fc2[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 05:56:08 2021 +0200
+
+    Fix
+
+[33mcommit 344fdaaf6cbdb6e77b8df03ef11fb331e91275ac[m
+Merge: 1477ad1 ef6e057
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 03:59:54 2021 +0200
+
+    Merge branch 'refactor_encode'
+
+[33mcommit ef6e05743f24f0992ebed5fc807822a711de6b0c[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 03:58:11 2021 +0200
+
+    Exclude *.log from tracking in GIT
+
+[33mcommit 1477ad11a0c633008ff64a4a235c9b1933288de0[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 03:36:52 2021 +0200
+
+    Update ttt_play.py
+
+[33mcommit f39ad79a10a9902446a266bb93f03f7fcad8266b[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:58:55 2021 +0200
+
+    Update ttt_data_encoder.py
+
+[33mcommit c3fb7fed812b8b039c42522df3c5241418e9bc17[m
+Merge: 2ca8ad0 9b3a719
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:56:24 2021 +0200
+
+    Merge pull request #1 from raicho81/refactor_encode
+    
+    Refactor encode
+
+[33mcommit 9b3a719ed84ee9dabf6db92bae8dfd49195078e2[m
+Merge: 7ef04a9 2ca8ad0
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:53:22 2021 +0200
+
+    Merge branch 'main' into refactor_encode
+
+[33mcommit 2ca8ad05a0423278ec37a20ce6440518ae76266b[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:51:59 2021 +0200
+
+    Create pylint.yml
+
+[33mcommit 7ef04a9997e4fc725a26c999aea98709b7a0d982[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:47:28 2021 +0200
+
+    Update README.md
+
+[33mcommit 7761acccc9973d2835c007080851c0e446d374a4[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:46:34 2021 +0200
+
+    Update README.md
+
+[33mcommit 100d8232aec82d91b81ed74572119d29b377ea2b[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:43:04 2021 +0200
+
+    Update README.md
+
+[33mcommit ccc0f912f462c5e92345b528e4e36e4b17ec206f[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:42:18 2021 +0200
+
+    Update README.md
+
+[33mcommit ebe7fb1d52bfa61acfdb831da6f60c3ab7b72146[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:40:41 2021 +0200
+
+    Update README.md
+
+[33mcommit 8fe48a7b8117c3b941ad6a8c97ecb345c40675a3[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:39:33 2021 +0200
+
+    Update README.md
+
+[33mcommit ddc491650aaa1208edb09bed3a9ed756d6370276[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 02:38:48 2021 +0200
+
+    Update README.md
+
+[33mcommit fdc90adeaf2f5b38884a1c2ed93215f2b497ef41[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Sat Dec 18 00:47:22 2021 +0200
+
+    Fix
+
+[33mcommit f94541bed4dd1effb6afeb25dd810e1fc6a2b226[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:21:32 2021 +0200
+
+    Cleanup
+
+[33mcommit a621792e49265cbb1dc3672f02679981099e8c89[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:19:27 2021 +0200
+
+    Fix
+
+[33mcommit 9dc4e2a4d77399c6f38acc8c05c0a9b3536df873[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:15:35 2021 +0200
+
+    Fix
+
+[33mcommit 3f81effb17c8f941abbd0385da9a724548639d67[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:14:17 2021 +0200
+
+    fix
+
+[33mcommit d27e349923cc946b0ad9d3e7c6f667b2a2cb8e1f[m
+Merge: 3800d42 ba4d948
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:11:07 2021 +0200
+
+    Merge branch 'refactor_encode' of github.com:raicho81/phar_ttt into refactor_encode
+
+[33mcommit 3800d42967d0f06538e9c99170f6bfc9fd95f715[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 20:08:51 2021 +0200
+
+    Cleanup
+
+[33mcommit ba4d9483bbbc0e0fa083c64f1ab60af6caed422e[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 19:45:53 2021 +0200
+
+    Update README.md
+
+[33mcommit a726f6e24db7dfdee9527da8fac4f3d7fbb745ca[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Fri Dec 17 19:12:08 2021 +0200
+
+    Training Data encoding and multiprocessing
+
+[33mcommit 1d8c688892be201417c7fba754507eac20fb1300[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 16 22:21:16 2021 +0200
+
+    add .gitignore
+
+[33mcommit 9749ff3c4c63ded0554e554f13604709e7d3a75d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Thu Dec 16 22:17:31 2021 +0200
+
+    Add docker-compose.yml
+
+[33mcommit 763c4720abc12bc1c0640c10142047ffd1df19ee[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Thu Dec 16 21:50:37 2021 +0200
+
+    Update README.md
+
+[33mcommit 5ddc284e3a716e29f3f5bf212f0b4250ad03b808[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Thu Dec 16 21:45:28 2021 +0200
+
+    Update README.md
+
+[33mcommit 3a556755a26f5e47f51a4f00722eda06e749c28f[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Thu Dec 16 21:43:35 2021 +0200
+
+    Update README.md
+
+[33mcommit 30edfc7a0dae0ce273629e1a759d4b5053863f1b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 10:32:22 2021 +0200
+
+    Fixes
+
+[33mcommit fb1fa1589dd651e901af3e815659d2c176269557[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 10:25:26 2021 +0200
+
+    Fixes
+
+[33mcommit fee6c649f16b5499600d889cb5fa24c42bba76f1[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 09:05:17 2021 +0200
+
+    Fix
+
+[33mcommit aed0ede9c653d20c876722c018c836c4848c1908[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 08:51:54 2021 +0200
+
+    Fix
+
+[33mcommit c2297b202e89380faac14498b8aa9a20bc25c78b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 08:46:27 2021 +0200
+
+    Fix
+
+[33mcommit 3e3da8338b4fafa479cc30f1fdef95d699a95f0b[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 08:44:08 2021 +0200
+
+    Optimisations
+
+[33mcommit f77d5c911402ce5c0d3b59f237ae5fd94d1c2637[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 07:14:36 2021 +0200
+
+    added missing files
+
+[33mcommit 99b135ea6819693d54cad80da2ef8e9ace9965b4[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 07:01:11 2021 +0200
+
+    Refactor + encode train data
+
+[33mcommit 43c41832721f51b26e5eb6026a2dab9dd4f8763d[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Wed Dec 15 03:57:26 2021 +0200
+
+    Refactoring
+
+[33mcommit d18ce93fca5a3b6912de57ec987719f4edb59a7a[m
+Author: raicho81 <raicho.mukelov@gmail.com>
+Date:   Tue Dec 7 10:50:26 2021 +0200
+
+    Update README.md
+
+[33mcommit b4cd759b293d114e4fb200e0e7f9f39decf1fd81[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Raycho Mukelov <raicho.mukelov@gmail.com>
+Date:   Tue Dec 7 10:37:06 2021 +0200
+
+    Initial Commit
