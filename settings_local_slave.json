@@ -2,7 +2,7 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 2000,
+        "inner_iterations": 100,
         "iterations": 3000,
         "process_pool_size": 8,
         "threads_count": 8,
@@ -15,7 +15,7 @@
         "postgres_host": "192.168.1.31",
         "postgres_pass": "secret",
         "postgres_user": "postgres",
-        "postgres_add_train_states_batch_size": 50,
+        "postgres_add_train_states_batch_size": 10,
         "redis_host": "192.168.1.31",
         "redis_port": 6379,
         "redis_pass": "secret",
@@ -24,7 +24,7 @@
         "redis_consumer_group_name": "ttt_states_updates_stream_group_1",
         "redis_consumer_name": "ttt_states_updates_stream_consumer_2",
         "redis_update_skip": 2000,
-        "redis_keys_to_update_at_once": 2,
+        "redis_keys_to_update_at_once": 1,
         "redis_zset_extract_size_from_slave": 1000,
         "redis_master": false, 
         "redis_clear_data_on_start": false

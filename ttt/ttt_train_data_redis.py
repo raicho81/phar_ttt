@@ -223,16 +223,23 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                         logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
                         logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
                         logger.info("other_moves_list: {}".format(other_moves_list))
-                for moves_to_update_decoded, other_moves in zip(filter(lambda m: m != 'None', all_moves_to_update_decoded), other_moves_list):
+                    except TypeError as e:
+                        logger.exception(e)
+                        logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
+                        logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
+                        logger.info("other_moves_list: {}".format(other_moves_list))
+                for moves_to_update_decoded, other_moves in zip(filter(lambda m: m != 'None' and m is not None, all_moves_to_update_decoded), other_moves_list):
                     moves_to_add = []
                     for i, other_move in enumerate(other_moves):
-                        this_move = self.binary_search(moves_to_update_decoded, 0, len(moves_to_update_decoded) - 1, other_move[0])
+                        this_move = None if moves_to_update_decoded is None else self.binary_search(moves_to_update_decoded, 0, len(moves_to_update_decoded) - 1, other_move[0])
                         if this_move is None:
                             moves_to_add.append(other_move)
                         elif other_move[1] > 0 or other_move[2] > 0 or other_move[3] > 0:
                             this_move[1] += other_move[1]
                             this_move[2] += other_move[2]
                             this_move[3] += other_move[3]
+                    if moves_to_update_decoded is None:
+                        moves_to_update_decoded = []
                     if moves_to_add != []:
                         moves_to_update_decoded.extend(moves_to_add)
                         sorted_= sorted(moves_to_update_decoded, key=lambda m: m[0])
@@ -277,8 +284,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             lock = self.__r.lock(self.redis_desks_hset_key + ":zset.zpop.__lock__:{}".format(self.desk_size), timeout=5)
             lock.acquire()
             zc = self.__r.zcount(self.redis_states_updates_zset_key, 1, 1)
-            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 75 // 100):
-                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE * 10)
+            while self.__r.zcount(self.redis_states_updates_zset_key, 1, 1) > (zc * 98 // 100):
+                states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
                 lock.release()
                 states_to_remove = [int(st) for (st, count) in states_to_remove]
                 self.remove_states_from_cache(states_to_remove, False)
