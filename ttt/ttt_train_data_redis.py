@@ -238,7 +238,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                             this_move[1] += other_move[1]
                             this_move[2] += other_move[2]
                             this_move[3] += other_move[3]
-                    if moves_to_update_decoded is None:
+                    if moves_to_update_decoded is None or moves_to_update_decoded == 'None':
                         moves_to_update_decoded = []
                     if moves_to_add != []:
                         moves_to_update_decoded.extend(moves_to_add)
