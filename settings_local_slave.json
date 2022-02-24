@@ -2,7 +2,7 @@
     "default": {
         "game_type": "CVsC",
         "train": true,
-        "inner_iterations": 100,
+        "inner_iterations": 500,
         "iterations": 3000,
         "process_pool_size": 8,
         "threads_count": 8,

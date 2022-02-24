@@ -173,7 +173,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 locks.append(self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5))
                 locks[-1].acquire()
             for i, state in enumerate(states):
-                if not self.__r.hexists(self.redis_desks_hset_key, state):
+                if state not in self.redis_states_dict:
                     states_to_add.append(state)
                     moves_to_add.append(possible_moves[i])
                 else:
@@ -221,14 +221,17 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                     except json.decoder.JSONDecodeError as jde:
                         logger.exception(jde)
                         logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
+                        logger.info("states: {}".format(states))
                         logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
                         logger.info("other_moves_list: {}".format(other_moves_list))
                     except TypeError as e:
                         logger.exception(e)
                         logger.info("moves: {}".format(all_moves_to_update_decoded[i]))
+                        logger.info("states: {}".format(states))                        
                         logger.info("all_moves_to_update_decoded: {}".format(all_moves_to_update_decoded))
                         logger.info("other_moves_list: {}".format(other_moves_list))
-                for moves_to_update_decoded, other_moves in zip(filter(lambda m: m != 'None' and m is not None, all_moves_to_update_decoded), other_moves_list):
+                all_moves_to_update_decoded = [m for m in map(lambda m: [] if m == 'None' or m is None else m, all_moves_to_update_decoded)]
+                for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
                     moves_to_add = []
                     for i, other_move in enumerate(other_moves):
                         this_move = None if moves_to_update_decoded is None else self.binary_search(moves_to_update_decoded, 0, len(moves_to_update_decoded) - 1, other_move[0])
@@ -238,8 +241,6 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                             this_move[1] += other_move[1]
                             this_move[2] += other_move[2]
                             this_move[3] += other_move[3]
-                    if moves_to_update_decoded is None or moves_to_update_decoded == 'None':
-                        moves_to_update_decoded = []
                     if moves_to_add != []:
                         moves_to_update_decoded.extend(moves_to_add)
                         sorted_= sorted(moves_to_update_decoded, key=lambda m: m[0])
