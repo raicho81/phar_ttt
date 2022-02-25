@@ -234,7 +234,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 for moves_to_update_decoded, other_moves in zip(all_moves_to_update_decoded, other_moves_list):
                     moves_to_add = []
                     for i, other_move in enumerate(other_moves):
-                        this_move = None if moves_to_update_decoded is None else self.binary_search(moves_to_update_decoded, 0, len(moves_to_update_decoded) - 1, other_move[0])
+                        this_move = self.binary_search(moves_to_update_decoded, 0, len(moves_to_update_decoded) - 1, other_move[0])
                         if this_move is None:
                             moves_to_add.append(other_move)
                         elif other_move[1] > 0 or other_move[2] > 0 or other_move[3] > 0:
