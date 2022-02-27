@@ -66,6 +66,6 @@ def make_move(request):
     gd['game_data']['game_uuid'] = uuid_
     gd['game_data']['desk'] = p.desk.get_state_marks()
     gd['game_data']['game_state'] = game_state.get_code()
-    gd['game_data']['win_player'] = win_player
+    gd['game_data']['win_player'] = win_player.get_code() if win_player is not None else None
     return JsonResponse(gd)
 

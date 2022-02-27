@@ -91,7 +91,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
-        logger.info("self.desk_db_id: {}, self.int_none_tuple_hash(state): {}, state: {}".format(self.desk_db_id, self.int_none_tuple_hash(state), state))
         st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
         return st.id, self.enc.decode(st.moves)
 
