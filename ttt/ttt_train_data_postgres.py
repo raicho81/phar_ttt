@@ -136,7 +136,6 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
 
     def update_game(self, desk, game_uuid, game_state, next_player, player1_path, player2_path):
         game = models.Games.objects.get(game_uuid=game_uuid)
-        print(game)
         game.desk = self.enc.encode(desk)
         game.game_state = game_state
         game.next_player_code = next_player

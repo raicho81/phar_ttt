@@ -43,7 +43,6 @@ class TTTTrainData(TTTTrainDataBase):
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         state_possible_moves = self.get_train_state(state)
         if state_possible_moves is None:
-            print(state)
             self.add_train_state(state,  [[move_idx, 0, 0, 0] for move_idx in sorted(self.possible_moves_indices(state))])
             state_possible_moves = self.get_train_state(state)
         return self.binary_search(state_possible_moves, 0, len(state_possible_moves) - 1, move_idx)
@@ -52,7 +51,8 @@ class TTTTrainData(TTTTrainDataBase):
         self.total_games_finished += count
 
     def get_train_state(self, state, raw=False):
-        state_possible_moves = self.train_data.get(self.int_none_tuple_hash(state) if not raw else state, None)
+        state = self.int_none_tuple_hash(state) if not raw else state
+        state_possible_moves = self.train_data.get(state, None)
         if state_possible_moves is not None:
             decoded_moves = self.enc.decode(state_possible_moves)
             return decoded_moves

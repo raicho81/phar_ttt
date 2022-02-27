@@ -29,7 +29,7 @@ class TTTTrainDataBase:
         else:
             return None
 
-    @functools.lru_cache(4096)
+    # @functools.lru_cache(4096)
     def int_none_tuple_hash(self, t, hash_base=3):
         # tuple_hash = hash(t)
         tuple_hash = 0
