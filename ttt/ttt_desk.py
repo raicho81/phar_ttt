@@ -7,9 +7,11 @@ logger = logging.getLogger(__name__)
 class TTTDesk:
     def __init__(self, size, desk=None):
         self.size = size
-        self.desk = desk
-        self.clear()
-
+        if desk is not None:
+            self.desk = desk
+        else:
+            self.clear()
+    
     def clear(self):
         self.desk = [[None] * self.size for _ in range(self.size)]
 
@@ -23,6 +25,9 @@ class TTTDesk:
 
     def get_state(self):
         return tuple(tuple(player.get_code() if player is not None else None for player in row) for row in self.desk)
+
+    def get_state_marks(self):
+        return tuple(tuple(player.get_mark().get_string() if player is not None else None for player in row) for row in self.desk)
 
     def eval_game_state(self):
         # check rows

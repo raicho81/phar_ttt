@@ -91,6 +91,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
+        logger.info("self.desk_db_id: {}, self.int_none_tuple_hash(state): {}, state: {}".format(self.desk_db_id, self.int_none_tuple_hash(state), state))
         st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
         return st.id, self.enc.decode(st.moves)
 
@@ -124,15 +125,26 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
  
-    def load_game(self, game_uuid, player_id):
-        qs = models.Games.objects.filter(game_uuid=game_uuid, player_id=player_id)
+    def load_game(self, game_uuid):
+        qs = models.Games.objects.filter(game_uuid=game_uuid)
         return qs[0] if len(qs) > 0 else None
     
-    def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, next_player, player1_path, player2_path):
+    def save_game(self, desk, game_uuid, game_state, player, player_code, player_mark, next_player, player1_path, player2_path):
         models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
-                                              player_id=player_id, player_code=player_code, next_player_code=next_player, player_mark=player_mark, modified=django.utils.timezone.now(),
+                                              player_id=player, player_code=player_code, next_player_code=next_player, player_mark=player_mark, modified=django.utils.timezone.now(),
                                               player1_path=self.enc.encode(player1_path), player2_path=self.enc.encode(player2_path))
-    
+
+    def update_game(self, desk, game_uuid, game_state, next_player, player1_path, player2_path):
+        game = models.Games.objects.get(game_uuid=game_uuid)
+        print(game)
+        game.desk = self.enc.encode(desk)
+        game.game_state = game_state
+        game.next_player_code = next_player
+        game.modified = django.utils.timezone.now()
+        game.player1_path = self.enc.encode(player1_path)
+        game.player2_path=self.enc.encode(player2_path)
+        game.save()
+
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)

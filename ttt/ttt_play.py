@@ -15,6 +15,7 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
+import ttt_data_encoder
 
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
@@ -25,28 +26,33 @@ logger = logging.getLogger(__name__)
 
 class TTTPlay():
     # @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, game_uuid=None, player_id=None):
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, game_uuid=None, player=None, enc=ttt_data_encoder.TTTDataEncoderMsgpack()):
+        self.enc = enc
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
         self.n_iter_info_skip = n_iter_info_skip
         self.train_data = ttt_train_data.TTTTrainData()
         self.training_data_shared = training_data_shared
-        self.player_id = player_id
+        self.player = player
         self.game_uuid = game_uuid
         self.players = [ttt_player.TTTPlayer1(), ttt_player.TTTPlayer2()]
         self.player_types = self.init_player_types()
         self.player_mark = None
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
-        if self.game_uuid is not None and self.player_id is not None:
-            game = self.training_data_shared.load_game(self.game_uuid, self.player_id)
+        if self.game_uuid is not None:
+            game = self.training_data_shared.load_game(self.game_uuid)
             if game is not None:
                 self.player_mark = game.player_mark
                 self.player_code = game.player_code
-                self.desk = ttt_desk.TTTDesk(size=desk_size, desk=self.enc.decode(game.desk))
+                desk = self.enc.decode(game.desk)
+                players_desk = []
+                for row in desk:
+                    players_desk.append([self.players[col - 1] if col is not None else None for col in row])
+                self.desk = ttt_desk.TTTDesk(size=desk_size, desk=players_desk)
                 self.players[0].set_path(self.enc.decode(game.player1_path))
                 self.players[1].set_path(self.enc.decode(game.player2_path))
-                self.next_player = self.players[game.next_player - 1]
+                self.next_player = self.players[game.next_player_code - 1]
                 if self.players[0].get_code() == game.player_code:
                     self.player_types = [ttt_player_type.TTTPlayerTypeHuman, ttt_player_type.TTTPlayerTypeComputer]
                     if self.marks[0].get_string() != self.player_mark:
@@ -58,6 +64,8 @@ class TTTPlay():
                         m = self.marks[0]
                         self.marks[0] = self.marks[1]
                         self.marks[1] = m
+                for i, player in enumerate(self.players):
+                    player.set_mark(self.marks[i])
             else:
                 self.desk = ttt_desk.TTTDesk(size=desk_size)
         else:
@@ -92,7 +100,7 @@ class TTTPlay():
 
     def choose_next_best_move_idx(self):
         state = self.desk.get_state()
-        _, possible_moves = self.training_data_shared.get_train_state(state)
+        _, possible_moves = self.training_data_shared.get_train_state(state, raw=False)
         if possible_moves is None:
             possible_moves = [[move_idx, 0, 0, 0] for move_idx in sorted(self.desk.possible_moves_indices())]
             self.training_data_shared.add_train_state(self.training_data_shared.int_none_tuple_hash(state),
@@ -215,7 +223,7 @@ class TTTPlay():
             self.player_code = self.players[1].get_code()
             self.do_computer_move()
             self.next_player = self.players[1]
-        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, ttt_game_state.TTTGameStateUnfinished.get_code(), self.player_id, self.player_code,
+        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, ttt_game_state.TTTGameStateUnfinished.get_code(), self.player, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return ttt_game_state.TTTGameStateUnfinished.get_code()
 
@@ -240,8 +248,7 @@ class TTTPlay():
                 self.next_player = self.players[1]
             else:
                 self.next_player = self.players[0]
-        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, game_state, self.player_id, self.player_code,
-                                            self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
+        self.training_data_shared.update_game(self.get_desk_state(), self.game_uuid, game_state.get_code(), self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return game_state, win_player
         
     

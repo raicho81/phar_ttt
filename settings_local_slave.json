@@ -1,12 +1,12 @@
 {
     "default": {
-        "game_type": "CVsC",
+        "game_type": "HVsC",
         "train": true,
-        "inner_iterations": 1000,
-        "iterations": 3000,
+        "inner_iterations": 10,
+        "iterations": 1,
         "process_pool_size": 8,
         "threads_count": 8,
-        "board_size": 5,
+        "board_size": 3,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_connection_pooling_factor": 1,
@@ -16,7 +16,7 @@
         "postgres_pass": "secret",
         "postgres_user": "postgres",
         "postgres_add_train_states_batch_size": 10,
-        "redis_host": "192.168.1.31",
+        "redis_host": "127.0.0.1",
         "redis_port": 6379,
         "redis_pass": "secret",
         "redis_desks_hset_key": "ttt_desks_hset",
@@ -24,10 +24,10 @@
         "redis_consumer_group_name": "ttt_states_updates_stream_group_1",
         "redis_consumer_name": "ttt_states_updates_stream_consumer_2",
         "redis_update_skip": 2000,
-        "redis_keys_to_update_at_once": 1,
+        "redis_keys_to_update_at_once": 3,
         "redis_zset_extract_size_from_slave": 1000,
         "redis_master": false, 
         "redis_clear_data_on_start": false,
-        "redis_precent_to_retain_from_cache": 90
+        "redis_precent_to_retain_from_cache": 85
     }
 }

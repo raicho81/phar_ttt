@@ -43,6 +43,7 @@ class TTTTrainData(TTTTrainDataBase):
     def find_train_state_possible_move_by_idx(self, state, move_idx):
         state_possible_moves = self.get_train_state(state)
         if state_possible_moves is None:
+            print(state)
             self.add_train_state(state,  [[move_idx, 0, 0, 0] for move_idx in sorted(self.possible_moves_indices(state))])
             state_possible_moves = self.get_train_state(state)
         return self.binary_search(state_possible_moves, 0, len(state_possible_moves) - 1, move_idx)

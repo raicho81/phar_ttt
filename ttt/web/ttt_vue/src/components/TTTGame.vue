@@ -10,8 +10,9 @@ export default {
             desks: {'desk_sizes': []},
             player_name: 'Input Your Name Here',
             next_move_idx: -1,
-                game_data: {
-                ttt_player_code: null,
+            game_data: {
+                player_code: null,
+                player_id: null,
                 game_uuid: null,
                 desk_size: null,
                 desk: null,
@@ -39,22 +40,36 @@ export default {
                 this.desks.desk_sizes[0] : -1
         },
         async startNewGame() {
+            const reqBody = {'player_name': this.player_name, 'desk_size': this.selected}
             const requestOptions = {
                 method: "POST",
+                mode: 'cors',
+                cache: 'no-cache',
                 headers: {"Content-Type": "application/json", "X-CSRFToken": this.csrf_token},
-                body: ({'player_name': this.player_name, 'desk_size': this.selected})
+                body: (JSON.stringify(reqBody))
             }
             const res = await fetch(
                 `http://127.0.0.1:8000/tttweb/start_game/`,
                 requestOptions
             )
-            this.game_data = await res.json()
+            var resp = await res.json()
+            this.game_data = resp.game_data
         },
         async makeMove(next_move_idx) {
+            const reqBody = {'game_uuid': this.game_data.game_uuid, 'next_move_idx': next_move_idx, 'desk_size': this.game_data.desk_size}
+            const requestOptions = {
+                method: "POST",
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {"Content-Type": "application/json", "X-CSRFToken": this.csrf_token},
+                body: (JSON.stringify(reqBody))
+            }
             const res = await fetch(
-                `http://127.0.0.1:8000/tttweb/make_move/?game_uuid=${this.game_uuid}&next_move_idx=${next_move_idx}`
-            )
-            this.game_data = await res.json()
+                `http://127.0.0.1:8000/tttweb/make_move/`,
+                requestOptions
+            )            
+            var resp = await res.json()
+            this.game_data = resp.game_data
         }
     },
     beforeMount(){
@@ -67,7 +82,7 @@ export default {
 </script>
 
 <template>
-    <span @load="getCSRF" v-if="game_data.game_uuid == null">
+    <span v-if="game_data.game_uuid == null">
         <p>Player Name <input v-model="player_name" type="text"/>
         Desk Size
         <select v-model="selected">
@@ -79,6 +94,7 @@ export default {
     </span>
     <span v-else>
         <p>Game started.</p>
-        <TTTDesk :desk="game_data.desk"/>
+        <p>Player Name: {{ this.game_data.player_name }} </p>
+        <TTTDesk :desk="game_data.desk" :player_mark="game_data.player_mark" @makeMove="makeMove"/>
     </span>
 </template>
