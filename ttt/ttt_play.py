@@ -92,7 +92,7 @@ class TTTPlay():
         self.desk.desk[move_idx // self.desk.size][move_idx % self.desk.size] = self.next_player
 
     def choose_next_move_random_idx(self):
-        possible_moves_indices = self.desk.get_possible_moves_indices()
+        possible_moves_indices = self.desk.possible_moves_indices()
         if len(possible_moves_indices) == 1:
             return possible_moves_indices[0]
         else:
@@ -154,7 +154,7 @@ class TTTPlay():
             if next_move_idx < 1 or next_move_idx > (self.desk.size ** 2):
                 print("Invalid move (invalid square index?): {}".format(next_move_idx))
                 continue
-            possible_moves_indices = self.desk.get_possible_moves_indices()
+            possible_moves_indices = self.desk.possible_moves_indices()
             if (next_move_idx - 1) not in possible_moves_indices:
                 print("Invalid move (square is already taken?): {}".format(next_move_idx))
                 continue

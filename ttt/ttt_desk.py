@@ -15,14 +15,6 @@ class TTTDesk:
     def clear(self):
         self.desk = [[None] * self.size for _ in range(self.size)]
 
-    def get_possible_moves_indices(self):
-        possible_moves_indices = []
-        for x in range(self.size):
-            for y in range(self.size):
-                if self.desk[y][x] is None:
-                    possible_moves_indices.append(x + y * self.size)
-        return sorted(possible_moves_indices)
-
     def get_state(self):
         return tuple(tuple(player.get_code() if player is not None else None for player in row) for row in self.desk)
 
@@ -97,7 +89,7 @@ class TTTDesk:
                     break
             if win:
                 return ttt_game_state.TTTGameStateWin, player
-        possible_moves = self.get_possible_moves_indices()
+        possible_moves = self.possible_moves_indices()
         if len(possible_moves) == 0:
             return ttt_game_state.TTTGameStateDraw, None
         return ttt_game_state.TTTGameStateUnfinished, None
