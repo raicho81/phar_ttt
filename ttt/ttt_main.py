@@ -118,7 +118,6 @@ class MainProcessPoolRunner:
                 with Pool(self.process_pool_size) as pool:
                     for run_n in range(self.iterations):
                         res = []
-                        # self.pool_main_run_train_cvsc()
                         for _ in range(self.process_pool_size):
                             res.append(pool.apply_async(self.pool_main_run_train_cvsc))
                         for r in res:
@@ -145,7 +144,6 @@ class MainProcessPoolRunner:
                                     break
                                 thrs_data.append(next_states_to_update)
                             if thrs_data != []:
-                                # self.pool_update_redis_to_db_run_threaded(thrs_data,)
                                 res.append(pool.apply_async(self.pool_update_redis_to_db_run_threaded, args=(thrs_data,)))
                         for r in res:
                             r.wait()

@@ -55,6 +55,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 logger.info("Claimed {} ID's to consumer: {}, stream: {}".format(claimed, self.redis_stream_consumer_name, self.redis_states_updates_stream))
                 self.check_backlog = True
                 self.lastid = "0-0"
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
 
@@ -64,25 +66,42 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             for gr in groups:
                 if gr["name"] == self.redis_states_updates_stream_group:
                     return
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
         try:
             self.__r.xgroup_create(self.redis_states_updates_stream, self.redis_states_updates_stream_group, "0", True)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
 
     def ack_stream_messages(self, msg_ids):
         try:
             self.__r.xack(self.redis_states_updates_stream, self.redis_states_updates_stream_group, *[str(msg_id) for msg_id in msg_ids])
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
             logger.info("stream, group, ID : {} {} {}".format(self.redis_states_updates_stream, self.redis_states_updates_stream_group, msg_ids))
+
+    def del_stream_messages(self, msg_ids):
+        try:
+            self.__r.xdel(self.redis_states_updates_stream, *[str(msg_id) for msg_id in msg_ids])
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
+        except RedisError as e:
+            logger.exception(e)
+            logger.info("stream, msg ID(s) : {} {}".format(self.redis_states_updates_stream, msg_ids))
 
     def publish_states_to_stream(self, states):
         if settings.REDIS_MASTER:
             raise RuntimeError("Only slaves can publish to Redis stream!")
         try:
             self.__r.xadd(self.redis_states_updates_stream, {"states_to_update": str(states)}, "*")
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
 
@@ -101,6 +120,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             else:
                 (msg_id, msg) = stream_data[0][1][0]
                 self.lastid = msg_id
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except RedisError as e:
             logger.exception(e)
         return stream_data
@@ -114,6 +135,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                     break
                 if entries != {}:
                     yield entries
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -130,6 +153,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock.release()
         except redis.exceptions.LockNotOwnedError:
             pass
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -152,6 +177,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 self.inc_total_games_finished(0)
             logger.info("Redis DB contains Data for: {} total games played for training".format(self.redis_desks_dict[self.desk_size]))
             logger.info("Redis DB contains Data for: {} total states".format(len(self.redis_states_dict)))
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -159,6 +186,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         try:
             with self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5):
                 return self.__r.hexists(self.redis_desks_hset_key, state)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -187,6 +216,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock.release()
             if states_to_update != []:
                 self.update_train_state_moves(states_to_update, moves_to_update)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -202,6 +233,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 else:
                     current_total = count
                 self.redis_desks_dict[self.desk_size] = current_total
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -254,6 +287,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 lock.release()
         except redis.exceptions.LockNotOwnedError as e:
             logger.exception(e)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
         except Exception as e:
@@ -266,6 +301,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             st = self.__r.hget(self.redis_states_hset_key, str(state) if raw == True else str(self.int_none_tuple_hash(state)))
             l.release()
             return st
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
         except redis.RedisError as re:
             logger.exception(re)
 
@@ -294,6 +331,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             lock.release()
         except redis.exceptions.LockNotOwnedError as e:
             logger.exception(e)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
             
     def pop_publish_states_to_update_from_zset(self):
         try:
@@ -309,6 +348,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             lock.release()
         except redis.exceptions.LockNotOwnedError as e:
             logger.exception(e)
+        except redis.exceptions.ClusterDownError as re:
+            logger.exception(re)
 
     def update(self, other):
         logger.info("Updating Intermediate data to Redis: 0% ...")
