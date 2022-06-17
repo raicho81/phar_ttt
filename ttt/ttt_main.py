@@ -5,6 +5,8 @@ from threading import Thread
 from multiprocessing import Pool
 import os, sys
 import logging
+import threading
+from time import sleep
 
 from dynaconf import settings
 if len(sys.argv) > 1:
@@ -128,11 +130,16 @@ class MainProcessPoolRunner:
                         [t.start() for t in pop_pub_threads]
                         logger.info("Publishing to Redis Stream. Started [{}] threads".format(tc))
                         [t.join() for t in pop_pub_threads]
-                        zclean_threads = [Thread(target=training_data_shared_redis.pop_clean_states_from_zset) for _ in range(tc)]
-                        [t.start() for t in zclean_threads]
-                        logger.info("pop_clean_states_from_zset. Started [{}] threads".format(tc))
-                        [t.join() for t in zclean_threads]
             if settings.REDIS_MASTER:
+                if settings.REDIS_MASTER_CLEAN:
+                    while True:
+                        used_memory_rss = training_data_shared_redis.info()['used_memory_rss']
+                        logger.info("used_memory_rss: {}".format(used_memory_rss))
+                        if (int(used_memory_rss) > 40*1024*1024*1024):
+                            logger.info("training_data_shared_redis.pop_clean_states_from_zset() started")
+                            training_data_shared_redis.pop_clean_states_from_zset()
+                            logger.info("training_data_shared_redis.pop_clean_states_from_zset() ended")
+                        sleep(5)
                 with Pool(self.process_pool_size) as pool:
                     res = []
                     while True:
