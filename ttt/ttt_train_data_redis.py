@@ -42,10 +42,10 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                                 health_check_interval=5)
         self.redis_desks_dict = RedisDict(redis=self.__r, key=self.redis_desks_hset_key)
         self.redis_states_dict = RedisDict(redis=self.__r, key=self.redis_states_hset_key)
-        if settings.REDIS_MASTER:
-            self.init_redis_stream_consumer_group()
-            self.lastid = "0-0"
-            self.check_backlog = True
+        # if settings.REDIS_MASTER:
+        self.init_redis_stream_consumer_group()
+        self.lastid = "0-0"
+        self.check_backlog = True
         self.load()
 
     def claim_pending_stream_messages(self, count):
@@ -99,7 +99,15 @@ class TTTTrainDataRedis(TTTTrainDataBase):
         if settings.REDIS_MASTER:
             raise RuntimeError("Only slaves can publish to Redis stream!")
         try:
-            self.__r.xadd(self.redis_states_updates_stream, {"states_to_update": str(states)}, "*")
+            for state in states:
+                l = self.__r.lock(self.redis_states_hset_key + ":__lock__:{}".format(state), timeout=5)
+                l.acquire()
+                moves = self.__r.hget(self.redis_states_hset_key, str(state))
+                if moves is not None:
+                    state_moves = [state, json.loads(moves)]
+                    self.__r.xadd(self.redis_states_updates_stream, {"state_moves": str(state_moves)}, "*")
+                    self.__r.hdel(self.redis_states_hset_key, str(state))
+                l.release()
         except redis.exceptions.ClusterDownError as re:
             logger.exception(re)
         except RedisError as e:
@@ -114,11 +122,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 id = self.lastid
             else:
                 id = '>'
-            stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: id}, 1, timeout*1000)
+            stream_data = self.__r.xreadgroup(self.redis_states_updates_stream_group, self.redis_stream_consumer_name, {self.redis_states_updates_stream: id}, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE, timeout)
             if stream_data == [] or stream_data[0][1] == []:
                 self.check_backlog = False
             else:
-                (msg_id, msg) = stream_data[0][1][0]
+                (msg_id, msg) = stream_data[0][1][-1]
                 self.lastid = msg_id
         except redis.exceptions.ClusterDownError as re:
             logger.exception(re)
@@ -342,8 +350,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 states_to_update_to_db = self.__r.zpopmax(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
                 lock.release()
                 states_to_update_to_db = [int(st) for (st, count) in states_to_update_to_db]
-                states_moves_to_publish_str = str(states_to_update_to_db)
-                self.publish_states_to_stream(states_moves_to_publish_str)
+                self.publish_states_to_stream(states_to_update_to_db)
                 lock.acquire()
             lock.release()
         except redis.exceptions.LockNotOwnedError as e:

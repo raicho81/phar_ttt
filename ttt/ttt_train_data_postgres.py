@@ -146,33 +146,28 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
                                                                             settings.REDIS_STATES_HSET_KEY_PREFIX, settings.REDIS_CONSUMER_GROUP_NAME, settings.REDIS_CONSUMER_NAME)
-        for msg_id, states in msg_data:
-            states_moves_to_upd = []
-            s = len(states)
-            vis = s // 10
-            if vis == 0 :
-                vis = 2
-            logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {}, stream msg ID: {})".format(s, msg_id))
-            count = 0
-            for state in states:
-                try:
-                    moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
-                    states_moves_to_upd.append([state, moves])
-                except TypeError as e:
-                    logger.exception(e)
-                if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or state == states[-1]:
-                    self.update_train_states_moves(states_moves_to_upd)
-                    count += len(states_moves_to_upd)
-                    states_moves_to_upd = []
-                    if count > 0 and count % vis == 0:
-                        logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
-            training_data_shared_redis.remove_states_from_cache(states)
-            # training_data_shared_redis.ack_stream_messages([msg_id])
-            training_data_shared_redis.del_stream_messages([msg_id])
-            # try:
-            #     with transaction.atomic():           
-            self.inc_total_games_finished(-self.total_games_finished())
-            self.inc_total_games_finished(training_data_shared_redis.total_games_finished())
-            # except DatabaseError as e:
-            #     logger.exception(e)
+        states_moves_to_upd = []
+        msg_ids = []
+        s = len(msg_data)
+        vis = s // 10
+        if vis == 0 :
+            vis = 2
+        logger.info("Updating Intermediate Redis data to DB: 0% ... (Redis data chunk size: {})".format(s))
+        count = 0
+        for msg_id, state in msg_data.items():
+            states_moves_to_upd.append([state[0], state[1]])
+            msg_ids.append(msg_id)
+            if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE:
+                self.update_train_states_moves(states_moves_to_upd)
+                count += len(states_moves_to_upd)
+                states_moves_to_upd = []
+                training_data_shared_redis.del_stream_messages(msg_ids)
+                msg_ids = []
+                if count > 0 and count % vis == 0:
+                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+        if len(states_moves_to_upd) > 0:
+            self.update_train_states_moves(states_moves_to_upd)
+            training_data_shared_redis.del_stream_messages(msg_ids)                            
+        self.inc_total_games_finished(-self.total_games_finished())
+        self.inc_total_games_finished(training_data_shared_redis.total_games_finished())
         logger.info("Updating Intermediate Redis data to DB Done.")

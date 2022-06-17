@@ -2,7 +2,7 @@
 import json
 import os
 from threading import Thread
-from multiprocessing import Pool, Manager
+from multiprocessing import Pool
 import os, sys
 import logging
 
@@ -83,7 +83,7 @@ class MainProcessPoolRunner:
         logger.info("pool_update_redis_to_db_run_threaded -> process started")
         training_data_shared_postgres = ttt_train_data_postgres.TTTTrainDataPostgres(self.board_size)
         logger.info("pool_update_redis_to_db_run_threaded -> starting {} thread(s)".format(len(thrs_data)))
-        threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(msg_data.items(),)) for msg_data in thrs_data]
+        threads = [Thread(target=training_data_shared_postgres.update_from_redis, args=(msg_data,)) for msg_data in thrs_data]
         [t.start() for t in threads]
         [t.join() for t in threads]
         logger.info("pool_update_redis_to_db_run_threaded -> process ended")
@@ -103,7 +103,8 @@ class MainProcessPoolRunner:
             return None
         ret = {}
         for msg_id, message in next_states_to_update[0][1]:
-            ret[msg_id] = json.loads(message["states_to_update"])
+            if message != {}:
+                ret[msg_id] = json.loads(message["state_moves"])
         return ret
 
     def run(self):
