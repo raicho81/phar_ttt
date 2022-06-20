@@ -135,9 +135,13 @@ class MainProcessPoolRunner:
                     while True:
                         used_memory_rss = training_data_shared_redis.info()['used_memory_rss']
                         logger.info("used_memory_rss: {}".format(used_memory_rss))
-                        if (int(used_memory_rss) > 40*1024*1024*1024):
+                        if (int(used_memory_rss) > 4*1024*1024*1024):
+                            tc = self.concurrency * self.process_pool_size
                             logger.info("training_data_shared_redis.pop_clean_states_from_zset() started")
-                            training_data_shared_redis.pop_clean_states_from_zset()
+                            pop_clean_threads = [Thread(target=training_data_shared_redis.pop_clean_states_from_zset) for tc in range(tc)]
+                            [t.start() for t in pop_clean_threads]
+                            logger.info("training_data_shared_redis.pop_clean_states_from_zset() started [{}] evict threads".format(tc))
+                            [t.join() for t in pop_clean_threads]
                             logger.info("training_data_shared_redis.pop_clean_states_from_zset() ended")
                         sleep(5)
                 with Pool(self.process_pool_size) as pool:
