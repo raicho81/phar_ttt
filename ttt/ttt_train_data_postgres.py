@@ -1,3 +1,4 @@
+from email.policy import default
 import logging
 import os
 import sys
@@ -91,7 +92,10 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
-        st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
+        try:
+            st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
+        except models.States.DoesNotExist:
+            return None, None
         return st.id, self.enc.decode(st.moves)
 
     def update_train_state(self, state, move):
@@ -159,15 +163,22 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
                     moves = json.loads(training_data_shared_redis.get_train_state(state, raw=True))
                     states_moves_to_upd.append([state, moves])
                 except TypeError as e:
-                    logger.exception(e)
+                    # logger.exception(e)
+                    continue
                 if len(states_moves_to_upd) >= settings.POSTGRES_ADD_TRAIN_STATES_BATCH_SIZE or state == states[-1]:
                     self.update_train_states_moves(states_moves_to_upd)
                     count += len(states_moves_to_upd)
                     states_moves_to_upd = []
                     if count > 0 and count % vis == 0:
                         logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
+            if len(states_moves_to_upd) >= 0:
+                self.update_train_states_moves(states_moves_to_upd)
+                count += len(states_moves_to_upd)
+                if count > 0 and count % vis == 0:
+                    logger.info("Updating Intermediate Redis data to DB is complete@{}%.".format(int((count * 100 / s))))
             training_data_shared_redis.remove_states_from_cache(states)
             training_data_shared_redis.ack_stream_messages([msg_id])
+            
             try:
                 with transaction.atomic():           
                     self.inc_total_games_finished(-self.total_games_finished())

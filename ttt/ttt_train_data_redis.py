@@ -184,7 +184,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 for state in states_to_add:
                     self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
             for lock in locks:
-                lock.release()
+                try:
+                    lock.release()
+                except redis.exceptions.LockNotOwnedError as e:
+                    # logger.exception(e)
+                    pass
             if states_to_update != []:
                 self.update_train_state_moves(states_to_update, moves_to_update)
         except redis.RedisError as re:
@@ -215,6 +219,8 @@ class TTTTrainDataRedis(TTTTrainDataBase):
             all_moves_to_update_decoded = []
             for state in states:
                 all_moves_to_update_decoded = self.__r.hmget(self.redis_states_hset_key, [str(state) for state in states])
+                if all_moves_to_update_decoded is None:
+                    continue
                 for i in range(len(all_moves_to_update_decoded)):
                     try:
                         all_moves_to_update_decoded[i] = json.loads(all_moves_to_update_decoded[i])
@@ -251,9 +257,11 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 for state in states:
                     self.__r.zincrby(self.redis_states_updates_zset_key, str(1), state)
             for lock in locks:
-                lock.release()
-        except redis.exceptions.LockNotOwnedError as e:
-            logger.exception(e)
+                try:
+                    lock.release()
+                except redis.exceptions.LockNotOwnedError as e:
+                    # logger.exception(e)
+                    pass
         except redis.RedisError as re:
             logger.exception(re)
         except Exception as e:
@@ -289,7 +297,7 @@ class TTTTrainDataRedis(TTTTrainDataBase):
                 states_to_remove = self.__r.zpopmin(self.redis_states_updates_zset_key, settings.REDIS_ZSET_EXTRACT_SIZE_FROM_SLAVE)
                 lock.release()
                 states_to_remove = [int(st) for (st, count) in states_to_remove]
-                self.remove_states_from_cache(states_to_remove, False)
+                self.publish_states_to_stream(states_to_remove)
                 lock.acquire()
             lock.release()
         except redis.exceptions.LockNotOwnedError as e:
