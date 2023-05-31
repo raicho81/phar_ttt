@@ -12,6 +12,7 @@ export default {
             next_move_idx: -1,
             game_data: {
                 player_code: null,
+                next_player_code: null,
                 game_uuid: null,
                 desk_size: null,
                 player_id: null,
@@ -92,7 +93,7 @@ export default {
         <p>Player Name <input v-model="player_name" type="text"/>
         Desk Size
         <select v-model="selected">
-            <option v-for="ds in desks.desk_sizes" v-bind:value="ds">
+            <option v-for="ds in desks.desk_sizes" v-bind:key="ds">
                 {{ ds }}
             </option>
         </select>
@@ -101,6 +102,6 @@ export default {
     <span v-else>
         <p>Game started.</p>
         <p>Player Name: {{ this.game_data.player_name }} </p>
-        <TTTDesk :desk="game_data.desk" :player_mark="game_data.player_mark" :player_code="game_data.player_code" @makeMove="makeMove"/>
+        <TTTDesk :desk="game_data.desk" :player_mark="game_data.player_mark" :player_code="game_data.player_code" :next_player_code="game_data.next_player_code" @makeMove="makeMove"/>
     </span>
 </template>

@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import json
+import functools
 
 from dynaconf import settings
 if len(sys.argv) > 1:
@@ -50,6 +51,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = models.States.objects.filter(desk_id=self.desk_db_id).count()
         logger.info("DB contains Data for: {} total states".format(count))
 
+    @functools.lru_cache(maxsize=10000)
     def has_state(self, state):
         return models.States.objects.filter(state=state).exists()
 
@@ -91,7 +93,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
-        st = models.States.objects.get(desk_id=self.desk_db_id, state=str(state) if raw else str(self.int_none_tuple_hash(state)))
+        st = models.States.objects.get(desk_id=self.desk_db_id, state=state if raw else self.int_none_tuple_hash(state))
         return st.id, self.enc.decode(st.moves)
 
     def update_train_state(self, state, move):
@@ -129,7 +131,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         return qs[0] if len(qs) > 0 else None
     
     def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, next_player, player1_path, player2_path):
-        models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state,
+        models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state.get_code(),
                                               player_id=player_id, player_code=player_code, next_player_code=next_player, player_mark=player_mark, modified=django.utils.timezone.now(),
                                               player1_path=self.enc.encode(player1_path), player2_path=self.enc.encode(player2_path))
     

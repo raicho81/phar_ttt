@@ -11,6 +11,10 @@
         player_code: {
             type: Number,
             required: true
+        },
+        next_player_code: {
+            type: Number,
+            required: true
         }
     })
 </script>
@@ -23,7 +27,7 @@
                 if (this.desk[row_idx][col_idx] != null){
                     return
                 }
-                this.desk[row_idx][col_idx] = this.player_mark
+                this.desk[row_idx][col_idx] = this.player_code
                 const idx = this.desk.length * row_idx + col_idx + 1
                 this.$emit('makeMove', idx)
             }

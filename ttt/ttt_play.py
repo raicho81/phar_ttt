@@ -26,7 +26,8 @@ logger = logging.getLogger(__name__)
 
 class TTTPlay():
     # @ttt_dependency_injection.DependencyInjection.inject
-    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, game_uuid=None, player_id=None):
+    def __init__(self, desk_size, training_data_shared, game_type, train=True, train_iterations=10000000, n_iter_info_skip=10000, game_uuid=None,
+                 player_id=None, data_encoder=ttt_data_encoder.TTTDataEncoderMsgpack()):
         self.game_type = game_type
         self.train = train
         self.train_iterations = train_iterations
@@ -39,7 +40,7 @@ class TTTPlay():
         self.player_types = self.init_player_types()
         self.player_mark = None
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
-        self.enc = ttt_data_encoder.TTTDataEncoderMsgpack()
+        self.enc = data_encoder
         if self.game_uuid is not None and self.player_id is not None:
             game = self.training_data_shared.load_game(self.game_uuid, self.player_id)
             if game is not None:
