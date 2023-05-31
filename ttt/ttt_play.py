@@ -15,6 +15,7 @@ import ttt_player_type
 import ttt_player_mark
 import ttt_game_state
 import ttt_game_type
+import ttt_data_encoder
 
 
 logging.basicConfig(level = logging.INFO, filename = "TTTpid-{}.log".format(os.getpid()),
@@ -38,6 +39,7 @@ class TTTPlay():
         self.player_types = self.init_player_types()
         self.player_mark = None
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
+        self.enc = ttt_data_encoder.TTTDataEncoderMsgpack()
         if self.game_uuid is not None and self.player_id is not None:
             game = self.training_data_shared.load_game(self.game_uuid, self.player_id)
             if game is not None:
@@ -46,7 +48,7 @@ class TTTPlay():
                 self.desk = ttt_desk.TTTDesk(size=desk_size, desk=self.enc.decode(game.desk))
                 self.players[0].set_path(self.enc.decode(game.player1_path))
                 self.players[1].set_path(self.enc.decode(game.player2_path))
-                self.next_player = self.players[game.next_player - 1]
+                self.next_player = self.players[game.next_player_code - 1]
                 if self.players[0].get_code() == game.player_code:
                     self.player_types = [ttt_player_type.TTTPlayerTypeHuman, ttt_player_type.TTTPlayerTypeComputer]
                     if self.marks[0].get_string() != self.player_mark:
@@ -235,7 +237,7 @@ class TTTPlay():
             if game_state in[ttt_game_state.TTTGameStateWin, ttt_game_state.TTTGameStateDraw]:
                 if self.train:
                     self.update_stats(game_state, win_player)
-                    self.training_data_shared.update(self.train_data)                    
+                    self.training_data_shared.update(self.train_data)
             elif self.next_player is self.players[0]:
                 self.next_player = self.players[1]
             else:
@@ -243,8 +245,7 @@ class TTTPlay():
         self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, game_state, self.player_id, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return game_state, win_player
-        
-    
+
     def play_game_cli(self):
         self.init_game()
         if self.game_type is ttt_game_type.TTTGameTypeHVsC or not self.train:

@@ -34,8 +34,7 @@
 <template>
     <div v-for="(row, row_idx) in desk" style="display: flex;">
         <div v-for="(col, col_idx) in row" style="font-size: 30px; border: solid 1px; width: 50px; height: 50px; text-align: center; vertical-align: middle;" @click="clickDiv(row_idx, col_idx)">
-            {{ (col == this.player_code) ? this.player_mark : 
-                col == null ? '' : (this.player_mark == 'x' ? 'o' : 'x') }}
+            {{ (col == null) ? '' : ((col == this.player_code) ? this.player_mark : (this.player_mark == 'x' ? 'o' : 'x')) }}
         </div>
     </div>
 </template>

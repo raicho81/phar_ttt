@@ -12,9 +12,9 @@ export default {
             next_move_idx: -1,
             game_data: {
                 player_code: null,
-                player_id: null,
                 game_uuid: null,
                 desk_size: null,
+                player_id: null,
                 desk: null,
                 game_state: null,
                 next_player: null,
@@ -56,8 +56,13 @@ export default {
             this.game_data = resp.game_data
         },
         async makeMove(next_move_idx) {
-            const reqBody = {'game_uuid': this.game_data.game_uuid, 'next_move_idx': next_move_idx, 'desk_size': this.game_data.desk_size}
-            console.log(reqBody)
+            const reqBody = {
+                'game_uuid': this.game_data.game_uuid,
+                'next_move_idx': next_move_idx,
+                'desk_size': this.game_data.desk_size,
+                'player_id': this.game_data.player_id
+            }
+            // console.log(reqBody)
             const requestOptions = {
                 method: "POST",
                 mode: 'cors',
