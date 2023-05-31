@@ -7,6 +7,10 @@ class TTTGameState:
     @staticmethod
     def get_code():
         raise NotImplemented()
+    
+    @staticmethod
+    def __eq__(self, other):
+        return self.get_code() == other.get_code()
 
 
 class TTTGameStateWin(TTTGameState):

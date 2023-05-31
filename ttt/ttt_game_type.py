@@ -19,6 +19,10 @@ class TTTGameType:
     @staticmethod
     def get_string(code):
         return TTTGameType.GAME_TYPE_STRING[code]
+    
+    @staticmethod
+    def __eq__(self, other):
+        return self.get_code() == other.get_code()
 
 
 class TTTGameTypeHVsC(TTTGameType):

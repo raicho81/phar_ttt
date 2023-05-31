@@ -1,7 +1,7 @@
 import msgpack
 
 
-class TTTDataEncoder:
+class TTTDataEncoder():
     def __init__(self, *args, **kwargs):
         pass
 

@@ -27,7 +27,7 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'web.urls'
@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'test1',
         'USER': 'postgres',
         'PASSWORD': 'secret',
-        'HOST': '192.168.1.31',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
@@ -143,3 +143,5 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:3000',
     'https://127.0.0.1:3000',
 )
+
+CORS_ORIGIN_ALLOW_ALL = True

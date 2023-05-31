@@ -4,19 +4,19 @@
         "train": true,
         "inner_iterations": 500,
         "iterations": 3000,
-        "process_pool_size": 8,
-        "threads_count": 8,
-        "board_size": 5,
+        "process_pool_size": 6,
+        "threads_count": 6,
+        "board_size": 4,
         "train_iterations_info_skip": 1000,
         "encode_train_data": true,
         "postgres_connection_pooling_factor": 1,
         "postgres_dbname": "test1",
         "postgres_port": 5432,
-        "postgres_host": "192.168.1.31",
+        "postgres_host": "127.0.0.1",
         "postgres_pass": "secret",
         "postgres_user": "postgres",
-        "postgres_add_train_states_batch_size": 10,
-        "redis_host": "192.168.1.31",
+        "postgres_add_train_states_batch_size": 50,
+        "redis_host": "127.0.0.1",
         "redis_port": 6379,
         "redis_pass": "secret",
         "redis_desks_hset_key": "ttt_desks_hset",
@@ -28,6 +28,6 @@
         "redis_zset_extract_size_from_slave": 1000,
         "redis_master": false, 
         "redis_clear_data_on_start": false,
-        "redis_precent_to_retain_from_cache": 98
+        "redis_precent_to_retain_from_cache": 100
     }
 }

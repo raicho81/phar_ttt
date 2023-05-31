@@ -10,9 +10,9 @@ import TTTGame from './components/TTTGame.vue'
     </div>
   </header>
 
-  <main>
+  <body>
     <TTTGame />
-  </main>
+  </body>
 </template>
 
 <style>
@@ -22,7 +22,6 @@ import TTTGame from './components/TTTGame.vue'
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
   font-weight: normal;
 }
 
