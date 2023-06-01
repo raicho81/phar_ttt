@@ -135,8 +135,8 @@ CSRF_COOKIE_DOMAIN = '127.0.0.1'
 CSRF_COOKIE_HTTPONLY = False
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'https://127.0.0.1:3000'
+    'http://localhost:3000',
+    'https://localhost:3000'
 ]
 
 CORS_ORIGIN_WHITELIST = (

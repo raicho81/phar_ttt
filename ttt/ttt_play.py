@@ -41,8 +41,8 @@ class TTTPlay():
         self.player_mark = None
         self.marks = [ttt_player_mark.TTTPlayerMarkX, ttt_player_mark.TTTPlayerMarkO]
         self.enc = data_encoder
-        if self.game_uuid is not None and self.player_id is not None:
-            game = self.training_data_shared.load_game(self.game_uuid, self.player_id)
+        if self.game_uuid is not None:
+            game = self.training_data_shared.load_game(self.game_uuid)
             if game is not None:
                 self.player_mark = game.player_mark
                 self.player_code = game.player_code
@@ -218,8 +218,10 @@ class TTTPlay():
             self.player_code = self.players[1].get_code()
             self.do_computer_move()
             self.next_player = self.players[1]
+
         self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, ttt_game_state.TTTGameStateUnfinished.get_code(), self.player_id, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
+
         return ttt_game_state.TTTGameStateUnfinished.get_code()
 
     def make_move_stochastic(self, move_idx):
@@ -243,7 +245,8 @@ class TTTPlay():
                 self.next_player = self.players[1]
             else:
                 self.next_player = self.players[0]
-        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, game_state, self.player_id, self.player_code,
+        
+        self.training_data_shared.save_game(self.get_desk_state(), self.game_uuid, game_state.get_code(), self.player_id, self.player_code,
                                             self.player_mark, self.next_player.get_code(), self.players[0].get_path(), self.players[1].get_path())
         return game_state, win_player
 

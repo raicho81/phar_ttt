@@ -7,8 +7,10 @@ logger = logging.getLogger(__name__)
 class TTTDesk:
     def __init__(self, size, desk=None):
         self.size = size
-        self.desk = desk
-        self.clear()
+        if desk is None:
+            self.clear()
+        else:
+            self.desk = desk
 
     def clear(self):
         self.desk = [[None] * self.size for _ in range(self.size)]

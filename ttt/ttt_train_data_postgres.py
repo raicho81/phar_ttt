@@ -51,7 +51,7 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         count = models.States.objects.filter(desk_id=self.desk_db_id).count()
         logger.info("DB contains Data for: {} total states".format(count))
 
-    @functools.lru_cache(maxsize=10000)
+    @functools.lru_cache(maxsize=8192)
     def has_state(self, state):
         return models.States.objects.filter(state=state).exists()
 
@@ -93,6 +93,9 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
             logger.exception(error)
 
     def get_train_state(self, state, raw=False):
+        print("get_train_state:")
+        print(*state, sep="\n")
+        print("state: ", self.int_none_tuple_hash(state))
         st = models.States.objects.get(desk_id=self.desk_db_id, state=state if raw else self.int_none_tuple_hash(state))
         return st.id, self.enc.decode(st.moves)
 
@@ -126,14 +129,24 @@ class TTTTrainDataPostgres(TTTTrainDataBase):
         logger.info("Updating Intermediate data to DB Done.")
         self.inc_total_games_finished(other.total_games_finished)
  
-    def load_game(self, game_uuid, player_id):
-        qs = models.Games.objects.filter(game_uuid=game_uuid, player_id=player_id)
+    def load_game(self, game_uuid):
+        qs = models.Games.objects.filter(game_uuid=game_uuid)
         return qs[0] if len(qs) > 0 else None
     
     def save_game(self, desk, game_uuid, game_state, player_id, player_code, player_mark, next_player, player1_path, player2_path):
-        models.Games.objects.update_or_create(game_uuid=game_uuid, desk=self.enc.encode(desk), game_state=game_state.get_code(),
-                                              player_id=player_id, player_code=player_code, next_player_code=next_player, player_mark=player_mark, modified=django.utils.timezone.now(),
-                                              player1_path=self.enc.encode(player1_path), player2_path=self.enc.encode(player2_path))
+        if not isinstance(player_id, models.Players):
+            player_id = models.Players.objects.get(id=player_id)
+        d = {
+                "desk": self.enc.encode(desk),
+                "game_state": game_state,
+                "player_code": player_code,
+                "next_player_code": next_player,
+                "player_mark": player_mark,
+                "modified": django.utils.timezone.now(),
+                "player1_path": self.enc.encode(player1_path),
+                "player2_path": self.enc.encode(player2_path)
+            }
+        models.Games.objects.update_or_create(game_uuid=game_uuid, player_id=player_id, defaults=d)
     
     def update_from_redis(self, msg_data):
         training_data_shared_redis = ttt_train_data_redis.TTTTrainDataRedis(self.desk_size, settings.REDIS_HOST, settings.REDIS_PORT, settings.REDIS_PASS, settings.REDIS_DESKS_HSET_KEY,
